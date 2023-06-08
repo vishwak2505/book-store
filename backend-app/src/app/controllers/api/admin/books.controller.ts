@@ -1,6 +1,6 @@
-import { Context, Delete, Get, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
+import { Context, Delete, Get, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
 import { LoggerService } from '../../../../helper/logger';
-import { Bookdetails } from '../../../entities/bookstore';
+import { Book, Bookdetails } from '../../../entities/bookstore';
 
 export class BooksController {
 
@@ -27,6 +27,19 @@ export class BooksController {
     return new HttpResponseOK(books);
   }
 
+  @Get('/:bookName')
+  @UserRequired()
+  @ValidatePathParam('bookName', { type: 'string' })
+  async getBook({ bookName }: { bookName: string }) {
+    const book = await Bookdetails.findOneBy({ book_name: bookName });
+
+    if (!book) {
+      return new HttpResponseNotFound();
+    }
+
+    return new HttpResponseOK(book);
+  }
+
   @Post('/add')
   @UserRequired()
   @PermissionRequired('add-book')
@@ -42,42 +55,68 @@ export class BooksController {
     additionalProperties: false,
   })
   async addbook(ctx: Context<Bookdetails>) {
-    const book = new Bookdetails();
-    book.book_name = ctx.request.body.bookName;
-    book.genre = ctx.request.body.genre;
-    book.total_no_of_copies = ctx.request.body.totalNoOfCopies;
-    book.no_of_copies_rented = 0;
-    book.cost_per_day = ctx.request.body.costPerDay;
-    console.log(book);
+    const bookDetails = new Bookdetails();
+    
+    bookDetails.book_name = ctx.request.body.bookName;
+    bookDetails.genre = ctx.request.body.genre;
+    bookDetails.total_no_of_copies = ctx.request.body.totalNoOfCopies;
+    bookDetails.no_of_copies_rented = 0;
+    bookDetails.cost_per_day = ctx.request.body.costPerDay;
+
     try {
-      await book.save();
-      return new HttpResponseCreated(book);
+      await bookDetails.save();
+      for (let i = 0; i < ctx.request.body.totalNoOfCopies; i++) {
+        const book = new Book();
+        book.availability = true;
+        book.book_details = bookDetails;
+        try {
+          await book.save();
+        } catch (e) {
+          console.log(e);
+          return new HttpResponseBadRequest();
+        }
+      }
+      return new HttpResponseCreated(bookDetails);
     } catch(e) {
       return new HttpResponseNotImplemented();
     }
     
   }
 
-  @Patch('/update')
-  @UserRequired()
-  @PermissionRequired('update-book') 
-  async updateBook() {
+  // @Patch('/update')
+  // @UserRequired()
+  // @PermissionRequired('update-book') 
+  // @ValidateBody({
+  //   type: 'object',
+  //   properties: {
+  //     bookId: { type: 'number' },
+  //     bookName: { type: 'string', maxLength: 255 },
+  //     genre: { type: 'string', maxLength: 255 },
+  //     totalNoOfCopies: { type: 'number' },
+  //     costPerDay: { type: 'number' }
+  //   },
+  //   required: [ 'bookId' ],
+  //   additionalProperties: false,
+  // })
+  // async updateBook(ctx: Context<Bookdetails>) {
+  //   const book = await Bookdetails.findOneBy({ id: ctx.request.body.bookId });
 
-  }
+
+  // }
 
   @Delete('/:bookName')
   @UserRequired()
   @PermissionRequired('remove-book')
   @ValidatePathParam('bookName', { type: 'string' })
-  async deleteBook(ctx: Context<Bookdetails>, { bookName }: { bookName: string }) {
-    const book = await Bookdetails.findOneBy({ book_name: bookName });
+  async deleteBook({ bookName }: { bookName: string }) {
+    const bookDetails = await Bookdetails.findOneBy({ book_name: bookName });
 
-    if (!book) {
+    if (!bookDetails) {
       return new HttpResponseNotFound();
     }
 
-    await book.remove();
+    await bookDetails.remove();
 
-    return new HttpResponseOK(book);
+    return new HttpResponseOK(bookDetails);
   }
 }

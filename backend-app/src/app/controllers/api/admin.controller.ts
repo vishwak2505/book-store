@@ -36,18 +36,27 @@ export class AdminController {
       const password = ctx.request.body.password;
       const adminPassword = ctx.request.body.adminPassword;
       try{
-        const user = await User.findOneBy({ email });
-
-        if (!user) {
-          throw new HttpResponseUnauthorized();
-        }
-    
-        if (!(await verifyPassword(password, user.password))) {
-          throw new HttpResponseForbidden();
-        }
-
         if (adminPassword != 'abcd') {
-          throw new HttpResponseUnauthorized();
+          return new HttpResponseUnauthorized();
+        }
+        const user = await User.findOneBy({ email });
+        const group = await Group.findOneBy({ codeName: 'admin' });
+
+        if (!user || !group) {
+           return new HttpResponseUnauthorized();
+        }
+
+        const userGroups = await User.createQueryBuilder('user')
+          .leftJoinAndSelect('user.groups', 'groups')
+          .where('user.id = :userId', { userId: user.id })
+          .getOne();
+
+        if (!userGroups || !userGroups.groups.some(g => g.id === group.id)) {
+            return new HttpResponseUnauthorized();
+        }  
+          
+        if (!(await verifyPassword(password, user.password))) {
+          return new HttpResponseForbidden();
         }
 
         ctx.session!.setUser(user);

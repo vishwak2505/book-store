@@ -1,7 +1,8 @@
-import { Context, dependency, hashPassword, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseOK, HttpResponseUnauthorized, Post, ValidateBody, verifyPassword } from '@foal/core';
+import { Context, dependency, Get, hashPassword, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseOK, HttpResponseUnauthorized, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { User } from '../../entities';
 import { LoggerService } from '../../../helper/logger';
 import { Group, Permission } from '@foal/typeorm';
+import { Book, Bookdetails, Bookrented } from '../../entities/bookstore';
 
 const credentialsSchema = {
   type: 'object',
@@ -13,6 +14,11 @@ const credentialsSchema = {
   additionalProperties: false,
 };
 
+@UseSessions({
+  cookie: true,
+  required: true,
+  user: (id: number) => User.findOneWithPermissionsBy({ id }),
+})
 export class AuthController {
 
     @dependency
@@ -79,17 +85,17 @@ export class AuthController {
           .where('group.codeName = :groupName', { groupName: codeName })
           .select('permission.codeName', 'codeName');
 
-        const permissions = await queryBuilder.getRawMany();  
+        const permissions = await queryBuilder.getMany();  
         
         for (const perm of permissions) {
           const permission = await Permission.findOneBy({ codeName: perm.codeName });
           if (!permission) {
-            //logger.warn(`No permission with the code name "${codeName}" was found.`);
+            this.logger.warn(`No permission with the code name "${codeName}" was found.`);
             return;
           }
           user.userPermissions.push(permission);
         }
-        console.log(user.userPermissions);
+        
         await user.save();
     
         ctx.session!.setUser(user);
@@ -105,4 +111,68 @@ export class AuthController {
       }
     }
 
+    @Get('/profile')
+    @UserRequired()
+    async userProfile(ctx: Context<User>) {
+      const user = ctx.user;
+      const queryBuilder = Bookrented
+      .createQueryBuilder('bookRented')
+      .select(['bookRented.date_of_issue', 'bookRented.date_of_return'])
+      .addSelect('bookDetails.book_name', 'book_name')
+      .addSelect('bookDetails.genre', 'genre')
+      .leftJoin('bookRented.book', 'book')
+      .leftJoin('book.book_details', 'bookDetails')
+      .where('bookRented.user = :userId', { userId: ctx.user.id })
+
+      const rentedBooks = await queryBuilder.getRawMany();
+      const userProfile = {
+        Name: user.name,
+        AmountDue: user.amount_due,
+        rentedBooks,
+      }
+      return new HttpResponseOK(userProfile);
+    }
+
+    @Post('/borrow/:bookName')
+    @UserRequired()
+    @ValidatePathParam('bookName', { type: 'string' })
+    async borrowBook(ctx: Context<User>, { bookName }: { bookName: string }) {
+      const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
+
+      if (!bookDetails) {
+        return new HttpResponseBadRequest('Book not found');
+      }
+
+      const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, book_rented: undefined, availability: true}) ;
+
+      if (!book) {
+        return new HttpResponseBadRequest('Book is already rented');
+      }
+
+      const bookRented = new Bookrented();
+      bookRented.date_of_issue = new Date();
+      bookRented.user = ctx.user;
+      bookRented.book = book;
+
+      await bookRented.save();
+
+      ctx.user.amount_due += bookDetails.cost_per_day;
+
+      ++bookDetails.no_of_copies_rented;
+
+      await ctx.user.save();
+      await bookDetails.save();
+
+      book.book_rented = bookRented;
+      book.availability = false;
+      await book.save();
+      return new HttpResponseOK(ctx.user);
+    }
+
+    @Post('/return/:bookName')
+    @UserRequired()
+    @ValidatePathParam('bookName', { type: 'string' })
+    async returnBook(ctx: Context<User>, { bookName }: { bookName: string }) {
+      return new HttpResponseOK(ctx.user);
+    }
 }
