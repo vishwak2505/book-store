@@ -1,0 +1,231 @@
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T05:19:29.624Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$HLS+HSYsGnWqOIN+T9YnVg==$WK/tvQC+YKjq58AsnsZs3pAGpXGod7cwX5Qj7XUgTwE=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$HLS+HSYsGnWqOIN+T9YnVg==$WK/tvQC+YKjq58AsnsZs3pAGpXGod7cwX5Qj7XUgTwE=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$HLS+HSYsGnWqOIN+T9YnVg==$WK/tvQC+YKjq58AsnsZs3pAGpXGod7cwX5Qj7XUgTwE=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T06:27:15.314Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$fLHnefyfzbzU28HGlxPgNw==$I3BZfLyDr2O+jQPAWggFrcYjb1l7uQtubjE7cCTTm5I=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$fLHnefyfzbzU28HGlxPgNw==$I3BZfLyDr2O+jQPAWggFrcYjb1l7uQtubjE7cCTTm5I=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$fLHnefyfzbzU28HGlxPgNw==$I3BZfLyDr2O+jQPAWggFrcYjb1l7uQtubjE7cCTTm5I=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T06:37:09.713Z'
+}
+{ level: 'error', timestamp: '2023-06-07T07:01:21.707Z' }
+{ level: 'error', timestamp: '2023-06-07T07:03:03.492Z' }
+{ level: 'error', timestamp: '2023-06-07T07:06:14.219Z' }
+{ level: 'error', timestamp: '2023-06-07T07:10:09.595Z' }
+{ level: 'error', timestamp: '2023-06-07T07:19:38.796Z' }
+{ level: 'error', timestamp: '2023-06-07T07:20:28.310Z' }
+{ level: 'error', timestamp: '2023-06-07T07:21:01.672Z' }
+{ level: 'error', timestamp: '2023-06-07T07:30:32.555Z' }
+{ level: 'error', timestamp: '2023-06-07T08:05:38.123Z' }
+{ level: 'error', timestamp: '2023-06-07T08:17:32.635Z' }
+{ level: 'error', timestamp: '2023-06-07T09:30:06.002Z' }
+{ level: 'error', timestamp: '2023-06-07T09:31:20.179Z' }
+{ level: 'error', timestamp: '2023-06-07T09:32:34.122Z' }
+{ level: 'error', timestamp: '2023-06-07T10:11:57.858Z' }
+{ level: 'error', timestamp: '2023-06-07T10:21:14.525Z' }
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$q0GFKv7r30/lNMS/eGGyAg==$yK89roCWc/ul0k5dbxO/OFE0hrj3EW1Ixa4Cr2Ha69A=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$q0GFKv7r30/lNMS/eGGyAg==$yK89roCWc/ul0k5dbxO/OFE0hrj3EW1Ixa4Cr2Ha69A=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$q0GFKv7r30/lNMS/eGGyAg==$yK89roCWc/ul0k5dbxO/OFE0hrj3EW1Ixa4Cr2Ha69A=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T11:47:30.403Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$rABYOjJhdKcHXPeVAzRaAA==$wnFEtv7cWZ9FU6jNEPkd4sY80U4VC1lN/4MY/1MzSqc=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$rABYOjJhdKcHXPeVAzRaAA==$wnFEtv7cWZ9FU6jNEPkd4sY80U4VC1lN/4MY/1MzSqc=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$rABYOjJhdKcHXPeVAzRaAA==$wnFEtv7cWZ9FU6jNEPkd4sY80U4VC1lN/4MY/1MzSqc=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T12:05:27.049Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T12:53:28.648Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T12:53:54.139Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T12:55:58.077Z'
+}
