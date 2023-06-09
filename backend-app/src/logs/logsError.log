@@ -281,3 +281,312 @@
 { level: 'error', timestamp: '2023-06-08T17:35:08.143Z' }
 { level: 'error', timestamp: '2023-06-08T17:40:45.630Z' }
 { level: 'error', timestamp: '2023-06-08T17:41:00.330Z' }
+{
+  query: 'INSERT INTO `bookrented`(`id`, `date_of_issue`, `date_of_return`, `userId`, `bookId`) VALUES (DEFAULT, DEFAULT, ?, DEFAULT, ?)',
+  parameters: [ 2023-06-09T04:52:50.719Z, 41 ],
+  driverError: Error: ER_NO_DEFAULT_FOR_FIELD: Field 'date_of_issue' doesn't have a default value
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_NO_DEFAULT_FOR_FIELD',
+    errno: 1364,
+    sqlMessage: "Field 'date_of_issue' doesn't have a default value",
+    sqlState: 'HY000',
+    index: 0,
+    sql: "INSERT INTO `bookrented`(`id`, `date_of_issue`, `date_of_return`, `userId`, `bookId`) VALUES (DEFAULT, DEFAULT, '2023-06-09 10:22:50.719', DEFAULT, 41)"
+  },
+  code: 'ER_NO_DEFAULT_FOR_FIELD',
+  errno: 1364,
+  sqlMessage: "Field 'date_of_issue' doesn't have a default value",
+  sqlState: 'HY000',
+  index: 0,
+  sql: "INSERT INTO `bookrented`(`id`, `date_of_issue`, `date_of_return`, `userId`, `bookId`) VALUES (DEFAULT, DEFAULT, '2023-06-09 10:22:50.719', DEFAULT, 41)",
+  level: 'error',
+  timestamp: '2023-06-09T04:52:50.768Z'
+}
+{
+  query: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = ? AND `book_rented`.`userId` = ? AND bookRented.status = ?',
+  parameters: [ 'BookB', 27, 'active' ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'bookRented.status' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'",
+  level: 'error',
+  timestamp: '2023-06-09T06:20:50.387Z'
+}
+{
+  query: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = ? AND `book_rented`.`userId` = ? AND bookRented.status = ?',
+  parameters: [ 'BookB', 27, 'active' ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'bookRented.status' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'",
+  level: 'error',
+  timestamp: '2023-06-09T06:22:20.324Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T07:02:45.389Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No group found',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T07:09:54.111Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T07:22:18.360Z'
+}
+{
+  query: 'DELETE FROM `bookdetails` WHERE `id` = ?',
+  parameters: [ 1 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `bookdetails` WHERE `id` = 1'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `bookdetails` WHERE `id` = 1',
+  level: 'error',
+  timestamp: '2023-06-09T08:38:28.367Z'
+}
+{
+  query: 'DELETE FROM `bookdetails` WHERE `id` = ?',
+  parameters: [ 1 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `bookdetails` WHERE `id` = 1'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `bookdetails` WHERE `id` = 1',
+  level: 'error',
+  timestamp: '2023-06-09T09:07:30.884Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:13:49.113Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:19:28.468Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:19:49.523Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:19:58.797Z'
+}
+{ level: 'error', timestamp: '2023-06-09T10:51:42.940Z' }
+{ level: 'error', timestamp: '2023-06-09T10:52:48.998Z' }
+{ level: 'error', timestamp: '2023-06-09T12:17:58.009Z' }
+{ level: 'error', timestamp: '2023-06-09T12:18:03.176Z' }
+{ level: 'error', timestamp: '2023-06-09T12:19:39.521Z' }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T12:43:39.139Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T12:43:42.481Z'
+}

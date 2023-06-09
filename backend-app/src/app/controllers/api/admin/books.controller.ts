@@ -28,16 +28,23 @@ export class BooksController {
   }
 
   @Get('/:bookName')
+  @PermissionRequired('view-book')
   @UserRequired()
   @ValidatePathParam('bookName', { type: 'string' })
-  async getBook({ bookName }: { bookName: string }) {
-    const book = await Bookdetails.findOneBy({ book_name: bookName });
+  async getBook(ctx: Context, { bookName }: { bookName: string }) {
+    console.log(bookName);
+    try {
+      const book = await Bookdetails.findOne({where: { book_name: bookName }});
 
-    if (!book) {
-      return new HttpResponseNotFound();
+      if (!book) {
+        throw new HttpResponseNotFound('No Book Found');
+      }
+
+      return new HttpResponseOK(book);
+    } catch (e) {
+      return e as Error;
     }
-
-    return new HttpResponseOK(book);
+    
   }
 
   @Post('/add')
@@ -115,7 +122,13 @@ export class BooksController {
       return new HttpResponseNotFound();
     }
 
-    await bookDetails.remove();
+    try {
+      await bookDetails.remove();
+    } catch(e) {
+      this.logger.error(e as Error);
+      return new HttpResponseBadRequest();
+    }
+    
 
     return new HttpResponseOK(bookDetails);
   }
