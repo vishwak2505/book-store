@@ -32,7 +32,7 @@ export async function main(args: { codeName: string, name: string, permissions: 
         console.log(`No permission with the code name "${codeName}" was found.`);
         return;
       }
-      // Check if the permission is already present in the group's permissions
+      
       const existingPermission = group.permissions.find((p) => p.codeName === codeName);
       if (!existingPermission) {
         group.permissions.push(permission);
@@ -46,3 +46,6 @@ export async function main(args: { codeName: string, name: string, permissions: 
     await dataSource.destroy();
   }
 }
+
+
+// foal run create-group name="Administrators" codeName="admin" permissions="[ \"view-user\", \"remove-user\", \"update-user\", \"view-book\", \"add-book\", \"remove-book\", \"update-book\" ]"

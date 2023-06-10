@@ -590,3 +590,198 @@
   level: 'error',
   timestamp: '2023-06-09T12:43:42.481Z'
 }
+{
+  query: 'DELETE FROM `bookdetails` WHERE `id` = ?',
+  parameters: [ 1 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `bookdetails` WHERE `id` = 1'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `bookdetails` WHERE `id` = 1',
+  level: 'error',
+  timestamp: '2023-06-09T16:55:47.639Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@customer.com',
+    'pbkdf2_sha256$310000$QNdoLjC/SEUGaCrO6txuig==$uvhuJsgYWOiaiEeaoCAEIc8/BhkK/PrY1WJ4RFrGG4c=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$QNdoLjC/SEUGaCrO6txuig==$uvhuJsgYWOiaiEeaoCAEIc8/BhkK/PrY1WJ4RFrGG4c=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$QNdoLjC/SEUGaCrO6txuig==$uvhuJsgYWOiaiEeaoCAEIc8/BhkK/PrY1WJ4RFrGG4c=', 0)",
+  level: 'error',
+  timestamp: '2023-06-09T18:02:28.473Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@customer.com',
+    'pbkdf2_sha256$310000$k2TIFHbbxgldprzGrHJoWA==$4nfFNz72TJ2xIdQssq25KJ63TfnSLszMU4Z8qtFZNgI=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$k2TIFHbbxgldprzGrHJoWA==$4nfFNz72TJ2xIdQssq25KJ63TfnSLszMU4Z8qtFZNgI=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$k2TIFHbbxgldprzGrHJoWA==$4nfFNz72TJ2xIdQssq25KJ63TfnSLszMU4Z8qtFZNgI=', 0)",
+  level: 'error',
+  timestamp: '2023-06-09T18:03:56.706Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-10T09:54:28.392Z'
+}
+{
+  query: 'SELECT `bookRented`.`id` AS `bookRented_id`, `bookRented`.`date_of_issue` AS `bookRented_date_of_issue`, `bookRented`.`date_of_return` AS `bookRented_date_of_return`, `bookRented`.`status` AS `bookRented_status`, `bookRented`.`userId` AS `bookRented_userId`, `bookRented`.`bookId` AS `bookRented_bookId`, `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `bookrented` `bookRented` LEFT JOIN `book` `book` ON `book`.`id`=`bookRented`.`bookId` WHERE `bookRented`.`status` = ? AND book_rented.bookId = ?',
+  parameters: [ 'active', 2 ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'book_rented.bookId' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'book_rented.bookId' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `bookRented`.`id` AS `bookRented_id`, `bookRented`.`date_of_issue` AS `bookRented_date_of_issue`, `bookRented`.`date_of_return` AS `bookRented_date_of_return`, `bookRented`.`status` AS `bookRented_status`, `bookRented`.`userId` AS `bookRented_userId`, `bookRented`.`bookId` AS `bookRented_bookId`, `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `bookrented` `bookRented` LEFT JOIN `book` `book` ON `book`.`id`=`bookRented`.`bookId` WHERE `bookRented`.`status` = 'active' AND book_rented.bookId = 2"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'book_rented.bookId' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `bookRented`.`id` AS `bookRented_id`, `bookRented`.`date_of_issue` AS `bookRented_date_of_issue`, `bookRented`.`date_of_return` AS `bookRented_date_of_return`, `bookRented`.`status` AS `bookRented_status`, `bookRented`.`userId` AS `bookRented_userId`, `bookRented`.`bookId` AS `bookRented_bookId`, `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `bookrented` `bookRented` LEFT JOIN `book` `book` ON `book`.`id`=`bookRented`.`bookId` WHERE `bookRented`.`status` = 'active' AND book_rented.bookId = 2",
+  level: 'error',
+  timestamp: '2023-06-10T15:11:18.366Z'
+}
+{ level: 'error', timestamp: '2023-06-10T15:16:33.449Z' }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-10T17:41:53.488Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-10T17:41:58.123Z'
+}

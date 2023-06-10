@@ -2,7 +2,7 @@ import { hashPassword } from '@foal/core';
 import { Group, Permission } from '@foal/typeorm';
 import { User } from '../app/entities';
 import { dataSource } from '../db';
-import { LoggerService } from '../helper/logger';
+import { LoggerService } from '../app/services/logger';
 
 export const schema = {
   additionalProperties: false,

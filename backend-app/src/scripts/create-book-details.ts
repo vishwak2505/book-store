@@ -1,6 +1,6 @@
 import { Bookdetails } from '../app/entities/bookstore';
 import { dataSource } from '../db';
-import { LoggerService } from '../helper/logger';
+import { LoggerService } from '../app/services/logger';
 
 export const schema = {
   additionalProperties: false,

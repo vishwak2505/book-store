@@ -1,9 +1,10 @@
-import { Context, dependency, Get, hashPassword, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseServerError, HttpResponseSuccess, HttpResponseUnauthorized, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
+import { Context, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseServerError, HttpResponseSuccess, HttpResponseUnauthorized, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { User } from '../../entities';
-import { LoggerService } from '../../../helper/logger';
+import { LoggerService } from '../../services/logger';
 import { Group, Permission } from '@foal/typeorm';
 import { Book, Bookdetails, Bookrented } from '../../entities/bookstore';
 import { bookStatus } from '../../entities/bookstore/bookrented.entity';
+import { Credentials } from '../../services/apis';
 
 const credentialsSchema = {
   type: 'object',
@@ -66,38 +67,16 @@ export class AuthController {
     @ValidateBody(credentialsSchema)
     async signup(ctx: Context<User|null>) {
       try {
-        const email = ctx.request.body.email;
-        const password = ctx.request.body.password;
-    
-        const user = new User();
-        user.email = email;
-        user.amount_due = 0;
-        user.name = 'Unknown';
-        user.password = await hashPassword(password);
-        user.groups = [];
-        user.userPermissions = [];
-        const codeName = "customer";
-        const group = await Group.findOneBy({codeName});
-        if (!group) {
-          throw new HttpResponseBadRequest('No group found');
+
+        const userDetails = {
+          email: ctx.request.body.email,
+          password: ctx.request.body.password,
+          group: 'customer'
         }
-        user.groups.push(group);
-
-        const queryBuilder = Group.createQueryBuilder('group')
-          .leftJoinAndSelect('group.permissions', 'permission')
-          .where('group.codeName = :groupName', { groupName: codeName })
-          .select('permission.codeName', 'codeName');
-
-        const permissions = await queryBuilder.getMany();  
         
-        for (const perm of permissions) {
-          const permission = await Permission.findOneBy({ codeName: perm.codeName });
-          if (!permission) {
-            this.logger.warn(`No permission with the code name "${codeName}" was found.`);
-            throw new HttpResponseBadRequest('No permission found');
-          }
-          user.userPermissions.push(permission);
-        }
+        const credentials = new Credentials()
+    
+        const user = await credentials.signUpUser(userDetails);
         
         await user.save();
     
@@ -110,7 +89,7 @@ export class AuthController {
         });
       } catch (e){
         this.logger.error(e as Error);
-        return e as Error;
+        return new HttpResponseBadRequest(e);
       }
     }
 
@@ -123,6 +102,7 @@ export class AuthController {
       .select(['bookRented.date_of_issue', 'bookRented.date_of_return'])
       .addSelect('bookDetails.book_name', 'book_name')
       .addSelect('bookDetails.genre', 'genre')
+      .addSelect('book.Id', 'BookId')
       .leftJoin('bookRented.book', 'book')
       .leftJoin('book.book_details', 'bookDetails')
       .where('bookRented.user = :userId', { userId: user.id });
@@ -172,57 +152,51 @@ export class AuthController {
       return new HttpResponseOK(bookDetails);
     }
 
-    @Post('/return/:bookName')
+    @Post('/return/:bookId')
     @UserRequired()
-    @ValidatePathParam('bookName', { type: 'string' })
-    async returnBook(ctx: Context<User>, { bookName }: { bookName: string }) {
+    @ValidatePathParam('bookId', { type: 'number' })
+    async returnBook(ctx: Context<User>, { bookId }: { bookId: number }) {
 
       try {
-        const book = await Book
-          .createQueryBuilder('book')
-          .leftJoinAndSelect('book.book_details', 'book_details')
-          .leftJoinAndSelect('book.book_rented', 'book_rented')
-          .where('book_details.book_name = :bookName', { bookName })
-          .andWhere('book_rented.userId = :userId', { userId: ctx.user.id })
-          .andWhere('book_rented.status = :status', {status: bookStatus.Active})
-          .getOne();
-
+        const book = await Book.findOne({ where: { id: bookId }, relations: ['book_details'] });
         if (!book) {
-          return new HttpResponseNotFound(`Book with name ${bookName} not found.`);
+          throw new HttpResponseBadRequest('Book not found');
         }
 
         const bookRented = await Bookrented
           .createQueryBuilder('bookRented')
           .leftJoinAndSelect('bookRented.book', 'book')
-          .leftJoinAndSelect('book.book_details', 'book_details')
-          .where('bookRented.status = :status', {status: bookStatus.Active})
-          .andWhere('book_details.book_name = :bookName', { bookName })
+          .where('bookRented.book = :bookId', { bookId })
+          .andWhere('bookRented.user = :userId', { userId: ctx.user.id })
+          .andWhere('bookRented.status = :status', { status: bookStatus.Active })
           .getOne();
 
         if (!bookRented) {
-          return new HttpResponseBadRequest(`Book with name ${bookName} is not currently borrowed.`);
+          throw new HttpResponseBadRequest('Book not rented by the user');
         }
-
-        book.availability = true;
+        
+        const bookDetails = book.book_details;
+        if (!bookDetails) {
+          throw new Error('Book details not found');
+        }
 
         bookRented.date_of_return = new Date();
         bookRented.status = bookStatus.Closed;
-
-        if (book.book_details) {
-          book.book_details.no_of_copies_rented--;
-          await book.book_details.save();
-        }
-
-        ctx.user.amount_due -= book.book_details.cost_per_day;
-
-        await ctx.user.save();
-        await book.save();
         await bookRented.save();
 
-        return new HttpResponseOK(`Book with name ${bookName} has been returned successfully.`);
+        bookDetails.no_of_copies_rented--;
+        await bookDetails.save();
+
+        book.availability = true;
+        await book.save();
+    
+        ctx.user.amount_due -= bookDetails.cost_per_day;
+        await ctx.user.save();
+        
+        return new HttpResponseOK(bookDetails);
       } catch (error) {
         this.logger.error(error as Error);
-        return new HttpResponseBadRequest('An error occurred while returning the borrowed book.');
+        return error as HttpResponse;
       }
     }
 }

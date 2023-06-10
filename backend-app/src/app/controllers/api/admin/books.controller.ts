@@ -1,6 +1,7 @@
-import { Context, Delete, Get, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
-import { LoggerService } from '../../../../helper/logger';
+import { Context, Delete, Get, HttpResponse, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
+import { LoggerService } from '../../../services/logger';
 import { Book, Bookdetails } from '../../../entities/bookstore';
+import { Bookrented, bookStatus } from '../../../entities/bookstore/bookrented.entity';
 
 export class BooksController {
 
@@ -19,7 +20,7 @@ export class BooksController {
         'book.genre',
         'book.total_no_of_copies',
         'book.no_of_copies_rented',
-        'book.cost_per_day'
+        'book.cost_per_day',
       ]);
 
     const books = await queryBuilder.getMany();
@@ -132,4 +133,31 @@ export class BooksController {
 
     return new HttpResponseOK(bookDetails);
   }
+
+  @Get('/getRentedBooks')
+  @UserRequired()
+  async getRentedBooks() {
+    try{
+      const rentedBooks = await Bookrented.createQueryBuilder('bookrented')
+      .select('bookrented.id', 'bookRentedId')
+      .innerJoin('bookrented.book', 'book')
+      .where('bookrented.status = :status', { status: bookStatus.Active })
+      .getRawMany();
+
+    console.log(rentedBooks);  
+
+    const bookRentedIds = rentedBooks.map(obj => obj.bookRentedId);
+
+    const books = await Book.createQueryBuilder('book')
+      .innerJoinAndSelect('book.book_details', 'book_details')
+      .where('book.id IN (:...bookRentedIds)', { bookRentedIds })
+      .getMany();
+    
+    return new HttpResponseOK(rentedBooks);  
+    } catch(e) {
+      console.log(e);
+      return e as HttpResponse;
+    }
+  } 
+  
 }

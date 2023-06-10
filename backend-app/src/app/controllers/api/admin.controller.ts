@@ -1,10 +1,11 @@
 import { Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseUnauthorized, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { BooksController } from './admin';
 import { User } from '../../entities';
-import { LoggerService } from '../../../helper/logger';
+import { LoggerService } from '../../services/logger';
 import { Group, Permission } from '@foal/typeorm';
-import { Book, Bookrented } from '../../entities/bookstore';
-import { getConnection } from 'typeorm';
+import { Book, Bookdetails, Bookrented } from '../../entities/bookstore';
+import { Credentials } from '../../services/apis';
+import { bookStatus } from '../../entities/bookstore/bookrented.entity';
 
 const credentialsSchema = {
   type: 'object',
@@ -34,14 +35,15 @@ export class AdminController {
     @Post('/login')
     @ValidateBody(credentialsSchema)
     async login(ctx: Context<User|null>) {
-      const email = ctx.request.body.email;
-      const password = ctx.request.body.password;
-      const adminPassword = ctx.request.body.adminPassword;
+
+      const admin = {
+        email: ctx.request.body.email,
+        password: ctx.request.body.password
+      }
+      
       try{
-        if (adminPassword != 'abcd') {
-          throw new HttpResponseForbidden();
-        }
-        const user = await User.findOneBy({ email });
+
+        const user = await User.findOneBy({ email: admin.email });
         const group = await Group.findOneBy({ codeName: 'admin' });
 
         if (!user || !group) {
@@ -57,7 +59,7 @@ export class AdminController {
             throw new HttpResponseForbidden();
         }  
           
-        if (!(await verifyPassword(password, user.password))) {
+        if (!(await verifyPassword(admin.password, user.password))) {
           throw new HttpResponseForbidden();
         }
 
@@ -87,43 +89,20 @@ export class AdminController {
     @ValidateBody(credentialsSchema)
     async signup(ctx: Context<User|null>) {
       try {
-        const email = ctx.request.body.email;
-        const password = ctx.request.body.password;
-    
-        const user = new User();
-        user.email = email;
-        user.amount_due = 0;
-        user.name = 'Unknown';
-        user.password = await hashPassword(password);
-        user.groups = [];
-        user.userPermissions = [];
-        const codeName = "admin";
-        const group = await Group.findOneBy({codeName});
 
-        if (!group) {
-          throw new HttpResponseBadRequest('No group found');
+        if (ctx.request.body.adminPassword != 'abcd') {
+          throw new HttpResponseForbidden();
+        } 
+
+        const userDetails = {
+          email: ctx.request.body.email,
+          password: ctx.request.body.password,
+          group: 'admin',
         }
-        
-        user.groups.push(group);
 
-        const queryBuilder = Group.createQueryBuilder('group')
-          .leftJoinAndSelect('group.permissions', 'permission')
-          .where('group.codeName = :groupName', { groupName: codeName })
-          .select('permission.codeName', 'codeName');
-
-        const permissions = await queryBuilder.getRawMany();  
-
-        if (!permissions) throw new HttpResponseBadRequest('No permission found');
-        
-        for (const perm of permissions) {
-          const permission = await Permission.findOneBy({ codeName: perm.codeName });
-          if (!permission) {
-            this.logger.warn(`No permission with the code name "${codeName}" was found.`);
-            throw new HttpResponseBadRequest('Permission not fount');
-          }
-          user.userPermissions.push(permission);
-        }
-        console.log(user.userPermissions);
+        const credentials = new Credentials();
+  
+        const user = await credentials.signUpUser(userDetails);
 
         await user.save();
     
@@ -185,45 +164,6 @@ export class AdminController {
     @PermissionRequired('remove-user')
     @ValidatePathParam('userId', { type: 'number' })
     async deleteUser(ctx: Context<User>, { userId }: { userId: number }) {
-      // try{
-      //   const user = await User.findOne({ where: { id: userId }, relations: ['book_rented'] });
-
-      //   if (!user) {
-      //     throw new HttpResponseNotFound('User not found');
-      //   }
-      //   // try {
-      //   //   await Bookrented.remove(user.book_rented);
-      //   // } catch (e) {
-      //   //   console.log(e);
-      //   // }
-        
-      //   try {
-      //     if (user.book_rented) {
-      //       const bookIds = user.book_rented
-      //         .filter((bookRented) => bookRented.book)
-      //         .map((bookRented) => bookRented.book.id);
-
-            
-
-      //       if (bookIds.length > 0) {
-      //         await Book.createQueryBuilder()
-      //           .update(Book)
-      //           .set({ availability: true })
-      //           .whereInIds(bookIds)
-      //           .execute();
-      //       }
-      //     }
-      //   } catch (e) {
-      //     console.log(e);
-      //   }
-        
-      //   await user.remove();
-      //   return new HttpResponseOK(user);
-      // } catch (e) {
-      //   this.logger.error(e as Error);
-      //   return new HttpResponseBadRequest();
-      // }
-
       try {
         const user = await User.findOne({ where: { id: userId }, relations: ['book_rented'] });
     
@@ -231,17 +171,26 @@ export class AdminController {
           throw new HttpResponseNotFound('User not found');
         }
     
-        // Update the book availability to true
         try {
           const books =  await Book.createQueryBuilder('book')
           .select('book.id', 'bookId')
+          .addSelect('book_details.id', 'bookDetailsId')
           .innerJoin('book.book_rented', 'bookRented')
+          .innerJoin('book.book_details', 'book_details')
           .where('bookRented.user = :userId', { userId })
+          .andWhere('bookRented.status = :status', { status: bookStatus.Active })
           .getRawMany();
 
-          const bookIds = books.map(obj => obj.bookId);
-          console.log(bookIds);
+          const bookIds = books.map(book => book.bookId);
 
+          for (const book of books) {
+            const bookDetails = await Bookdetails.findOne({ where: { id: book.bookDetailsId } });
+            if (bookDetails) {
+              bookDetails.no_of_copies_rented--;
+              await bookDetails.save();
+            }
+          }
+          
           await Book
           .createQueryBuilder()
           .update()
@@ -252,8 +201,6 @@ export class AdminController {
           console.log(e);
         }
        
-    
-        // Remove the user
         await user.remove();
     
         return new HttpResponseOK(user);
