@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class migration1686331367472 implements MigrationInterface {
-    name = 'migration1686331367472'
+export class migration1686560572211 implements MigrationInterface {
+    name = 'migration1686560572211'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -30,6 +30,14 @@ export class migration1686331367472 implements MigrationInterface {
                 \`flash\` text NOT NULL,
                 \`updated_at\` int NOT NULL,
                 \`created_at\` int NOT NULL,
+                PRIMARY KEY (\`id\`)
+            ) ENGINE = InnoDB
+        `);
+        await queryRunner.query(`
+            CREATE TABLE \`picture\` (
+                \`id\` int NOT NULL AUTO_INCREMENT,
+                \`fileName\` varchar(255) NOT NULL,
+                \`bookdetailsId\` int NULL,
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
         `);
@@ -71,6 +79,7 @@ export class migration1686331367472 implements MigrationInterface {
                 \`email\` varchar(255) NOT NULL,
                 \`password\` varchar(255) NULL,
                 \`amount_due\` int NULL,
+                \`avatar\` varchar(255) NULL,
                 UNIQUE INDEX \`IDX_e12875dfb3b1d92d7d7c5377e2\` (\`email\`),
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
@@ -101,6 +110,10 @@ export class migration1686331367472 implements MigrationInterface {
                 INDEX \`IDX_4a38ad03e94f4de594fc09fb53\` (\`permissionId\`),
                 PRIMARY KEY (\`userId\`, \`permissionId\`)
             ) ENGINE = InnoDB
+        `);
+        await queryRunner.query(`
+            ALTER TABLE \`picture\`
+            ADD CONSTRAINT \`FK_67f7454c2356191ec88f8a0a78e\` FOREIGN KEY (\`bookdetailsId\`) REFERENCES \`bookdetails\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION
         `);
         await queryRunner.query(`
             ALTER TABLE \`book\`
@@ -169,6 +182,9 @@ export class migration1686331367472 implements MigrationInterface {
             ALTER TABLE \`book\` DROP FOREIGN KEY \`FK_ede81a5603c5a55825c040fb1d4\`
         `);
         await queryRunner.query(`
+            ALTER TABLE \`picture\` DROP FOREIGN KEY \`FK_67f7454c2356191ec88f8a0a78e\`
+        `);
+        await queryRunner.query(`
             DROP INDEX \`IDX_4a38ad03e94f4de594fc09fb53\` ON \`user_user_permissions_permission\`
         `);
         await queryRunner.query(`
@@ -212,6 +228,9 @@ export class migration1686331367472 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE \`bookdetails\`
+        `);
+        await queryRunner.query(`
+            DROP TABLE \`picture\`
         `);
         await queryRunner.query(`
             DROP TABLE \`sessions\`

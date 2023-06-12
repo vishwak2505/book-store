@@ -20,6 +20,9 @@ export class User extends UserWithPermissions {
   @Column({nullable: true})
   amount_due:number;
 
+  @Column({nullable: true})
+  avatar: string;
+
   @OneToMany(type => Bookrented, (bookrented) => bookrented.user)
   book_rented: Bookrented[];
 

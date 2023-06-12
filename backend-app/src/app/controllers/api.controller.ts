@@ -1,6 +1,7 @@
 import { ApiInfo, ApiServer, Context, controller, Get, HttpResponseOK, IAppController, UseSessions } from '@foal/core';
 import { User } from '../entities';
-import { AdminController, AuthController } from './api';
+import { AdminController, AuthController, GetbooksController, ProfileController } from './api';
+import { JWTRequired } from '@foal/jwt';
 
 @ApiInfo({
   title: 'Application API',
@@ -9,13 +10,11 @@ import { AdminController, AuthController } from './api';
 @ApiServer({
   url: '/api'
 })
-@UseSessions({
-  cookie: true,
-  user: (id: number) => User.findOneBy({ id }),
-})
 export class ApiController {
   subControllers = [
     controller('/admin', AdminController),
     controller('/user', AuthController),
+    controller('/profile', ProfileController),
+    controller('/getbooks', GetbooksController)
   ];
 }

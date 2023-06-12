@@ -28,3 +28,13 @@ export async function main(args: { codeName: string, name: string }) {
     await dataSource.destroy();
   }
 }
+
+
+// foal run create-perm name="Permission to add users" codeName="add-user"
+// foal run create-perm name="Permission to remove users" codeName="remove-user"
+// foal run create-perm name="Permission to view users" codeName="view-users"
+// foal run create-perm name="Permission to add books" codeName="add-book"
+// foal run create-perm name="Permission to remove books" codeName="remove-book"
+// foal run create-perm name="Permission to update books" codeName="update-book"
+// foal run create-perm name="Permission to view books" codeName="view-book"
+// foal run create-perm name="Permission to view books user" codeName="view-book-admin"

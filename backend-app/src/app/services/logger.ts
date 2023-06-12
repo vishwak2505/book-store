@@ -1,3 +1,4 @@
+import { HttpResponse, HttpResponseBadRequest } from '@foal/core';
 import {createLogger, format, transports } from 'winston';
 
 export class LoggerService {
@@ -41,4 +42,13 @@ export class LoggerService {
     this.logger.error(msg);
   }
 
+  returnError (error: Error|HttpResponse) {
+    this.logger.error(error as Error);
+      if (error instanceof HttpResponse) {
+        return error;
+      } else {
+        return new HttpResponseBadRequest(error);
+      }
+  }
 }
+

@@ -1,10 +1,12 @@
 import { Context, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseServerError, HttpResponseSuccess, HttpResponseUnauthorized, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { User } from '../../entities';
 import { LoggerService } from '../../services/logger';
-import { Group, Permission } from '@foal/typeorm';
 import { Book, Bookdetails, Bookrented } from '../../entities/bookstore';
 import { bookStatus } from '../../entities/bookstore/bookrented.entity';
 import { Credentials } from '../../services/apis';
+import { getSecretOrPrivateKey, JWTRequired, removeAuthCookie, setAuthCookie } from '@foal/jwt';
+import { sign } from 'jsonwebtoken';
+import { promisify } from 'util';
 
 const credentialsSchema = {
   type: 'object',
@@ -16,51 +18,42 @@ const credentialsSchema = {
   additionalProperties: false,
 };
 
-@UseSessions({
-  cookie: true,
-  required: true,
-  user: (id: number) => User.findOneWithPermissionsBy({ id }),
-})
+
 export class AuthController {
 
     @dependency
     logger: LoggerService;
 
+    @dependency
+    credentials: Credentials
+
     @Post('/login')
     @ValidateBody(credentialsSchema)
     async login(ctx: Context<User|null>) {
-      const email = ctx.request.body.email;
-      const password = ctx.request.body.password;
-
+      
       try{
-        const user = await User.findOneBy({ email });
-
-        if (!user) {
-          throw new HttpResponseUnauthorized();
-        }
-    
-        if (!(await verifyPassword(password, user.password))) {
-          throw new HttpResponseUnauthorized();
+        const userDetails = {
+          email: ctx.request.body.email,
+          password: ctx.request.body.password,
+          group: 'customer'
         }
 
-        ctx.session!.setUser(user);
-        ctx.user = user;
+        const user = await this.credentials.loginUser(userDetails);
     
-        return new HttpResponseOK({
-          id: user.id,
-          name: user.name,
-        });
+        await user.save();
+
+        const response = new HttpResponseOK();
+        const token = await this.createJWT(user);
+        setAuthCookie(response, token);
+
+        return response;
       } catch (e) {
-        this.logger.error(e as Error);
-        return new HttpResponseBadRequest();
+        if (e instanceof Error || e instanceof HttpResponse) {
+          return this.logger.returnError(e);
+        } else {
+          return new HttpResponseBadRequest(e);
+        }
       }
-
-    }
-  
-    @Post('/logout')
-    async logout(ctx: Context) {
-      await ctx.session!.destroy();
-      return new HttpResponseOK();
     }
     
     @Post('/signup')
@@ -73,94 +66,94 @@ export class AuthController {
           password: ctx.request.body.password,
           group: 'customer'
         }
-        
-        const credentials = new Credentials()
-    
-        const user = await credentials.signUpUser(userDetails);
+            
+        const user = await this.credentials.signUpUser(userDetails);
         
         await user.save();
-    
-        ctx.session!.setUser(user);
-        ctx.user = user;
-    
-        return new HttpResponseOK({
-          id: user.id,
-          name: user.name,
-        });
+        
+        const response = new HttpResponseOK();
+        const token = await this.createJWT(user);
+        setAuthCookie(response, token);
+
+        return response;
       } catch (e){
-        this.logger.error(e as Error);
-        return new HttpResponseBadRequest(e);
+        if (e instanceof Error || e instanceof HttpResponse) {
+          return this.logger.returnError(e);
+        } else {
+          return new HttpResponseBadRequest(e);
+        }
       }
     }
 
-    @Get('/profile')
-    @UserRequired()
-    async userProfile(ctx: Context<User>) {
-      const user = ctx.user;
-      const queryBuilder = Bookrented
-      .createQueryBuilder('bookRented')
-      .select(['bookRented.date_of_issue', 'bookRented.date_of_return'])
-      .addSelect('bookDetails.book_name', 'book_name')
-      .addSelect('bookDetails.genre', 'genre')
-      .addSelect('book.Id', 'BookId')
-      .leftJoin('bookRented.book', 'book')
-      .leftJoin('book.book_details', 'bookDetails')
-      .where('bookRented.user = :userId', { userId: user.id });
-
-      const rentedBooks = await queryBuilder.getRawMany();
-      const userProfile = {
-        Name: user.name,
-        AmountDue: user.amount_due,
-        rentedBooks,
-      }
-      return new HttpResponseOK(userProfile);
+    @Post('/logout')
+    async logout(ctx: Context) {
+      const response = new HttpResponseOK();
+      removeAuthCookie(response);
+      return response;
     }
 
     @Post('/borrow/:bookName')
+    @JWTRequired({
+      cookie: true,
+      user: (id: number) => User.findOneBy({ id })
+    })
     @UserRequired()
     @ValidatePathParam('bookName', { type: 'string' })
     async borrowBook(ctx: Context<User>, { bookName }: { bookName: string }) {
-      const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
 
-      if (!bookDetails) {
-        return new HttpResponseBadRequest('Book not found');
+      try {
+        const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
+
+        if (!bookDetails) {
+          throw new HttpResponseNotFound('Book not found');
+        }
+
+        const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, availability: true}) ;
+
+        if (!book) {
+          throw new HttpResponseNotFound('Book out of stock');
+        }
+
+        const bookRented = new Bookrented();
+        bookRented.date_of_issue = new Date();
+        bookRented.user = ctx.user;
+        bookRented.book = book;
+        bookRented.status = bookStatus.Active;
+        await bookRented.save();
+
+        book.availability = false;
+        await book.save();
+
+        ++bookDetails.no_of_copies_rented;
+        await bookDetails.save();
+
+        ctx.user.amount_due += bookDetails.cost_per_day;
+        await ctx.user.save();
+        
+        return new HttpResponseOK(bookDetails);
+      } catch (e) {
+        if (e instanceof Error || e instanceof HttpResponse) {
+          return this.logger.returnError(e);
+        } else {
+          return new HttpResponseBadRequest(e);
+        }
       }
-
-      const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, availability: true}) ;
-
-      if (!book) {
-        return new HttpResponseBadRequest('Book out of stock');
-      }
-
-      const bookRented = new Bookrented();
-      bookRented.date_of_issue = new Date();
-      bookRented.user = ctx.user;
-      bookRented.book = book;
-      bookRented.status = bookStatus.Active;
-      
-      await bookRented.save();
-
-      ctx.user.amount_due += bookDetails.cost_per_day;
-
-      ++bookDetails.no_of_copies_rented;
-
-      await ctx.user.save();
-      await bookDetails.save();
-      
-      book.availability = false;
-      await book.save();
-      return new HttpResponseOK(bookDetails);
     }
 
     @Post('/return/:bookId')
+    @JWTRequired({
+      cookie: true,
+      user: (id: number) => User.findOneBy({ id })
+    })
     @UserRequired()
     @ValidatePathParam('bookId', { type: 'number' })
     async returnBook(ctx: Context<User>, { bookId }: { bookId: number }) {
 
       try {
         const book = await Book.findOne({ where: { id: bookId }, relations: ['book_details'] });
+
         if (!book) {
-          throw new HttpResponseBadRequest('Book not found');
+          throw new HttpResponseNotFound('Book not found');
         }
 
         const bookRented = await Bookrented
@@ -172,12 +165,13 @@ export class AuthController {
           .getOne();
 
         if (!bookRented) {
-          throw new HttpResponseBadRequest('Book not rented by the user');
+          throw new HttpResponseNotFound('Book not rented by the user');
         }
         
         const bookDetails = book.book_details;
+        
         if (!bookDetails) {
-          throw new Error('Book details not found');
+          throw new HttpResponseNotFound('Book details not found');
         }
 
         bookRented.date_of_return = new Date();
@@ -194,9 +188,25 @@ export class AuthController {
         await ctx.user.save();
         
         return new HttpResponseOK(bookDetails);
-      } catch (error) {
-        this.logger.error(error as Error);
-        return error as HttpResponse;
+      } catch (e) {
+        if (e instanceof Error || e instanceof HttpResponse) {
+          return this.logger.returnError(e);
+        } else {
+          return new HttpResponseBadRequest(e);
+        }
       }
+    }
+
+    private async createJWT(user: User): Promise<string> {
+      const payload = {
+        email: user.email,
+        id: user.id,
+      };
+      
+      return promisify(sign as any)(
+        payload,
+        getSecretOrPrivateKey(),
+        { subject: user.id.toString() }
+      );
     }
 }

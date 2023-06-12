@@ -47,5 +47,5 @@ export async function main(args: { codeName: string, name: string, permissions: 
   }
 }
 
-
 // foal run create-group name="Administrators" codeName="admin" permissions="[ \"view-user\", \"remove-user\", \"update-user\", \"view-book\", \"add-book\", \"remove-book\", \"update-book\" ]"
+// foal run create-group name="Customers" codeName="customer" permissions="[ \"view-book-user\" ]"

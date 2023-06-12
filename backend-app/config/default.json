@@ -4,6 +4,19 @@
     "loggerFormat": "tiny",
     "session": {
       "store": "@foal/typeorm"
+    },
+    "jwt": {
+      "secret": "env(JWT_SECRET)",
+      "secretEncoding": "base64"
+    },
+    "csrf": {
+      "enabled": true
+    },
+    "disk": {
+      "driver": "local",
+      "local": {
+        "directory": "assets"
+      }
     }
   },
   "database": {

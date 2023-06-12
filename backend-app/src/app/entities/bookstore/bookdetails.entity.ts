@@ -1,5 +1,6 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Book } from './book.entity';
+import { Picture } from './picture.entity';
 
 @Entity()
 export class Bookdetails extends BaseEntity {
@@ -21,6 +22,9 @@ export class Bookdetails extends BaseEntity {
 
   @Column()
   cost_per_day: number;
+
+  @OneToMany(type => Picture, (picture) => picture.bookdetails, { cascade: true })
+  pictures: Picture[];
 
   @OneToMany(type => Book, (book) => book.book_details)
   books: Book[];
