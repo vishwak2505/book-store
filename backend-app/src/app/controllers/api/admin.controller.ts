@@ -8,6 +8,7 @@ import { bookStatus } from '../../entities/bookstore/bookrented.entity';
 import { getSecretOrPrivateKey, JWTRequired, removeAuthCookie, setAuthCookie } from '@foal/jwt';
 import { sign } from 'jsonwebtoken';
 import { promisify } from 'util';
+import { Disk } from '@foal/storage';
 
 const credentialsSchema = {
   type: 'object',
@@ -30,6 +31,9 @@ export class AdminController {
 
     @dependency
     credentials : Credentials;
+
+    @dependency
+    disk: Disk;
   
     @Post('/login')
     @ValidateBody(credentialsSchema)
@@ -214,7 +218,11 @@ export class AdminController {
             .whereInIds(bookIds)
             .execute();
         }  
-       
+        
+        if (user.avatar) {
+          await this.disk.delete(user.avatar);
+        }
+        
         await user.remove();
     
         return new HttpResponseOK(user);

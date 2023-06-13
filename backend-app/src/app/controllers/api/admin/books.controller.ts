@@ -1,7 +1,7 @@
 import { Context, Delete, Get, HttpResponse, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
 import { LoggerService } from '../../../services/logger';
 import { Book, Bookdetails } from '../../../entities/bookstore';
-import { Bookrented } from '../../../entities/bookstore/bookrented.entity';
+import { Bookrented, bookStatus } from '../../../entities/bookstore/bookrented.entity';
 import { ParseAndValidateFiles } from '@foal/storage';
 import { Picture } from '../../../entities/bookstore/picture.entity';
 import { UploadedFile } from 'express-fileupload';
@@ -238,22 +238,32 @@ export class BooksController {
 
   // }
 
-  @Delete('/:bookName')
+  @Delete('/delete/:bookId')
   @UserRequired()
   @PermissionRequired('remove-book')
-  @ValidatePathParam('bookName', { type: 'string' })
-  async deleteBook({ bookName }: { bookName: string }) {
+  @ValidatePathParam('bookId', { type: 'number' })
+  async deleteBook(ctx: Context ,{ bookId }: { bookId: number }) {
 
     try {
-      const bookDetails = await Bookdetails.findOneBy({ book_name: bookName });
 
-      if (!bookDetails) {
-        throw new HttpResponseNotFound('No Books Found');
+      const book = await Book.findOne({ where: { id: bookId }, relations: ['book_details'] });
+
+      if (!book) {
+        throw new HttpResponseNotFound('No Book Found');
       }
 
-      await bookDetails.remove();
+      const bookRented = await Bookrented.findOneBy({ book :{ id: bookId }});
+      
+      if (bookRented?.status == bookStatus.Active) {
+        throw new HttpResponseBadRequest('Book is rented by a customer');
+      }
 
-      return new HttpResponseOK(bookDetails);
+      await book.remove();
+
+      book.book_details.total_no_of_copies--;
+      await book.book_details.save();
+
+      return new HttpResponseOK(book.book_details);
     } catch(e) {
       if (e instanceof Error || e instanceof HttpResponse) {
         return this.logger.returnError(e);

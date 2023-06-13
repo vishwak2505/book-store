@@ -25,6 +25,6 @@ export class Bookrented extends BaseEntity {
   @ManyToOne(type => User, (user) => user.book_rented, { nullable: false, cascade: true, onDelete: 'CASCADE', orphanedRowAction: 'delete' })
   user: User;
 
-  @ManyToOne(type => Book, (book) => book.book_rented)
+  @ManyToOne(type => Book, (book) => book.book_rented, { nullable: false, cascade: true, onDelete: 'CASCADE', orphanedRowAction: 'delete' })
   book: Book;
 }

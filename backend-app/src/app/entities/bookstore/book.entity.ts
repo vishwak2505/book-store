@@ -14,6 +14,6 @@ export class Book extends BaseEntity {
   @Column({ default: true })
   availability: boolean;
   
-  @OneToMany(type => Bookrented, (bookrented) => bookrented.book, { nullable: true })
+  @OneToMany(type => Bookrented, (bookrented) => bookrented.book)
   book_rented: Bookrented[];
 }
