@@ -126,9 +126,6 @@ export class AuthController {
 
         ++bookDetails.no_of_copies_rented;
         await bookDetails.save();
-
-        ctx.user.amount_due += bookDetails.cost_per_day;
-        await ctx.user.save();
         
         return new HttpResponseOK(bookDetails);
       } catch (e) {
@@ -183,8 +180,16 @@ export class AuthController {
 
         book.availability = true;
         await book.save();
+
+        const dateOfIssue = bookRented.date_of_issue;
+        const dateOfReturn = bookRented.date_of_return;
+
+        dateOfIssue.setHours(0, 0, 0, 0);
+        dateOfReturn.setHours(0, 0, 0, 0);
+        const timeDifference = dateOfReturn.getTime() - dateOfIssue.getTime();
+        const daysDifference = Math.ceil(timeDifference / (24 * 60 * 60 * 1000)) + 1;
     
-        ctx.user.amount_due -= bookDetails.cost_per_day;
+        ctx.user.amount_due += ( bookDetails.cost_per_day *  daysDifference);
         await ctx.user.save();
         
         return new HttpResponseOK(bookDetails);
