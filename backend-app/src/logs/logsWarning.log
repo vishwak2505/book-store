@@ -1516,3 +1516,18 @@
   level: 'error',
   timestamp: '2023-06-13T07:14:56.584Z'
 }
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User is not admin',
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-13T16:48:36.252Z'
+}

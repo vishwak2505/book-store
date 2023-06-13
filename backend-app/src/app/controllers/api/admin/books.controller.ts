@@ -217,26 +217,86 @@ export class BooksController {
   }
 
 
-  // @Patch('/update')
-  // @UserRequired()
-  // @PermissionRequired('update-book') 
-  // @ValidateBody({
-  //   type: 'object',
-  //   properties: {
-  //     bookId: { type: 'number' },
-  //     bookName: { type: 'string', maxLength: 255 },
-  //     genre: { type: 'string', maxLength: 255 },
-  //     totalNoOfCopies: { type: 'number' },
-  //     costPerDay: { type: 'number' }
-  //   },
-  //   required: [ 'bookId' ],
-  //   additionalProperties: false,
-  // })
-  // async updateBook(ctx: Context<Bookdetails>) {
-  //   const book = await Bookdetails.findOneBy({ id: ctx.request.body.bookId });
+  @Patch('/update')
+  @UserRequired()
+  @PermissionRequired('update-book') 
+  @ValidateBody({
+    type: 'object',
+    properties: {
+      bookId: { type: 'number' },
+      bookName: { type: 'string', maxLength: 255 },
+      genre: { type: 'string', maxLength: 255 },
+      totalNoOfCopies: { type: 'number' },
+      costPerDay: { type: 'number' }
+    },
+    required: [ 'bookId' ],
+    additionalProperties: false,
+  })
+  async updateBook(ctx: Context<Bookdetails>) {
+    try {
+      const bookId = ctx.request.body.bookId;
+      const bookDetails = await Bookdetails.findOneBy({ id: bookId });
 
+      if (!bookDetails) {
+        throw new HttpResponseNotFound('Book Not Found');
+      }
+      
+      const bookName = ctx.request.body.bookName;
+      const genre = ctx.request.body.genre;
+      const totalNoOfCopies = ctx.request.body.totalNoOfCopies;
+      const costPerDay = ctx.request.body.costPerDay;
 
-  // }
+      if ( totalNoOfCopies ) {
+        if (totalNoOfCopies >= bookDetails.no_of_copies_rented && totalNoOfCopies != bookDetails.total_no_of_copies) {
+          const extraBooks = totalNoOfCopies - bookDetails.total_no_of_copies;
+          bookDetails.total_no_of_copies = totalNoOfCopies;
+          
+          if (extraBooks > 0) {
+            for (let i = 0; i < extraBooks; i++) {
+              const book = new Book();
+              book.availability = true;
+              book.book_details = bookDetails;
+              await book.save();
+            }
+          } else {
+            const deleteBook = extraBooks * -1;
+            for (let i = 0; i < deleteBook; i++) {
+              const book = await Book.findOne({where: {book_details: {id: bookId}, availability: true}});
+              if (!book) {
+                throw new HttpResponseNotFound('Book Not Found');
+              }
+              await book.remove();
+            }
+          }
+
+        } else {
+          throw new HttpResponseNotImplemented('Total no of copies is less than no of copies rented');
+        }
+      }
+      
+      if (bookName != '') {
+        bookDetails.book_name = bookName;
+      }
+
+      if (genre != '') {
+        bookDetails.genre = genre;
+      }
+
+      if (costPerDay) {
+        bookDetails.cost_per_day = costPerDay;
+      }
+
+      await bookDetails.save();
+
+      return new HttpResponseOK(bookDetails);
+    } catch(e) {
+      if (e instanceof Error || e instanceof HttpResponse) {
+        return this.logger.returnError(e);
+      } else {
+        return new HttpResponseBadRequest(e);
+      }
+    }
+  }
 
   @Delete('/delete/:bookId')
   @UserRequired()
