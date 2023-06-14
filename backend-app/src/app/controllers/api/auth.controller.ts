@@ -44,6 +44,11 @@ export class AuthController {
 
         const response = new HttpResponseOK();
         const token = await this.createJWT(user);
+
+        if (!token) {
+          return new HttpResponseBadRequest('No token genereted');
+        }
+
         setAuthCookie(response, token);
 
         return response;
@@ -73,6 +78,11 @@ export class AuthController {
         
         const response = new HttpResponseOK();
         const token = await this.createJWT(user);
+
+        if (!token) {
+          return new HttpResponseBadRequest('No token genereted');
+        }
+        
         setAuthCookie(response, token);
 
         return response;

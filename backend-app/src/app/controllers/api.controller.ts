@@ -1,4 +1,4 @@
-import { ApiInfo, ApiServer, Context, controller, Get, HttpResponseOK, IAppController, UseSessions } from '@foal/core';
+import { ApiInfo, ApiServer, Context, controller, Get, Hook, HttpResponseNoContent, HttpResponseOK, IAppController, Options, UseSessions } from '@foal/core';
 import { User } from '../entities';
 import { AdminController, AuthController, GetbooksController, ProfileController } from './api';
 import { JWTRequired } from '@foal/jwt';
@@ -10,6 +10,10 @@ import { JWTRequired } from '@foal/jwt';
 @ApiServer({
   url: '/api'
 })
+@Hook(ctx => response => {
+  response.setHeader('Access-Control-Allow-Origin', ctx.request.get('Origin') || '*');
+  response.setHeader('Access-Control-Allow-Credentials', 'true');
+})
 export class ApiController {
   subControllers = [
     controller('/admin', AdminController),
@@ -17,4 +21,12 @@ export class ApiController {
     controller('/profile', ProfileController),
     controller('/getbooks', GetbooksController)
   ];
+
+  @Options('*')
+  options(ctx: Context) {
+    const response = new HttpResponseNoContent();
+    response.setHeader('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+    response.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    return response;
+  }
 }
