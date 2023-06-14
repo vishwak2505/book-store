@@ -9,6 +9,7 @@ import { getSecretOrPrivateKey, JWTRequired, removeAuthCookie, setAuthCookie } f
 import { sign } from 'jsonwebtoken';
 import { promisify } from 'util';
 import { Disk } from '@foal/storage';
+import { createObjectCsvStringifier } from 'csv-writer';
 
 const credentialsSchema = {
   type: 'object',
@@ -131,7 +132,7 @@ export class AdminController {
     })
     @UserRequired()
     @PermissionRequired('view-user')
-    async viewUsers () {
+    async viewUsers(ctx: Context) {
       try {
         let queryBuilder = User
           .createQueryBuilder('user')
@@ -147,8 +148,9 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw new HttpResponseNotFound('No users found')
+          throw new HttpResponseNotFound('No users found');
         }
+
         return new HttpResponseOK(users);
       } catch (e) {
         if (e instanceof Error || e instanceof HttpResponse) {
@@ -157,7 +159,59 @@ export class AdminController {
           return new HttpResponseBadRequest(e);
         }
       }
-    } 
+    }
+
+    @Get('/downloadUsersList')
+    @JWTRequired({
+      cookie: true,
+      user: (id: number) => User.findOneWithPermissionsBy({ id })
+    })
+    @UserRequired()
+    @PermissionRequired('view-user')
+    async downloadUsers(ctx: Context) {
+      try {
+        let queryBuilder = User
+          .createQueryBuilder('user')
+          .leftJoinAndSelect('user.groups', 'group')
+          .where('group.codeName = :codeName', { codeName: 'customer'})
+          .select([
+            'user.id',
+            'user.name',
+            'user.email',
+            'user.amount_due'
+          ]);
+
+        const users = await queryBuilder.getMany();
+
+        if (!users) {
+          throw new HttpResponseNotFound('No users found');
+        }
+
+        const csvStringifier = createObjectCsvStringifier({
+          header: [
+            { id: 'id', title: 'ID' },
+            { id: 'name', title: 'Name' },
+            { id: 'email', title: 'Email' },
+            { id: 'amount_due', title: 'Amount Due' }
+          ]
+        });
+
+        const csvData = csvStringifier.stringifyRecords(users);
+
+        const response = new HttpResponseOK();
+        response.setHeader('Content-Type', 'text/csv');
+        response.setHeader('Content-Disposition', 'attachment; filename=users.csv');
+        response.body = csvData;
+
+        return response;
+      } catch (e) {
+        if (e instanceof Error || e instanceof HttpResponse) {
+          return this.logger.returnError(e);
+        } else {
+          return new HttpResponseBadRequest(e);
+        }
+      }
+    }
 
     @Get('/:userId')
     @JWTRequired({
