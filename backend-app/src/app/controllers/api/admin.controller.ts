@@ -96,6 +96,9 @@ export class AdminController {
     
         const response = new HttpResponseOK();
         const token = await this.createJWT(user);
+        if (!token) {
+          throw new HttpResponseBadRequest('Token not generated');
+        }
         setAuthCookie(response, token);
 
         return response;

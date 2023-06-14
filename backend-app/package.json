@@ -24,11 +24,13 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "@foal/core": "^3.0.0",
+    "@foal/core": "^3.2.0",
+    "@foal/express": "^0.5.0",
     "@foal/jwt": "^3.2.0",
     "@foal/storage": "^3.2.0",
     "@foal/swagger": "^3.2.0",
     "@foal/typeorm": "^3.0.0",
+    "cors": "^2.8.5",
     "express-fileupload": "^1.4.0",
     "jsonwebtoken": "^9.0.0",
     "mysql": "^2.18.1",
