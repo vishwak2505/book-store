@@ -88,7 +88,7 @@ export class ProfileController {
         type: 'object',
         properties: {
           name: { type: 'string', maxLength: 255 },
-          email: { type:'srtring', format: 'email' }
+          email: { type: "string", format: "email", nullable: true }
         },
       }
     )
@@ -110,7 +110,12 @@ export class ProfileController {
           ctx.user.name = name;
         }
 
-        if (email != '') {
+        if (email) {
+          const user = await User.findOneBy({ email });
+
+          if (user) {
+            throw new HttpResponseBadRequest('Mail id already in use');
+          }
           ctx.user.email = email;
         }
 

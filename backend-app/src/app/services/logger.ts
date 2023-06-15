@@ -1,3 +1,4 @@
+import ecsFormat = require('@elastic/ecs-winston-format');
 import { HttpResponse, HttpResponseBadRequest } from '@foal/core';
 import {createLogger, format, transports } from 'winston';
 
@@ -7,9 +8,7 @@ export class LoggerService {
   constructor() {
     this.logger = createLogger({
         format: format.combine(
-            format.json(),
-            format.timestamp(),
-            format.prettyPrint(),
+            ecsFormat(),
             format.colorize(),
         ),
         transports: [
@@ -43,7 +42,7 @@ export class LoggerService {
   }
 
   returnError (error: Error|HttpResponse) {
-    this.logger.error(error as Error);
+    this.logger.error(error);
       if (error instanceof HttpResponse) {
         return error;
       } else {

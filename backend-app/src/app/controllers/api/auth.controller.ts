@@ -35,7 +35,7 @@ export class AuthController {
         email: { type: 'string', format: 'email', maxLength: 255 },
         password: { type: 'string' }
       },
-      required: [ 'name', 'email', 'password' ],
+      required: [ 'email', 'password' ],
       additionalProperties: false,
     })
     async login(ctx: Context<User|null>) {

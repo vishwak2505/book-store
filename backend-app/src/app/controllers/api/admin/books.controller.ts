@@ -1,14 +1,14 @@
-import { ApiUseTag, Context, Delete, Get, HttpResponse, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
+import { Context, Delete, Get, HttpResponse, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
 import { LoggerService } from '../../../services/logger';
 import { Book, Bookdetails } from '../../../entities/bookstore';
-import { Bookrented, bookStatus } from '../../../entities/bookstore/bookrented.entity';
 import { ParseAndValidateFiles } from '@foal/storage';
 import { Picture } from '../../../entities/bookstore/picture.entity';
 import { UploadedFile } from 'express-fileupload';
 import { JWTRequired } from '@foal/jwt';
 import { User } from '../../../entities';
 import { status } from '../../../entities/bookstore/bookdetails.entity';
-import * as csvtojson from 'csvtojson';
+import * as fs from 'fs';
+import csvParser = require('csv-parser');
 
 @JWTRequired({
   cookie: true,
@@ -28,12 +28,15 @@ export class BooksController {
       let queryBuilder = Bookdetails
       .createQueryBuilder('book')
       .select([
+        'book.id',
+        'book.bookStatus',
         'book.book_name',
         'book.genre',
         'book.total_no_of_copies',
         'book.no_of_copies_rented',
         'book.cost_per_day',
-      ]);
+      ])
+      .orderBy('book.bookStatus');
 
       const books = await queryBuilder.getMany();
 
@@ -143,20 +146,37 @@ export class BooksController {
   @Post('/addBooksFromCSV')
   @UserRequired()
   @PermissionRequired('add-book')
-  @ParseAndValidateFiles(
-    {
-      file: { required: true, saveTo: 'uploads', multiple: false }
-    }
-  )  
+  @ParseAndValidateFiles({
+    file: { required: true, saveTo: 'uploads', multiple: false }
+  })
   async addBooksFromCSV(ctx: Context<Bookdetails & { file: { csvFile?: UploadedFile } }>) {
     try {
-      const csvFilePath = ctx.files.get('file')[0];
-
-      console.log(csvFilePath.path);
-
-      const jsonArray = await csvtojson().fromFile(csvFilePath.path);
+      const csvFile = ctx.files.get('file')[0];
+      const csvFilePath = csvFile.path;
+  
+      if (csvFile.mimeType != 'text/csv') {
+        throw new HttpResponseBadRequest('File type is not csv');
+      }
+  
+      const jsonArray: any[] = await new Promise((resolve, reject) => {
+        const results: any[] = [];
+  
+        fs.createReadStream(`assets/${csvFilePath}`)
+          .pipe(csvParser())
+          .on('data', (data) => results.push(data))
+          .on('end', () => resolve(results))
+          .on('error', (error) => reject(error));
+      });
+      
+      let books: string[] = [];
 
       for (const row of jsonArray) {
+        const book = await Bookdetails.findOne({ where: {book_name: row.bookName }});
+        if (book) {
+          books.push(row.bookName);
+          continue;
+        }
+
         const bookDetails = new Bookdetails();
         bookDetails.book_name = row.bookName;
         bookDetails.genre = row.genre;
@@ -164,9 +184,9 @@ export class BooksController {
         bookDetails.no_of_copies_rented = 0;
         bookDetails.cost_per_day = row.costPerDay;
         bookDetails.bookStatus = status.Active;
-
+  
         await bookDetails.save();
-
+  
         for (let i = 0; i < row.totalNoOfCopies; i++) {
           const book = new Book();
           book.availability = true;
@@ -174,7 +194,10 @@ export class BooksController {
           await book.save();
         }
       }
-
+      
+      if (books.length > 0){
+        return new HttpResponseCreated(`Books added successfully, Duplicate Entries: ${books}`);
+      }
       return new HttpResponseCreated('Books added successfully');
     } catch (e) {
       console.log(e);
