@@ -1,4 +1,4 @@
-import { Context, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseServerError, HttpResponseSuccess, HttpResponseUnauthorized, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
+import { ApiUseTag, Context, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseServerError, HttpResponseSuccess, HttpResponseUnauthorized, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, ValidateQueryParam, verifyPassword } from '@foal/core';
 import { User } from '../../entities';
 import { LoggerService } from '../../services/logger';
 import { Book, Bookdetails, Bookrented } from '../../entities/bookstore';
@@ -11,14 +11,15 @@ import { promisify } from 'util';
 const credentialsSchema = {
   type: 'object',
   properties: {
+    name: { type: 'string', maxLength: 255 },
     email: { type: 'string', format: 'email', maxLength: 255 },
     password: { type: 'string' }
   },
-  required: [ 'email', 'password' ],
+  required: [ 'name', 'email', 'password' ],
   additionalProperties: false,
 };
 
-
+@ApiUseTag('user')
 export class AuthController {
 
     @dependency
@@ -28,7 +29,15 @@ export class AuthController {
     credentials: Credentials
 
     @Post('/login')
-    @ValidateBody(credentialsSchema)
+    @ValidateBody({
+      type: 'object',
+      properties: {
+        email: { type: 'string', format: 'email', maxLength: 255 },
+        password: { type: 'string' }
+      },
+      required: [ 'name', 'email', 'password' ],
+      additionalProperties: false,
+    })
     async login(ctx: Context<User|null>) {
       
       try{
@@ -67,6 +76,7 @@ export class AuthController {
       try {
 
         const userDetails = {
+          name: ctx.request.body.name,
           email: ctx.request.body.email,
           password: ctx.request.body.password,
           group: 'customer'
@@ -82,7 +92,7 @@ export class AuthController {
         if (!token) {
           return new HttpResponseBadRequest('No token genereted');
         }
-        
+
         setAuthCookie(response, token);
 
         return response;
@@ -108,10 +118,13 @@ export class AuthController {
       user: (id: number) => User.findOneBy({ id })
     })
     @UserRequired()
-    @ValidatePathParam('bookName', { type: 'string' })
-    async borrowBook(ctx: Context<User>, { bookName }: { bookName: string }) {
+    @ValidateQueryParam('bookName', { type: 'string' }, { required: true })
+    async borrowBook(ctx: Context<User>) {
 
       try {
+
+        const bookName = ctx.request.query.bookName;
+
         const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
 
         if (!bookDetails) {

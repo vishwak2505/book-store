@@ -1,21 +1,22 @@
 import { HttpResponseBadRequest, HttpResponseForbidden, HttpResponseUnauthorized, dependency, hashPassword, verifyPassword } from "@foal/core";
-import { Group, Permission, User } from "../../entities/user.entity";
+import { Group, Permission, User, userStatus } from "../../entities/user.entity";
 import { LoggerService } from "../logger";
 
 export class Credentials {
     @dependency
     logger: LoggerService;
 
-    async signUpUser(userDetails: {email: string, password: string, group: string}) {
+    async signUpUser(userDetails: {name: string, email: string, password: string, group: string}) {
 
         const user = new User();
         user.email = userDetails.email;
         user.amount_due = 0;
-        user.name = 'Unknown';
+        user.name = userDetails.name;
         user.password = await hashPassword(userDetails.password);
         user.groups = [];
         user.avatar = "";
         user.userPermissions = [];
+        user.status = userStatus.Active;
 
         const codeName = userDetails.group;
         
@@ -54,7 +55,7 @@ export class Credentials {
         const user = await User.findOneBy({ email: userDetails.email });
         const group = await Group.findOneBy({ codeName: userDetails.group });
 
-        if (!user || !group) {
+        if (!user || user.status == userStatus.Inactive || !group) {
            throw new HttpResponseUnauthorized('No user found');
         }
 

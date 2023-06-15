@@ -1,10 +1,11 @@
-import { Context, Get, Hook, HttpResponse, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, Post, UserRequired, ValidateQueryParam, dependency, File } from '@foal/core';
+import { Context, Get, Hook, HttpResponse, HttpResponseBadRequest, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, Post, UserRequired, ValidateQueryParam, dependency, File, ApiUseTag, Patch } from '@foal/core';
 import { Disk, ParseAndValidateFiles } from '@foal/storage';
 import { User } from '../../entities';
 import { LoggerService } from '../../services/logger';
 import { Bookrented } from '../../entities/bookstore';
 import { JWTRequired } from '@foal/jwt';
 
+@ApiUseTag('profile')
 @JWTRequired({
   cookie: true,
   user: (id: number) => User.findOneBy({ id })
@@ -35,7 +36,9 @@ export class ProfileController {
 
         const rentedBooks = await queryBuilder.getRawMany();
         const userProfile = {
+          Id: user.id,
           Name: user.name,
+          Email: user.email,
           AmountDue: user.amount_due,
           rentedBooks,
         }
@@ -75,7 +78,7 @@ export class ProfileController {
       
     }
   
-    @Post('/updateProfile')
+    @Patch('/updateProfile')
     @UserRequired()
     @ParseAndValidateFiles(
       {
@@ -84,7 +87,8 @@ export class ProfileController {
       {
         type: 'object',
         properties: {
-          name: { type: 'string', maxLength: 255 }
+          name: { type: 'string', maxLength: 255 },
+          email: { type:'srtring', format: 'email' }
         },
       }
     )
@@ -100,9 +104,14 @@ export class ProfileController {
 
       try{
         const name = ctx.request.body.name;
+        const email = ctx.request.body.email;
 
         if (name != '') {
           ctx.user.name = name;
+        }
+
+        if (email != '') {
+          ctx.user.email = email;
         }
 
         const file: File|undefined = ctx.files.get('avatar')[0];

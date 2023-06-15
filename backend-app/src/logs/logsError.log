@@ -1531,3 +1531,321 @@
   level: 'error',
   timestamp: '2023-06-13T16:48:36.252Z'
 }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:26:52.099Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:28:15.391Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:56:36.407Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:58:14.720Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:31:05.817Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:32:28.662Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:32:44.113Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:37:50.071Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:44:09.275Z'
+}
+{ level: 'error', timestamp: '2023-06-14T18:22:46.109Z' }
+{
+  filename: 'images/profiles/uploaded/9KUq52Ht556Tt4rxzP5KWEj75TU3vsKd2ez5V5tN_K8.png',
+  name: 'FileDoesNotExist',
+  level: 'error',
+  timestamp: '2023-06-14T18:24:44.759Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found with given ID',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T18:56:35.753Z'
+}
+{ level: 'error', timestamp: '2023-06-14T19:04:22.355Z' }
+{ level: 'error', timestamp: '2023-06-14T19:05:06.466Z' }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found with given ID',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T05:09:44.204Z'
+}
+{ level: 'error', timestamp: '2023-06-15T07:11:20.010Z' }
+{ level: 'error', timestamp: '2023-06-15T07:16:17.760Z' }
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:22:12.773Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:22:18.730Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users ',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:29:35.012Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:30:06.423Z'
+}
+{ level: 'error', timestamp: '2023-06-15T07:37:30.276Z' }
+{ level: 'error', timestamp: '2023-06-15T07:38:12.037Z' }
+{
+  query: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `book` `book` WHERE book.book_details_id = ? AND `book`.`availability` = ?',
+  parameters: [ 1, false ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'book.book_details_id' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      at readableAddChunk (node:internal/streams/readable:305:9)
+      at Socket.Readable.push (node:internal/streams/readable:242:10)
+      at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'book.book_details_id' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `book` `book` WHERE book.book_details_id = 1 AND `book`.`availability` = false'
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'book.book_details_id' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `book` `book` WHERE book.book_details_id = 1 AND `book`.`availability` = false',
+  level: 'error',
+  timestamp: '2023-06-15T07:40:43.358Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:41:32.416Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:43:01.429Z'
+}
+{ level: 'error', timestamp: '2023-06-15T07:43:38.450Z' }
+{ level: 'error', timestamp: '2023-06-15T08:42:59.211Z' }
+{ level: 'error', timestamp: '2023-06-15T08:43:24.613Z' }
+{ level: 'error', timestamp: '2023-06-15T08:48:44.227Z' }
+{ level: 'error', timestamp: '2023-06-15T08:49:14.613Z' }
+{ level: 'error', timestamp: '2023-06-15T08:49:27.802Z' }
+{ level: 'error', timestamp: '2023-06-15T08:49:56.611Z' }
+{ level: 'error', timestamp: '2023-06-15T08:52:39.156Z' }
+{ level: 'error', timestamp: '2023-06-15T08:55:48.597Z' }
+{ level: 'error', timestamp: '2023-06-15T08:56:33.666Z' }
+{ level: 'error', timestamp: '2023-06-15T09:06:37.510Z' }
+{ level: 'error', timestamp: '2023-06-15T09:19:46.816Z' }

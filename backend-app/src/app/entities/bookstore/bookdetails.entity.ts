@@ -2,6 +2,11 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 't
 import { Book } from './book.entity';
 import { Picture } from './picture.entity';
 
+export enum status {
+  Active = 'active',
+  Closed = 'closed',
+}
+
 @Entity()
 export class Bookdetails extends BaseEntity {
 
@@ -22,6 +27,9 @@ export class Bookdetails extends BaseEntity {
 
   @Column()
   cost_per_day: number;
+
+  @Column({ type: 'enum', enum: status })
+  bookStatus: status;
 
   @OneToMany(type => Picture, (picture) => picture.bookdetails, { cascade: true })
   pictures: Picture[];

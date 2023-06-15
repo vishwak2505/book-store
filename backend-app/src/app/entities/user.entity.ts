@@ -2,6 +2,11 @@ import { UserWithPermissions } from '@foal/typeorm';
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Bookrented } from './bookstore/bookrented.entity';
 
+export enum userStatus {
+  Active = 'active',
+  Inactive = 'inactive',
+}
+
 @Entity()
 export class User extends UserWithPermissions {
 
@@ -22,6 +27,9 @@ export class User extends UserWithPermissions {
 
   @Column({nullable: true})
   avatar: string;
+
+  @Column({ type: 'enum', enum: userStatus })
+  status: userStatus;
 
   @OneToMany(type => Bookrented, (bookrented) => bookrented.user)
   book_rented: Bookrented[];

@@ -1,12 +1,14 @@
 import { Context, Get, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseOK, PermissionRequired, UseSessions, UserRequired, dependency } from '@foal/core';
 import { Bookdetails } from '../../entities/bookstore';
 import { LoggerService } from '../../services/logger';
+import { status } from '../../entities/bookstore/bookdetails.entity';
+
 export class GetbooksController {
 
   @dependency
   logger: LoggerService
 
-  @Get('/allBooks')
+  @Get('/')
   async getAllBooks() {
 
     try {
@@ -14,6 +16,7 @@ export class GetbooksController {
       const books = await Bookdetails.find({
         select: ['id', 'book_name', 'genre', 'cost_per_day'],
         relations: ['pictures'],
+        where: { bookStatus: status.Active, }
       });
   
       if (!books || books.length === 0) {

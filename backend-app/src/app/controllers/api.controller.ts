@@ -1,7 +1,5 @@
 import { ApiInfo, ApiServer, Context, controller, Get, Hook, HttpResponseNoContent, HttpResponseOK, IAppController, Options, UseSessions } from '@foal/core';
-import { User } from '../entities';
 import { AdminController, AuthController, GetbooksController, ProfileController } from './api';
-import { JWTRequired } from '@foal/jwt';
 
 @ApiInfo({
   title: 'Application API',
