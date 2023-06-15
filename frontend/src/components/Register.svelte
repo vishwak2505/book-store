@@ -1,4 +1,7 @@
 <script>
+  import { redirect } from "@roxi/routify";
+  import '../styles/form.scss';
+  import { loggedIn } from "../store";
   let name = '';
   let email = '';
   let password = '';
@@ -6,45 +9,32 @@
 
   $: submit = async() => {
     try{
-      await fetch('http://localhost:3001/user/signup', {
-      method:'POST',
-      headers: {'Content-Type': 'application/json'},
-      body:JSON.stringify({
-         email,
-         password
-      })
-    })
+      const response = await fetch('http://localhost:3001/api/user/signup', {
+        method:'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          email,
+          password
+        }),
+        credentials:'include'
+      });
+
+      if(response.status == 200){
+        $redirect('/home');
+      }
     }catch(e){
-      console.log("Error", e);
+      console.log("Error", e.message);
+      console.log("Error", e.status);
     }
   }
 </script>
 <style>
-  form{
-    padding: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  input:not([type='submit']){
-      border: 0;
-      border-bottom: 1px solid #a6a3a2;
-      border-radius: 0;
-      outline: 0;
-  }
-  input[type='submit']{
-      background-color: var(--dark);
-      color: var(--lighter);
-      padding: 4%;
-      border-radius: 10px;
-      cursor: pointer;
-  }
+  
 </style>
-<form on:submit|preventDefault={submit}>
+<form class="form" on:submit|preventDefault={submit}>
     <!-- <input bind:value = {name} type="email" placeholder="Email"><br> -->
-    <input bind:value = {email} type="text" placeholder="Email"><br>
-    <input bind:value = {password} type="password" placeholder="Password"><br>
+    <input class="form__input" bind:value = {email} type="text" placeholder="Email"><br>
+    <input class="form__input" bind:value = {password} type="password" placeholder="Password"><br>
     <!-- <input bind:value = {conPassword} type="password" placeholder="Confirm Password"><br> -->
-    <input type="submit" value="Register">
+    <input class="form__submit" type="submit" value="Register">
 </form>

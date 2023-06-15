@@ -1,38 +1,34 @@
 <script>
+    import { redirect } from "@roxi/routify";
+    import '../styles/form.scss';
     import { loggedIn } from "../store";
 
     let email = '';
     let password = '';
 
-    $:submit = () =>{
-      console.log('Logged in');
+    $: submit = async() => {
+    try{
+      const response = await fetch('http://localhost:3001/api/user/login', {
+        method:'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          email,
+          password
+        }),
+        credentials:'include'
+      })
+      if(response.status == 200){
+        $redirect('/home');
+      }
+    }catch(e){
+      console.log("Error", e);
     }
-</script>
-<style type="text/scss">
-  form{
-    padding: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
 
-  input:not([type='submit']){
-      border: 0;
-      border-bottom: 1px solid #a6a3a2;
-      border-radius: 0;
-      outline: 0;
+    
   }
-  input[type='submit']{
-      background-color: var(--dark);
-      color: var(--lighter);
-      padding: 4%;
-      border-radius: 10px;
-      cursor: pointer;
-  }
-  
-</style>
-<form on:submit|preventDefault={submit}>
-    <input type="type" placeholder="Email"><br>
-    <input type="password" placeholder="Password"><br>
-    <input type="submit" value="Login">
+</script>
+<form class="form" on:submit|preventDefault={submit}>
+    <input class="form__input" type="text" placeholder="Email" bind:value={email}><br>
+    <input class="form__input" type="password" placeholder="Password" bind:value={password}><br>
+    <input class="form__submit" type="submit" value="Login">
 </form>

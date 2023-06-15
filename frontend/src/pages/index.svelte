@@ -18,6 +18,7 @@
         @include flexCenter(column);
         width: 100%;
         height: 85vh;
+        font-size: 1rem;
 
         &__toggle{
             @include flexCenter(row, space-evenly);
@@ -27,13 +28,14 @@
             & div{
                 width:100%;
                 cursor: pointer;
-                padding: 5%;
+                padding: 2.5%;
                 text-align: center;
             }
         }
 
         &__active{
             min-height: 60vh;
+            min-width: 30vw;
             @include flexCenter(row,center,flex-start);
         }
     }

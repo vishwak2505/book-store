@@ -1,7 +1,0 @@
-{
-  "database": {
-    "database": "env(DB_NAME)",
-    "dropSchema": true,
-    "synchronize": true
-  }
-}
