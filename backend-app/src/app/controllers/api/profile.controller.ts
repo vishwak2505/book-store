@@ -4,6 +4,7 @@ import { User } from '../../entities';
 import { LoggerService } from '../../services/logger';
 import { Bookrented } from '../../entities/bookstore';
 import { JWTRequired } from '@foal/jwt';
+import { ErrorHandler } from '../../services';
 
 @ApiUseTag('profile')
 @JWTRequired({
@@ -16,7 +17,7 @@ export class ProfileController {
     disk: Disk;
   
     @dependency
-    logger: LoggerService;
+    logger: ErrorHandler;
 
     @Get('/viewProfile')
     @UserRequired()
@@ -123,7 +124,7 @@ export class ProfileController {
         if (file) {
           if (ctx.user.avatar) {
             await this.disk.delete(ctx.user.avatar);
-            this.logger.info(`${ctx.user.name} updated profile picture`);
+            this.logger.returnError(`${ctx.user.name} updated profile picture`);
           }
           ctx.user.avatar = file.path;
         }

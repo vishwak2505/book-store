@@ -7,6 +7,8 @@ import { Credentials } from '../../services/apis';
 import { getSecretOrPrivateKey, JWTRequired, removeAuthCookie, setAuthCookie } from '@foal/jwt';
 import { sign } from 'jsonwebtoken';
 import { promisify } from 'util';
+import { ErrorHandler } from '../../services';
+import { status } from '../../entities/bookstore/bookdetails.entity';
 
 const credentialsSchema = {
   type: 'object',
@@ -23,7 +25,7 @@ const credentialsSchema = {
 export class AuthController {
 
     @dependency
-    logger: LoggerService;
+    logger: ErrorHandler;
 
     @dependency
     credentials: Credentials
@@ -127,7 +129,7 @@ export class AuthController {
 
         const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
 
-        if (!bookDetails) {
+        if (!bookDetails || bookDetails.bookStatus != status.Active) {
           throw new HttpResponseNotFound('Book not found');
         }
 

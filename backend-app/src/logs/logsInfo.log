@@ -2140,3 +2140,6 @@
 {"@timestamp":"2023-06-15T17:32:09.693Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-15T17:32:50.254Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-15T17:33:26.744Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T04:40:29.617Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T04:41:49.315Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T04:44:32.915Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}

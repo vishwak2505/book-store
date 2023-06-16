@@ -9,6 +9,7 @@ import { User } from '../../../entities';
 import { status } from '../../../entities/bookstore/bookdetails.entity';
 import * as fs from 'fs';
 import csvParser = require('csv-parser');
+import { ErrorHandler } from '../../../services';
 
 @JWTRequired({
   cookie: true,
@@ -17,7 +18,7 @@ import csvParser = require('csv-parser');
 export class BooksController {
 
   @dependency
-  logger: LoggerService;
+  logger: ErrorHandler;
 
   @Get('/')
   @UserRequired()
@@ -45,7 +46,7 @@ export class BooksController {
       }
       return new HttpResponseOK(books);
     } catch (e) {
-      this.logger.error(e as Error);
+      this.logger.returnError(e as Error);
       if (e instanceof Error || e instanceof HttpResponse) {
         return this.logger.returnError(e);
       } else {

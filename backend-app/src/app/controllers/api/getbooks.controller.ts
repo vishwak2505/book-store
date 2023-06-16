@@ -2,11 +2,12 @@ import { Context, Get, HttpResponse, HttpResponseBadRequest, HttpResponseNotFoun
 import { Bookdetails } from '../../entities/bookstore';
 import { LoggerService } from '../../services/logger';
 import { status } from '../../entities/bookstore/bookdetails.entity';
+import { ErrorHandler } from '../../services';
 
 export class GetbooksController {
 
   @dependency
-  logger: LoggerService
+  logger: ErrorHandler;
 
   @Get('/')
   async getAllBooks() {
@@ -26,7 +27,7 @@ export class GetbooksController {
       return new HttpResponseOK(books);
 
     } catch (e) {
-      this.logger.error(e as Error);
+      this.logger.returnError(e as Error);
       if (e instanceof Error || e instanceof HttpResponse) {
         return this.logger.returnError(e);
       } else {

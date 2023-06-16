@@ -8,6 +8,12 @@ export class Credentials {
 
     async signUpUser(userDetails: {name: string, email: string, password: string, group: string}) {
 
+      const checkMail = await User.findOneBy({email: userDetails.email});
+
+      if(checkMail) {
+        throw new HttpResponseBadRequest('Mail id already exists');
+      }
+
         const user = new User();
         user.email = userDetails.email;
         user.amount_due = 0;

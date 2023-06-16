@@ -12,6 +12,7 @@ import { Disk } from '@foal/storage';
 import { createObjectCsvStringifier } from 'csv-writer';
 import { userStatus } from '../../entities/user.entity';
 import { userInfo } from 'os';
+import { ErrorHandler } from '../../services';
 
 const credentialsSchema = {
   type: 'object',
@@ -31,7 +32,7 @@ export class AdminController {
     ];
 
     @dependency
-    logger: LoggerService;
+    logger: ErrorHandler;
 
     @dependency
     credentials : Credentials;
