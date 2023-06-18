@@ -1,7 +1,6 @@
 import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { BooksController } from './admin';
 import { User } from '../../entities';
-import { LoggerService } from '../../services/logger';
 import { Book, Bookdetails } from '../../entities/bookstore';
 import { Credentials } from '../../services/apis';
 import { Bookrented, bookStatus } from '../../entities/bookstore/bookrented.entity';
@@ -11,8 +10,9 @@ import { promisify } from 'util';
 import { Disk } from '@foal/storage';
 import { createObjectCsvStringifier } from 'csv-writer';
 import { userStatus } from '../../entities/user.entity';
-import { userInfo } from 'os';
 import { ErrorHandler } from '../../services';
+import { LoggerService } from '../../services/logger';
+import { errors } from '../../services/error-handler.service';
 
 const credentialsSchema = {
   type: 'object',
@@ -32,7 +32,10 @@ export class AdminController {
     ];
 
     @dependency
-    logger: ErrorHandler;
+    logger: LoggerService;
+
+    @dependency
+    errorHandler: ErrorHandler;
 
     @dependency
     credentials : Credentials;
@@ -60,17 +63,16 @@ export class AdminController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          return new HttpResponseBadRequest('No token genereted');
+          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
         }
         setAuthCookie(response, token);
 
         return response;
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
 
     }
@@ -91,7 +93,7 @@ export class AdminController {
       try {
 
         if (ctx.request.body.accessKey != 'abcd') {
-          throw new HttpResponseForbidden('Incorrect Access Key');
+          throw this.errorHandler.returnError(errors.forbidden, 'Incorrect Access Key');
         } 
 
         const userDetails = {
@@ -109,18 +111,17 @@ export class AdminController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          return new HttpResponseBadRequest('No token genereted');
+          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
         }
 
         setAuthCookie(response, token);
 
         return response;
-      } catch (e){
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response){
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -154,16 +155,15 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw new HttpResponseNotFound('No users found');
+          throw this.errorHandler.returnError(errors.notFound, 'No users found');
         }
 
         return new HttpResponseOK(users);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -190,7 +190,7 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw new HttpResponseNotFound('No users found');
+          throw this.errorHandler.returnError(errors.notFound, 'No users found');
         }
 
         const csvStringifier = createObjectCsvStringifier({
@@ -210,12 +210,11 @@ export class AdminController {
         response.body = csvData;
 
         return response;
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -250,16 +249,15 @@ export class AdminController {
           .getRawMany();
         
         if (!rentedBooks) {
-          throw new HttpResponseNotFound('No Rented Books Found')
+          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
         }  
 
         return new HttpResponseOK(rentedBooks);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -295,16 +293,15 @@ export class AdminController {
           .getRawMany();
 
         if (!rentedBooks) {
-          throw new HttpResponseNotFound('No Rented Books Found')
+          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
         }  
     
         return new HttpResponseOK(rentedBooks);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -321,15 +318,14 @@ export class AdminController {
         const user = await User.findOneBy({id: userId});
 
         if (!user) {
-          throw new HttpResponseNotFound('No user found with given ID');
+          throw this.errorHandler.returnError(errors.notFound, 'No user found with given ID');
         }
         return new HttpResponseOK(user);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -346,7 +342,7 @@ export class AdminController {
         const user = await User.findOne({ where: { id: userId }, relations: ['book_rented'] });
     
         if (!user || user.status == userStatus.Inactive) {
-          throw new HttpResponseNotFound('User not found with given ID');
+          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
         }
 
         const books =  await Book.createQueryBuilder('book')
@@ -396,12 +392,11 @@ export class AdminController {
         await user.save();
     
         return new HttpResponseOK(user);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 

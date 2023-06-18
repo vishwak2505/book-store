@@ -3,11 +3,15 @@ import { Bookdetails } from '../../entities/bookstore';
 import { LoggerService } from '../../services/logger';
 import { status } from '../../entities/bookstore/bookdetails.entity';
 import { ErrorHandler } from '../../services';
+import { errors } from '../../services/error-handler.service';
 
 export class GetbooksController {
 
   @dependency
-  logger: ErrorHandler;
+  logger: LoggerService;
+
+  @dependency
+  errorHandler: ErrorHandler;
 
   @Get('/')
   async getAllBooks() {
@@ -15,24 +19,21 @@ export class GetbooksController {
     try {
 
       const books = await Bookdetails.find({
-        select: ['id', 'book_name', 'genre', 'cost_per_day'],
+        select: ['id', 'book_name', 'genre', 'cost_per_day', 'bookStatus'],
         relations: ['pictures'],
-        where: { bookStatus: status.Active, }
       });
   
       if (!books || books.length === 0) {
-        throw new HttpResponseNotFound('No books found');
+        throw this.errorHandler.returnError(errors.notFound, 'No books found');
       }
   
       return new HttpResponseOK(books);
 
-    } catch (e) {
-      this.logger.returnError(e as Error);
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+    } catch (response) {
+      if (response instanceof HttpResponse)
+          return response;
+      
+      this.logger.error(`${response}`);
     }
   }
 

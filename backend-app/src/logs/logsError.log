@@ -2123,3 +2123,13 @@
 {"@timestamp":"2023-06-16T04:40:29.617Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-16T04:41:49.315Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-16T04:44:32.915Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:27:11.546Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'book.book' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:27:11.549Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'book.book' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:28:03.724Z","log.level":"error","message":"TypeORMError: Relation with property path book in entity was not found.","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:28:03.727Z","log.level":"error","message":"TypeORMError: Relation with property path book in entity was not found.","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:29:41.909Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'book.books' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:29:41.911Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'book.books' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:39:24.776Z","log.level":"error","message":"ReferenceError: bookStatus is not defined","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T08:39:24.779Z","log.level":"error","message":"ReferenceError: bookStatus is not defined","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:14:20.709Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:17:01.463Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
