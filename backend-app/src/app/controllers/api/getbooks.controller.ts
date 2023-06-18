@@ -18,10 +18,25 @@ export class GetbooksController {
 
     try {
 
-      const books = await Bookdetails.find({
-        select: ['id', 'book_name', 'genre', 'cost_per_day', 'bookStatus'],
-        relations: ['pictures'],
-      });
+      // const books = await Bookdetails.find({
+      //   select: ['id', 'book_name', 'genre', 'cost_per_day', 'bookStatus'],
+      //   relations: ['pictures'],
+      // });
+
+      const books = await Bookdetails
+        .createQueryBuilder('bookdetails')
+        .select([
+          'bookdetails.id',
+          'bookdetails.book_name',
+          'bookdetails.genre',
+          'bookdetails.cost_per_day',
+          'bookdetails.bookStatus',
+          '(bookdetails.total_no_of_copies - bookdetails.no_of_copies_rented) AS no_of_books_available',
+        ])
+        .leftJoin('bookdetails.pictures', 'picture')
+        .groupBy('bookdetails.id')
+        .orderBy('bookdetails.bookStatus')
+        .getRawMany();
   
       if (!books || books.length === 0) {
         throw this.errorHandler.returnError(errors.notFound, 'No books found');
