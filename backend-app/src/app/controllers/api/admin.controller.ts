@@ -1,4 +1,4 @@
-import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
+import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, Patch, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { BooksController } from './admin';
 import { User } from '../../entities';
 import { Book, Bookdetails } from '../../entities/bookstore';
@@ -184,7 +184,8 @@ export class AdminController {
             'user.id',
             'user.name',
             'user.email',
-            'user.amount_due'
+            'user.amount_due',
+            'user.status'
           ]);
 
         const users = await queryBuilder.getMany();
@@ -198,7 +199,8 @@ export class AdminController {
             { id: 'id', title: 'ID' },
             { id: 'name', title: 'Name' },
             { id: 'email', title: 'Email' },
-            { id: 'amount_due', title: 'Amount Due' }
+            { id: 'amount_due', title: 'Amount Due' },
+            { id: 'status', title: 'Status' }
           ]
         });
 
@@ -398,6 +400,35 @@ export class AdminController {
       
         this.logger.error(`${response}`);
       }
+    }
+
+    @Patch('/:userId')
+    @JWTRequired({
+      cookie: true,
+      user: (id: number) => User.findOneWithPermissionsBy({ id })
+    })
+    @UserRequired()
+    @PermissionRequired('update-user')
+    @ValidatePathParam('userId', { type: 'number' })
+    async reactivateUser(ctx: Context, { userId }: { userId: number }) {
+      try {
+        const user = await User.findOne({ where: { id: userId } });
+    
+        if (!user) {
+          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
+        }
+
+        user.status = userStatus.Active;
+
+        await user.save();
+
+        return new HttpResponseOK(user);
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+      } 
     }
 
     private async createJWT(user: User): Promise<string> {
