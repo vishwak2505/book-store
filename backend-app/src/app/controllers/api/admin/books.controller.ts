@@ -354,4 +354,37 @@ export class BooksController {
       this.logger.error(`${response}`);
     } 
   }
+
+  @Patch('/reactivateBook')
+  @UserRequired()
+  @PermissionRequired('update-book')
+  @ValidateQueryParam('bookName', { type: 'string' })
+  async reactivateBook(ctx: Context) {
+    try {
+      const bookName = ctx.request.query.bookName;
+
+      const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
+
+      if (!bookDetails) {
+        throw this.errorHandler.returnError(errors.notFound, 'Book not found');
+      }
+
+      await Book 
+          .createQueryBuilder('Book')
+          .update()
+          .set({ availability: true })
+          .where('book.bookDetailsId = :bookDetailsId', { bookDetailsId: bookDetails.id })
+          .execute();
+
+        bookDetails.bookStatus = status.Active;
+        await bookDetails.save();
+
+        return new HttpResponseOK(bookDetails);
+    } catch(response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
+    } 
+  }
 }
