@@ -53,6 +53,7 @@ export class ProfileController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
   
@@ -77,6 +78,7 @@ export class ProfileController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
       
     }
@@ -139,6 +141,7 @@ export class ProfileController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
       
     }

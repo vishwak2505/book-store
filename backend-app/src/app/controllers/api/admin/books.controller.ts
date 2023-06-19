@@ -46,6 +46,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
         
     }
   }
@@ -71,6 +72,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     }
   }
 
@@ -131,6 +133,7 @@ export class BooksController {
       return new HttpResponseCreated(bookDetails);
     } catch (e) {
       this.logger.error(`${e}`);
+      return new HttpResponseBadRequest();
     }
   }
 
@@ -195,6 +198,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     }
   }
 
@@ -296,6 +300,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     }
   }
 
@@ -328,6 +333,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     } 
   }
 
@@ -373,6 +379,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     } 
   }
 
@@ -406,6 +413,7 @@ export class BooksController {
         return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     } 
   }
 }

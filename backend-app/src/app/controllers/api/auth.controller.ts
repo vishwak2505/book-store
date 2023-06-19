@@ -72,6 +72,7 @@ export class AuthController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
     
@@ -106,6 +107,7 @@ export class AuthController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -160,6 +162,7 @@ export class AuthController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -224,6 +227,7 @@ export class AuthController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
