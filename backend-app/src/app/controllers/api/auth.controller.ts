@@ -84,7 +84,7 @@ export class AuthController {
           name: ctx.request.body.name,
           email: ctx.request.body.email,
           password: ctx.request.body.password,
-          group: 'customer'
+          group: ['customer']
         }
             
         const user = await this.credentials.signUpUser(userDetails);

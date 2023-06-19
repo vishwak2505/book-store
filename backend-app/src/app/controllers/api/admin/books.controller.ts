@@ -198,22 +198,27 @@ export class BooksController {
     }
   }
 
-  @Patch('/update')
+  @Patch('/updateBookDetail')
   @UserRequired()
   @PermissionRequired('update-book') 
-  @ValidateBody({
-    type: 'object',
-    properties: {
-      bookId: { type: 'number' },
-      bookName: { type: 'string', maxLength: 255 },
-      genre: { type: 'string', maxLength: 255 },
-      totalNoOfCopies: { type: 'number' },
-      costPerDay: { type: 'number' }
+  @ParseAndValidateFiles(
+    {
+      pictures: { required: false, saveTo: 'images/books', multiple: true }
     },
-    required: [ 'bookId' ],
-    additionalProperties: false,
-  })
-  async updateBook(ctx: Context<Bookdetails>) {
+    {
+      type: 'object',
+      properties: {
+        bookId: { type: 'number' },
+        bookName: { type: 'string', maxLength: 255 },
+        genre: { type: 'string', maxLength: 255 },
+        totalNoOfCopies: { type: 'number' },
+        costPerDay: { type: 'number' }
+      },
+      required: ['bookId'],
+      additionalProperties: false,
+    }
+  )
+  async updateBook(ctx: Context<Bookdetails> & { files: { pictures?: UploadedFile[] } }) {
     try {
       const bookId = ctx.request.body.bookId;
       const bookDetails = await Bookdetails.findOneBy({ id: bookId });
@@ -265,6 +270,22 @@ export class BooksController {
 
       if (costPerDay) {
         bookDetails.cost_per_day = costPerDay;
+      }
+
+      if (ctx.files.getAll()) {
+        const pictures = ctx.files.getAll();
+
+        const savedpictures = await Promise.all(
+          pictures.map(async (picture) => {
+
+            const pictureEntity = new Picture();
+            pictureEntity.fileName = picture.path;
+            pictureEntity.bookdetails = bookDetails;
+            await pictureEntity.save();
+
+            return pictureEntity;
+          })
+        );
       }
 
       await bookDetails.save();

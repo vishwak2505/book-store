@@ -100,11 +100,11 @@ export class AdminController {
           name: ctx.request.body.name,
           email: ctx.request.body.email,
           password: ctx.request.body.password,
-          group: 'admin',
+          group: ['admin', 'customer'],
         }
   
         const user = await this.credentials.signUpUser(userDetails);
-
+        console.log(user);
         await user.save();
     
         const response = new HttpResponseOK();

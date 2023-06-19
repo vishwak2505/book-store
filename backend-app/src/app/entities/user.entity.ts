@@ -36,4 +36,4 @@ export class User extends UserWithPermissions {
 
 }
 
-export { Group, Permission, DatabaseSession } from '@foal/typeorm';
+export { Group, Permission } from '@foal/typeorm';
