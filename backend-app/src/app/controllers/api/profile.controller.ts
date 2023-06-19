@@ -4,6 +4,8 @@ import { User } from '../../entities';
 import { LoggerService } from '../../services/logger';
 import { Bookrented } from '../../entities/bookstore';
 import { JWTRequired } from '@foal/jwt';
+import { ErrorHandler } from '../../services';
+import { errors } from '../../services/error-handler.service';
 
 @ApiUseTag('profile')
 @JWTRequired({
@@ -17,6 +19,9 @@ export class ProfileController {
   
     @dependency
     logger: LoggerService;
+
+    @dependency
+    errorHandler: ErrorHandler;
 
     @Get('/viewProfile')
     @UserRequired()
@@ -43,12 +48,11 @@ export class ProfileController {
           rentedBooks,
         }
         return new HttpResponseOK(userProfile);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
   
@@ -60,7 +64,7 @@ export class ProfileController {
         let user = ctx.user;
         
         if (!user) {
-          throw new HttpResponseNotFound('No user found');
+          throw this.errorHandler.returnError(errors.notFound, 'No user found');
         }
     
         if (!user.avatar) {
@@ -68,12 +72,11 @@ export class ProfileController {
         }
     
         return this.disk.createHttpResponse(user.avatar);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
       
     }
@@ -88,7 +91,7 @@ export class ProfileController {
         type: 'object',
         properties: {
           name: { type: 'string', maxLength: 255 },
-          email: { type:'srtring', format: 'email' }
+          email: { type: "string", format: "email", nullable: true }
         },
       }
     )
@@ -110,7 +113,12 @@ export class ProfileController {
           ctx.user.name = name;
         }
 
-        if (email != '') {
+        if (email) {
+          const user = await User.findOneBy({ email });
+
+          if (user) {
+            throw this.errorHandler.returnError(errors.notImplemented, 'Mail id already in use');
+          }
           ctx.user.email = email;
         }
 
@@ -118,7 +126,7 @@ export class ProfileController {
         if (file) {
           if (ctx.user.avatar) {
             await this.disk.delete(ctx.user.avatar);
-            this.logger.info(`${ctx.user.name} updated profile picture`);
+            this.logger.returnError(`${ctx.user.name} updated profile picture`);
           }
           ctx.user.avatar = file.path;
         }
@@ -126,12 +134,11 @@ export class ProfileController {
         await ctx.user.save();
     
         return new HttpResponseNoContent();
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
       
     }

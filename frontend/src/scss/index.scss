@@ -1,0 +1,11 @@
+// Components/common elements
+@forward './components/navbar.scss';
+@forward './components/form.scss';
+@forward './components/toast.scss';
+@forward './components/table.scss';
+@forward './components/modal.scss';
+
+// Pages
+@forward './pages/customer.scss';
+@forward './pages/admin.scss';
+

@@ -1,68 +1,47 @@
 <script>
-  import {loggedIn, displayOptions} from '../store.js';
+  import { goto } from '@roxi/routify';
+  import { loggedIn } from '../store.js';
+  import { onMount } from 'svelte';
 
-  const checkCookie = (cookieName) => {
-      const cookies = document.cookie.split(';');
-      for(let cookie of cookies){
-        if(cookie.startsWith(cookieName + '=')){
-            return true;
-        }
-      }
-      return false;
+  let openMenu = false;
+
+  const logout = async() => {
+    loggedIn.set({
+      status: false,
+      user: null
+    });
+    localStorage.setItem('loggedInDetails', JSON.stringify($loggedIn));
+    const response = await fetch('http://localhost:3001/api/user/logout',{
+      method:'POST',
+      credentials:'include'
+    });
+    openMenu = false;
+    if(response.status === 200){
+      $goto('/');
+    }
   }
-
-  $: $loggedIn = checkCookie('auth');
+  const expandMenu = () => openMenu = !openMenu; 
 </script>
-<style type="text/scss">
-   .navbar{
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     background-color: var(--darker);
-     color: var(--lighter);
-     box-sizing: border-box;
-     padding: 0 5%;
-     width: 100%;
-     position: relative;
 
-    &__img{
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-    }
-
-    &__options{
-      position: absolute;
-      top: 100%;
-      right: 0;
-      margin-top: 0;
-      background-color: var(--darker);
-      list-style-type: none;
-      display: flex;
-      flex-direction: column;
-      padding: 0.5% 2%;
-    }
-
-    &__link{
-      text-decoration: none;
-      color: var(--lighter);
-      cursor: pointer;
-    }
-   }
-   
-
-</style>
 <div class="navbar">
     <h1>BOOK STORE</h1>
-    {#if $loggedIn}
-        <img class="navbar__img" src="/assets/profile.png" alt="Profile">
+    {#if $loggedIn.status}
+        <img on:click={expandMenu} class="navbar__img" src="/assets/profile.png" alt="Profile">
     {/if}
     
-    {#if $displayOptions}
+    {#if $loggedIn.status && openMenu}
        <div class="navbar__options">
-         <a class="navbar__link" href="/profile">My profile</a>
-         <a class="navbar__link" href="/mybooks">My books</a>
-         <span class="navbar__link">Logout</span>
+         {#if $loggedIn.user === 'customer'}
+          <a class="navbar__link" href="/customer" on:click={expandMenu}>Home</a>
+          <a class="navbar__link" href="/customer/profile" on:click={expandMenu}>My profile</a>
+          <a class="navbar__link" href="/customer/mybooks" on:click={expandMenu}>My books</a>
+         {/if}
+         {#if $loggedIn.user === 'admin'}
+          <a class="navbar__link" href="/admin" on:click={expandMenu}>Home</a>
+          <a class="navbar__link" href="/admin/books" on:click={expandMenu}>All books</a>
+          <a class="navbar__link" href="/admin/rentedbooks" on:click={expandMenu}>Rented books</a>
+         {/if}
+          <span class="navbar__link" on:click={logout}>Logout</span>
        </div>
     {/if}    
 </div>

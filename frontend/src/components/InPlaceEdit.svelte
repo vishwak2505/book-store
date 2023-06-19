@@ -1,37 +1,34 @@
 <script>
-    import { onMount } from "svelte";
+    import { afterUpdate, onMount } from "svelte";
+    import { updateApi } from "../functions/apiCalls";
 
     export let value, property = "";
     let editing = false, original;
 
     onMount(()=>{
-        console.log(value, property);
-    });
+        original = value;
+    })
+
+    afterUpdate(() => {
+        original === undefined ? original = value : null;
+    })
 
     const edit = () => {
         editing = true;
     }
 
-    const keydown = (event) => {
-        if(event.key === 'Escape' && value != original){
-            event.preventDefault();
-            value = original;
-            editing = false
-        }
-    }
+    const submit = async(event) => {
+        if(event.key === 'Enter' && value != original){
+          const formData = new FormData();
+          formData.append(property, value);
 
-    const submit = async() => {
-        if(value != original){
-          await fetch("http://localhost:3001/api/profile/updateProfile", {
-            method:"POST",
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                property: value
-            })
-          })
-          editing = false;
+          const res = await updateApi(formData);
+          value = (res != 204) ? original : value;
+          original = (res != 2014 ) ? value : original;
+
+            editing = false;
+        }else if(event.key === 'Enter'){
+            editing = false;
         }
     }
 
@@ -40,18 +37,9 @@
     }
 </script>
 
-<style type="text/scss">
-    input{
-       font-size: 1.1rem;
-       border: 0;
-       outline: 0;
-       border-bottom: 1px solid #a6a3a2; 
-    }
-</style>
-
 {#if editing}
-    <form on:submit|preventDefault={submit} on:keydown={keydown}>
-        <input bind:value on:blur={submit} use:focus>
+    <form class="inPlaceForm" on:submit|preventDefault={()=>{submit}}>
+        <input class="inPlaceForm__input" bind:value use:focus on:keydown={submit}>
     </form>
 {:else}
     <span on:click={edit}>{value}</span>

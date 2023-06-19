@@ -1,9 +1,10 @@
+@use '../utilities';
+
+//Form
 .form{
     padding: 10%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    @include utilities.flexCenter(column, space-around, initial);
 
     &__input{
         border: 0;
@@ -25,3 +26,21 @@
         font-size: 1rem;
     }
 }
+
+.searchForm{
+    @include utilities.flexCenter(row, center, initial);
+    margin: 3%;
+    
+    &__submit{
+        padding: 2.5%
+    }
+}
+
+.inPlaceForm{
+    &__input{
+        font-size: 1.1rem;
+        border: 0;
+        outline: 0;
+        border-bottom: 1px solid #a6a3a2;
+    } 
+ }

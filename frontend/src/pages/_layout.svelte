@@ -1,7 +1,11 @@
 <!-- routify:options preload="proximity" -->
 <script>
     import Nav from '../components/Nav.svelte';
-    import { loggedIn } from '../store.js';
+    import Toast from '../components/Toast.svelte';
+    import { loggedIn, toast } from '../store.js';
+    
+    const loggedInDetails = JSON.parse(localStorage.getItem('loggedInDetails'));
+    if(loggedInDetails) $loggedIn = loggedInDetails;
 </script>
 <style>
     main{
@@ -12,8 +16,11 @@
     }
 </style>
 <main>
-    <Nav {loggedIn}></Nav>
+    <Nav></Nav>
     <slot/>
+    {#if $toast.showToast}
+        <Toast></Toast>
+    {/if}
 </main>
 
 

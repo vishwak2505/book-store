@@ -1,14 +1,16 @@
-import { ApiUseTag, Context, Delete, Get, HttpResponse, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
-import { LoggerService } from '../../../services/logger';
+import { Context, Delete, Get, HttpResponse, HttpResponseBadRequest, HttpResponseCreated, HttpResponseNoContent, HttpResponseNotFound, HttpResponseNotImplemented, HttpResponseOK, Patch, PermissionRequired, Post, UseSessions, UserRequired, ValidateBody, ValidatePathParam, ValidateQueryParam, dependency } from '@foal/core';
 import { Book, Bookdetails } from '../../../entities/bookstore';
-import { Bookrented, bookStatus } from '../../../entities/bookstore/bookrented.entity';
 import { ParseAndValidateFiles } from '@foal/storage';
 import { Picture } from '../../../entities/bookstore/picture.entity';
 import { UploadedFile } from 'express-fileupload';
 import { JWTRequired } from '@foal/jwt';
 import { User } from '../../../entities';
 import { status } from '../../../entities/bookstore/bookdetails.entity';
-import * as csvtojson from 'csvtojson';
+import * as fs from 'fs';
+import csvParser = require('csv-parser');
+import { ErrorHandler } from '../../../services';
+import { LoggerService } from '../../../services/logger';
+import { errors } from '../../../services/error-handler.service';
 
 @JWTRequired({
   cookie: true,
@@ -19,35 +21,32 @@ export class BooksController {
   @dependency
   logger: LoggerService;
 
+  @dependency
+  errorHandler: ErrorHandler;
+
   @Get('/')
   @UserRequired()
   @PermissionRequired('view-book')
   async getAllBooks() {
 
     try {
-      let queryBuilder = Bookdetails
-      .createQueryBuilder('book')
-      .select([
-        'book.book_name',
-        'book.genre',
-        'book.total_no_of_copies',
-        'book.no_of_copies_rented',
-        'book.cost_per_day',
-      ]);
 
-      const books = await queryBuilder.getMany();
+      const books = await Bookdetails.find({
+        select: ['id', 'book_name', 'genre', 'cost_per_day', 'total_no_of_copies', 'no_of_copies_rented','bookStatus'],
+        relations: ['pictures', 'books'],
+        order: {bookStatus: 'ASC'},
+      });
 
       if (!books) {
-        throw new HttpResponseNotFound('No books found');
+        throw this.errorHandler.returnError(errors.notFound, 'No books found');
       }
       return new HttpResponseOK(books);
-    } catch (e) {
-      this.logger.error(e as Error);
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+    } catch (response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
+        
     }
   }
 
@@ -60,19 +59,18 @@ export class BooksController {
     try {
       const bookName = ctx.request.query.bookName;
 
-      const book = await Bookdetails.findOne({where: { book_name: bookName }});
+      const book = await Bookdetails.findOne({where: { book_name: bookName }, relations: ['pictures', 'books']});
 
       if (!book) {
-        throw new HttpResponseNotFound('No Book Found');
+        throw this.errorHandler.returnError(errors.notFound, 'No book found');
       }
 
       return new HttpResponseOK(book);
-    } catch (e) {
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+    } catch (response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
     }
   }
 
@@ -132,31 +130,44 @@ export class BooksController {
 
       return new HttpResponseCreated(bookDetails);
     } catch (e) {
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+      this.logger.error(`${e}`);
     }
   }
 
   @Post('/addBooksFromCSV')
   @UserRequired()
   @PermissionRequired('add-book')
-  @ParseAndValidateFiles(
-    {
-      file: { required: true, saveTo: 'uploads', multiple: false }
-    }
-  )  
+  @ParseAndValidateFiles({
+    file: { required: true, saveTo: 'uploads', multiple: false }
+  })
   async addBooksFromCSV(ctx: Context<Bookdetails & { file: { csvFile?: UploadedFile } }>) {
     try {
-      const csvFilePath = ctx.files.get('file')[0];
-
-      console.log(csvFilePath.path);
-
-      const jsonArray = await csvtojson().fromFile(csvFilePath.path);
+      const csvFile = ctx.files.get('file')[0];
+      const csvFilePath = csvFile.path;
+  
+      if (csvFile.mimeType != 'text/csv') {
+        throw this.errorHandler.returnError(errors.badRequest, 'File type is not csv');
+      }
+  
+      const jsonArray: any[] = await new Promise((resolve, reject) => {
+        const results: any[] = [];
+  
+        fs.createReadStream(`assets/${csvFilePath}`)
+          .pipe(csvParser())
+          .on('data', (data) => results.push(data))
+          .on('end', () => resolve(results))
+          .on('error', (error) => reject(error));
+      });
+      
+      let books: string[] = [];
 
       for (const row of jsonArray) {
+        const book = await Bookdetails.findOne({ where: {book_name: row.bookName }});
+        if (book) {
+          books.push(row.bookName);
+          continue;
+        }
+
         const bookDetails = new Bookdetails();
         bookDetails.book_name = row.bookName;
         bookDetails.genre = row.genre;
@@ -164,9 +175,9 @@ export class BooksController {
         bookDetails.no_of_copies_rented = 0;
         bookDetails.cost_per_day = row.costPerDay;
         bookDetails.bookStatus = status.Active;
-
+  
         await bookDetails.save();
-
+  
         for (let i = 0; i < row.totalNoOfCopies; i++) {
           const book = new Book();
           book.availability = true;
@@ -174,15 +185,16 @@ export class BooksController {
           await book.save();
         }
       }
-
-      return new HttpResponseCreated('Books added successfully');
-    } catch (e) {
-      console.log(e);
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
+      
+      if (books.length > 0){
+        return new HttpResponseCreated(`Books added successfully, Duplicate Entries: ${books}`);
       }
+      return new HttpResponseCreated('Books added successfully');
+    } catch (response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
     }
   }
 
@@ -207,7 +219,7 @@ export class BooksController {
       const bookDetails = await Bookdetails.findOneBy({ id: bookId });
 
       if (!bookDetails) {
-        throw new HttpResponseNotFound('Book Not Found');
+        throw this.errorHandler.returnError(errors.notFound, 'Book not found');
       }
       
       const bookName = ctx.request.body.bookName;
@@ -232,14 +244,14 @@ export class BooksController {
             for (let i = 0; i < deleteBook; i++) {
               const book = await Book.findOne({where: {book_details: {id: bookId}, availability: true}});
               if (!book) {
-                throw new HttpResponseNotFound('Book Not Found');
+                throw this.errorHandler.returnError(errors.notFound, 'Book Not Found');
               }
               await book.remove();
             }
           }
 
         } else {
-          throw new HttpResponseNotImplemented('Total no of copies is less than no of copies rented');
+          throw this.errorHandler.returnError(errors.notImplemented, 'Total no of copies is less than no of copies rented');
         }
       }
       
@@ -258,12 +270,11 @@ export class BooksController {
       await bookDetails.save();
 
       return new HttpResponseOK(bookDetails);
-    } catch(e) {
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+    } catch(response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
     }
   }
 
@@ -278,11 +289,11 @@ export class BooksController {
       const book = await Book.findOne({ where: { id: bookId }, relations: ['book_details'] });
 
       if (!book) {
-        throw new HttpResponseNotFound('No Book Found');
+        throw this.errorHandler.returnError(errors.notFound, 'Book not found');
       }
       
       if (book.availability == false) {
-        throw new HttpResponseBadRequest('Book is rented by a customer');
+        throw this.errorHandler.returnError(errors.notImplemented, 'Book is reanted by a customer')
       }
 
       await book.remove();
@@ -291,12 +302,11 @@ export class BooksController {
       await book.book_details.save();
 
       return new HttpResponseOK(book.book_details);
-    } catch(e) {
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+    } catch(response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
     } 
   }
 
@@ -312,7 +322,7 @@ export class BooksController {
       const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
 
       if (!bookDetails) {
-        throw new HttpResponseNotFound('No Book Found');
+        throw this.errorHandler.returnError(errors.notFound, 'Book not found');
       }
 
       
@@ -323,7 +333,7 @@ export class BooksController {
         .getMany();
 
       if (books.length > 0) {
-        throw new HttpResponseNotImplemented('Books are rented by users');
+        throw this.errorHandler.returnError(errors.notImplemented, 'Books are rented by users');
       }  
       
       await Book 
@@ -337,12 +347,11 @@ export class BooksController {
       await bookDetails.save();
 
       return new HttpResponseOK(bookDetails);
-    } catch(e) {
-      if (e instanceof Error || e instanceof HttpResponse) {
-        return this.logger.returnError(e);
-      } else {
-        return new HttpResponseBadRequest(e);
-      }
+    } catch(response) {
+      if (response instanceof HttpResponse)
+        return response;
+      
+      this.logger.error(`${response}`);
     } 
   }
 }

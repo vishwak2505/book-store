@@ -1,14 +1,27 @@
 <script>
     import { redirect } from "@roxi/routify";
-    import '../styles/form.scss';
-    import { loggedIn } from "../store";
+    import { loggedIn, toast } from "../store";    
 
     let email = '';
     let password = '';
+    let isAdmin = false;
 
-    $: submit = async() => {
+    const validate = async() => {
+        if(email === '' || password === ''){
+          $toast.showToast = true;
+          $toast.message = 'Fields cannot be empty';
+        }else if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) === false){
+          $toast.showToast = true;
+          $toast.message = 'Enter the email in right format';
+        }else{
+          await submit();
+        }
+      }
+
+    const submit = async() => {
+    const user = isAdmin ? 'admin' : 'user';
     try{
-      const response = await fetch('http://localhost:3001/api/user/login', {
+      const response = await fetch(`http://localhost:3001/api/${user}/login`, {
         method:'POST',
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify({
@@ -17,18 +30,36 @@
         }),
         credentials:'include'
       })
+      
       if(response.status == 200){
-        $redirect('/home');
+        const loggedInDetails = {};
+        loggedInDetails.status = true;
+        
+        if(isAdmin){
+          $redirect('/admin');
+          loggedInDetails.user = 'admin';
+        }else{
+          $redirect('/customer');
+          loggedInDetails.user = 'customer';
+        }
+        $loggedIn = loggedInDetails;
+        localStorage.setItem('loggedInDetails', JSON.stringify(loggedInDetails));
+      }else{
+         $toast.showToast = true;
+         $toast.message = await response.text();
       }
     }catch(e){
-      console.log("Error", e);
-    }
-
-    
+      $toast.showToast = true;
+      $toast.message = 'Server is down';
+    }  
   }
 </script>
-<form class="form" on:submit|preventDefault={submit}>
+<form class="form" on:submit|preventDefault={validate}>
     <input class="form__input" type="text" placeholder="Email" bind:value={email}><br>
     <input class="form__input" type="password" placeholder="Password" bind:value={password}><br>
+    <div>
+      <input class="form_input" bind:value = {isAdmin} type="checkbox" id="isAdmin">
+      <label for="isAdmin">Are you an admin?</label>
+    </div>
     <input class="form__submit" type="submit" value="Login">
 </form>

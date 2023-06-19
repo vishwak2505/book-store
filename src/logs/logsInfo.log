@@ -1,0 +1,2310 @@
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T05:19:29.624Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$HLS+HSYsGnWqOIN+T9YnVg==$WK/tvQC+YKjq58AsnsZs3pAGpXGod7cwX5Qj7XUgTwE=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$HLS+HSYsGnWqOIN+T9YnVg==$WK/tvQC+YKjq58AsnsZs3pAGpXGod7cwX5Qj7XUgTwE=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$HLS+HSYsGnWqOIN+T9YnVg==$WK/tvQC+YKjq58AsnsZs3pAGpXGod7cwX5Qj7XUgTwE=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T06:27:15.314Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$fLHnefyfzbzU28HGlxPgNw==$I3BZfLyDr2O+jQPAWggFrcYjb1l7uQtubjE7cCTTm5I=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$fLHnefyfzbzU28HGlxPgNw==$I3BZfLyDr2O+jQPAWggFrcYjb1l7uQtubjE7cCTTm5I=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$fLHnefyfzbzU28HGlxPgNw==$I3BZfLyDr2O+jQPAWggFrcYjb1l7uQtubjE7cCTTm5I=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T06:37:09.713Z'
+}
+{ level: 'error', timestamp: '2023-06-07T07:01:21.707Z' }
+{ level: 'error', timestamp: '2023-06-07T07:03:03.492Z' }
+{ level: 'error', timestamp: '2023-06-07T07:06:14.219Z' }
+{ level: 'error', timestamp: '2023-06-07T07:10:09.595Z' }
+{ level: 'error', timestamp: '2023-06-07T07:19:38.796Z' }
+{ level: 'error', timestamp: '2023-06-07T07:20:28.310Z' }
+{ level: 'error', timestamp: '2023-06-07T07:21:01.672Z' }
+{ level: 'error', timestamp: '2023-06-07T07:30:32.555Z' }
+{ level: 'error', timestamp: '2023-06-07T08:05:38.123Z' }
+{ level: 'error', timestamp: '2023-06-07T08:17:32.635Z' }
+{ level: 'error', timestamp: '2023-06-07T09:30:06.002Z' }
+{ level: 'error', timestamp: '2023-06-07T09:31:20.179Z' }
+{ level: 'error', timestamp: '2023-06-07T09:32:34.122Z' }
+{ level: 'error', timestamp: '2023-06-07T10:11:57.858Z' }
+{ level: 'error', timestamp: '2023-06-07T10:21:14.525Z' }
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$q0GFKv7r30/lNMS/eGGyAg==$yK89roCWc/ul0k5dbxO/OFE0hrj3EW1Ixa4Cr2Ha69A=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$q0GFKv7r30/lNMS/eGGyAg==$yK89roCWc/ul0k5dbxO/OFE0hrj3EW1Ixa4Cr2Ha69A=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$q0GFKv7r30/lNMS/eGGyAg==$yK89roCWc/ul0k5dbxO/OFE0hrj3EW1Ixa4Cr2Ha69A=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T11:47:30.403Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@example.com',
+    'pbkdf2_sha256$310000$rABYOjJhdKcHXPeVAzRaAA==$wnFEtv7cWZ9FU6jNEPkd4sY80U4VC1lN/4MY/1MzSqc=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$rABYOjJhdKcHXPeVAzRaAA==$wnFEtv7cWZ9FU6jNEPkd4sY80U4VC1lN/4MY/1MzSqc=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@example.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@example.com', 'pbkdf2_sha256$310000$rABYOjJhdKcHXPeVAzRaAA==$wnFEtv7cWZ9FU6jNEPkd4sY80U4VC1lN/4MY/1MzSqc=', 0)",
+  level: 'error',
+  timestamp: '2023-06-07T12:05:27.049Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T12:53:28.648Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T12:53:54.139Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-07T12:55:58.077Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@admin.com',
+    'pbkdf2_sha256$310000$rnhi5dXo5JqkomFFZWCu9Q==$7Pj0W4Y/Yz4y/6eqMvc1LQ0eQaC4vaWOfPFFKAa7w2o=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@admin.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@admin.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@admin.com', 'pbkdf2_sha256$310000$rnhi5dXo5JqkomFFZWCu9Q==$7Pj0W4Y/Yz4y/6eqMvc1LQ0eQaC4vaWOfPFFKAa7w2o=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@admin.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@admin.com', 'pbkdf2_sha256$310000$rnhi5dXo5JqkomFFZWCu9Q==$7Pj0W4Y/Yz4y/6eqMvc1LQ0eQaC4vaWOfPFFKAa7w2o=', 0)",
+  level: 'error',
+  timestamp: '2023-06-08T07:45:36.267Z'
+}
+{ level: 'error', timestamp: '2023-06-08T14:03:58.296Z' }
+{ level: 'error', timestamp: '2023-06-08T14:04:51.532Z' }
+{ level: 'error', timestamp: '2023-06-08T14:04:54.927Z' }
+{ level: 'error', timestamp: '2023-06-08T14:07:04.270Z' }
+{ level: 'error', timestamp: '2023-06-08T15:33:01.309Z' }
+{ level: 'error', timestamp: '2023-06-08T15:33:33.342Z' }
+{ level: 'error', timestamp: '2023-06-08T17:27:41.879Z' }
+{ level: 'error', timestamp: '2023-06-08T17:28:13.543Z' }
+{ level: 'error', timestamp: '2023-06-08T17:34:51.881Z' }
+{ level: 'error', timestamp: '2023-06-08T17:35:08.143Z' }
+{ level: 'error', timestamp: '2023-06-08T17:40:45.630Z' }
+{ level: 'error', timestamp: '2023-06-08T17:41:00.330Z' }
+{
+  query: 'INSERT INTO `bookrented`(`id`, `date_of_issue`, `date_of_return`, `userId`, `bookId`) VALUES (DEFAULT, DEFAULT, ?, DEFAULT, ?)',
+  parameters: [ 2023-06-09T04:52:50.719Z, 41 ],
+  driverError: Error: ER_NO_DEFAULT_FOR_FIELD: Field 'date_of_issue' doesn't have a default value
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_NO_DEFAULT_FOR_FIELD',
+    errno: 1364,
+    sqlMessage: "Field 'date_of_issue' doesn't have a default value",
+    sqlState: 'HY000',
+    index: 0,
+    sql: "INSERT INTO `bookrented`(`id`, `date_of_issue`, `date_of_return`, `userId`, `bookId`) VALUES (DEFAULT, DEFAULT, '2023-06-09 10:22:50.719', DEFAULT, 41)"
+  },
+  code: 'ER_NO_DEFAULT_FOR_FIELD',
+  errno: 1364,
+  sqlMessage: "Field 'date_of_issue' doesn't have a default value",
+  sqlState: 'HY000',
+  index: 0,
+  sql: "INSERT INTO `bookrented`(`id`, `date_of_issue`, `date_of_return`, `userId`, `bookId`) VALUES (DEFAULT, DEFAULT, '2023-06-09 10:22:50.719', DEFAULT, 41)",
+  level: 'error',
+  timestamp: '2023-06-09T04:52:50.768Z'
+}
+{
+  query: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = ? AND `book_rented`.`userId` = ? AND bookRented.status = ?',
+  parameters: [ 'BookB', 27, 'active' ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'bookRented.status' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'",
+  level: 'error',
+  timestamp: '2023-06-09T06:20:50.387Z'
+}
+{
+  query: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = ? AND `book_rented`.`userId` = ? AND bookRented.status = ?',
+  parameters: [ 'BookB', 27, 'active' ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'bookRented.status' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'bookRented.status' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId`, `book_details`.`id` AS `book_details_id`, `book_details`.`book_name` AS `book_details_book_name`, `book_details`.`genre` AS `book_details_genre`, `book_details`.`total_no_of_copies` AS `book_details_total_no_of_copies`, `book_details`.`no_of_copies_rented` AS `book_details_no_of_copies_rented`, `book_details`.`cost_per_day` AS `book_details_cost_per_day`, `book_rented`.`id` AS `book_rented_id`, `book_rented`.`date_of_issue` AS `book_rented_date_of_issue`, `book_rented`.`date_of_return` AS `book_rented_date_of_return`, `book_rented`.`status` AS `book_rented_status`, `book_rented`.`userId` AS `book_rented_userId`, `book_rented`.`bookId` AS `book_rented_bookId` FROM `book` `book` LEFT JOIN `bookdetails` `book_details` ON `book_details`.`id`=`book`.`bookDetailsId`  LEFT JOIN `bookrented` `book_rented` ON `book_rented`.`bookId`=`book`.`id` WHERE `book_details`.`book_name` = 'BookB' AND `book_rented`.`userId` = 27 AND bookRented.status = 'active'",
+  level: 'error',
+  timestamp: '2023-06-09T06:22:20.324Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T07:02:45.389Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No group found',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T07:09:54.111Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T07:22:18.360Z'
+}
+{
+  query: 'DELETE FROM `bookdetails` WHERE `id` = ?',
+  parameters: [ 1 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `bookdetails` WHERE `id` = 1'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `bookdetails` WHERE `id` = 1',
+  level: 'error',
+  timestamp: '2023-06-09T08:38:28.367Z'
+}
+{
+  query: 'DELETE FROM `bookdetails` WHERE `id` = ?',
+  parameters: [ 1 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `bookdetails` WHERE `id` = 1'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `bookdetails` WHERE `id` = 1',
+  level: 'error',
+  timestamp: '2023-06-09T09:07:30.884Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:13:49.113Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:19:28.468Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:19:49.523Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T09:19:58.797Z'
+}
+{ level: 'error', timestamp: '2023-06-09T10:51:42.940Z' }
+{ level: 'error', timestamp: '2023-06-09T10:52:48.998Z' }
+{ level: 'error', timestamp: '2023-06-09T12:17:58.009Z' }
+{ level: 'error', timestamp: '2023-06-09T12:18:03.176Z' }
+{ level: 'error', timestamp: '2023-06-09T12:19:39.521Z' }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T12:43:39.139Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-09T12:43:42.481Z'
+}
+{
+  query: 'DELETE FROM `bookdetails` WHERE `id` = ?',
+  parameters: [ 1 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `bookdetails` WHERE `id` = 1'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `bookdetails` WHERE `id` = 1',
+  level: 'error',
+  timestamp: '2023-06-09T16:55:47.639Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@customer.com',
+    'pbkdf2_sha256$310000$QNdoLjC/SEUGaCrO6txuig==$uvhuJsgYWOiaiEeaoCAEIc8/BhkK/PrY1WJ4RFrGG4c=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$QNdoLjC/SEUGaCrO6txuig==$uvhuJsgYWOiaiEeaoCAEIc8/BhkK/PrY1WJ4RFrGG4c=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$QNdoLjC/SEUGaCrO6txuig==$uvhuJsgYWOiaiEeaoCAEIc8/BhkK/PrY1WJ4RFrGG4c=', 0)",
+  level: 'error',
+  timestamp: '2023-06-09T18:02:28.473Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@customer.com',
+    'pbkdf2_sha256$310000$k2TIFHbbxgldprzGrHJoWA==$4nfFNz72TJ2xIdQssq25KJ63TfnSLszMU4Z8qtFZNgI=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$k2TIFHbbxgldprzGrHJoWA==$4nfFNz72TJ2xIdQssq25KJ63TfnSLszMU4Z8qtFZNgI=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$k2TIFHbbxgldprzGrHJoWA==$4nfFNz72TJ2xIdQssq25KJ63TfnSLszMU4Z8qtFZNgI=', 0)",
+  level: 'error',
+  timestamp: '2023-06-09T18:03:56.706Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-10T09:54:28.392Z'
+}
+{
+  query: 'SELECT `bookRented`.`id` AS `bookRented_id`, `bookRented`.`date_of_issue` AS `bookRented_date_of_issue`, `bookRented`.`date_of_return` AS `bookRented_date_of_return`, `bookRented`.`status` AS `bookRented_status`, `bookRented`.`userId` AS `bookRented_userId`, `bookRented`.`bookId` AS `bookRented_bookId`, `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `bookrented` `bookRented` LEFT JOIN `book` `book` ON `book`.`id`=`bookRented`.`bookId` WHERE `bookRented`.`status` = ? AND book_rented.bookId = ?',
+  parameters: [ 'active', 2 ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'book_rented.bookId' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'book_rented.bookId' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `bookRented`.`id` AS `bookRented_id`, `bookRented`.`date_of_issue` AS `bookRented_date_of_issue`, `bookRented`.`date_of_return` AS `bookRented_date_of_return`, `bookRented`.`status` AS `bookRented_status`, `bookRented`.`userId` AS `bookRented_userId`, `bookRented`.`bookId` AS `bookRented_bookId`, `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `bookrented` `bookRented` LEFT JOIN `book` `book` ON `book`.`id`=`bookRented`.`bookId` WHERE `bookRented`.`status` = 'active' AND book_rented.bookId = 2"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'book_rented.bookId' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `bookRented`.`id` AS `bookRented_id`, `bookRented`.`date_of_issue` AS `bookRented_date_of_issue`, `bookRented`.`date_of_return` AS `bookRented_date_of_return`, `bookRented`.`status` AS `bookRented_status`, `bookRented`.`userId` AS `bookRented_userId`, `bookRented`.`bookId` AS `bookRented_bookId`, `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `bookrented` `bookRented` LEFT JOIN `book` `book` ON `book`.`id`=`bookRented`.`bookId` WHERE `bookRented`.`status` = 'active' AND book_rented.bookId = 2",
+  level: 'error',
+  timestamp: '2023-06-10T15:11:18.366Z'
+}
+{ level: 'error', timestamp: '2023-06-10T15:16:33.449Z' }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-10T17:41:53.488Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-10T17:41:58.123Z'
+}
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, ?, ?, ?, ?)',
+  parameters: [
+    'Unknown',
+    'user@customer.com',
+    'pbkdf2_sha256$310000$PtQp35jMxr0zTJgZHG/wGA==$mUzLFFC27vgh1Gnl6F9jkipdAYjKgYQiooXNP3nRLQg=',
+    0
+  ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$PtQp35jMxr0zTJgZHG/wGA==$mUzLFFC27vgh1Gnl6F9jkipdAYjKgYQiooXNP3nRLQg=', 0)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`) VALUES (DEFAULT, 'Unknown', 'user@customer.com', 'pbkdf2_sha256$310000$PtQp35jMxr0zTJgZHG/wGA==$mUzLFFC27vgh1Gnl6F9jkipdAYjKgYQiooXNP3nRLQg=', 0)",
+  level: 'error',
+  timestamp: '2023-06-11T07:48:30.334Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T13:03:23.727Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T13:03:53.644Z'
+}
+{
+  message: HttpResponseUnauthorized {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: { 'WWW-Authenticate': '' },
+    isHttpResponseClientError: true,
+    isHttpResponseUnauthorized: true,
+    statusCode: 401,
+    statusMessage: 'UNAUTHORIZED'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T13:23:05.676Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T13:23:43.795Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T14:26:36.618Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T14:52:53.928Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Incorrect Access Key',
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-11T14:55:56.583Z'
+}
+{
+  query: 'SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`email` AS `User_email`, `User`.`password` AS `User_password`, `User`.`amount_due` AS `User_amount_due`, `User`.`avatar` AS `User_avatar` FROM `user` `User` WHERE (`User`.`email` = ?) LIMIT 1',
+  parameters: [ 'user@customer.com' ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'User.avatar' in 'field list'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'User.avatar' in 'field list'",
+    sqlState: '42S22',
+    index: 0,
+    sql: "SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`email` AS `User_email`, `User`.`password` AS `User_password`, `User`.`amount_due` AS `User_amount_due`, `User`.`avatar` AS `User_avatar` FROM `user` `User` WHERE (`User`.`email` = 'user@customer.com') LIMIT 1"
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'User.avatar' in 'field list'",
+  sqlState: '42S22',
+  index: 0,
+  sql: "SELECT `User`.`id` AS `User_id`, `User`.`name` AS `User_name`, `User`.`email` AS `User_email`, `User`.`password` AS `User_password`, `User`.`amount_due` AS `User_amount_due`, `User`.`avatar` AS `User_avatar` FROM `user` `User` WHERE (`User`.`email` = 'user@customer.com') LIMIT 1",
+  level: 'error',
+  timestamp: '2023-06-12T04:13:01.169Z'
+}
+{
+  message: 'Vishwak updated profile picture',
+  level: 'info',
+  timestamp: '2023-06-12T04:25:30.028Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'bookb', 'abc', 10, 0, 6 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'bookb' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'bookb' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'bookb', 'abc', 10, 0, 6)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'bookb' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'bookb', 'abc', 10, 0, 6)",
+  level: 'error',
+  timestamp: '2023-06-12T05:20:45.002Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'booki', 'asdf', 12, 0, 3 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'booki' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'booki' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'booki', 'asdf', 12, 0, 3)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'booki' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'booki', 'asdf', 12, 0, 3)",
+  level: 'error',
+  timestamp: '2023-06-12T06:02:43.134Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'booki', 'asdf', 12, 0, 3 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'booki' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'booki' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'booki', 'asdf', 12, 0, 3)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'booki' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'booki', 'asdf', 12, 0, 3)",
+  level: 'error',
+  timestamp: '2023-06-12T06:10:21.239Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'bookh', 'asdf', 12, 0, 3 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'bookh' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'bookh' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'bookh', 'asdf', 12, 0, 3)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'bookh' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'bookh', 'asdf', 12, 0, 3)",
+  level: 'error',
+  timestamp: '2023-06-12T06:16:19.108Z'
+}
+{ level: 'error', timestamp: '2023-06-12T06:19:38.955Z' }
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'bookg', 'asdf', 12, 0, 3 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'bookg' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'bookg' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'bookg', 'asdf', 12, 0, 3)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'bookg' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'bookg', 'asdf', 12, 0, 3)",
+  level: 'error',
+  timestamp: '2023-06-12T06:20:04.232Z'
+}
+{ level: 'error', timestamp: '2023-06-12T06:20:12.364Z' }
+{ level: 'error', timestamp: '2023-06-12T06:31:09.671Z' }
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'abookphhsa', 'asdf', 12, 0, 3 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'abookphhsa' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'abookphhsa' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'abookphhsa', 'asdf', 12, 0, 3)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'abookphhsa' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'abookphhsa', 'asdf', 12, 0, 3)",
+  level: 'error',
+  timestamp: '2023-06-12T06:31:46.372Z'
+}
+{ level: 'error', timestamp: '2023-06-12T06:31:54.185Z' }
+{ level: 'error', timestamp: '2023-06-12T06:37:12.360Z' }
+{
+  query: 'INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`, `avatar`) VALUES (DEFAULT, ?, ?, ?, ?, DEFAULT)',
+  parameters: [
+    'Unknown',
+    'user@borrower.com',
+    'pbkdf2_sha256$310000$eJzvz40s848u5lCm0nLsCA==$VIkOtE1yzBWm10g5ibnInsucxrJZPBQd2+N7h/hfszI=',
+    0
+  ],
+  driverError: Error: ER_NO_DEFAULT_FOR_FIELD: Field 'avatar' doesn't have a default value
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_NO_DEFAULT_FOR_FIELD',
+    errno: 1364,
+    sqlMessage: "Field 'avatar' doesn't have a default value",
+    sqlState: 'HY000',
+    index: 0,
+    sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`, `avatar`) VALUES (DEFAULT, 'Unknown', 'user@borrower.com', 'pbkdf2_sha256$310000$eJzvz40s848u5lCm0nLsCA==$VIkOtE1yzBWm10g5ibnInsucxrJZPBQd2+N7h/hfszI=', 0, DEFAULT)"
+  },
+  code: 'ER_NO_DEFAULT_FOR_FIELD',
+  errno: 1364,
+  sqlMessage: "Field 'avatar' doesn't have a default value",
+  sqlState: 'HY000',
+  index: 0,
+  sql: "INSERT INTO `user`(`id`, `name`, `email`, `password`, `amount_due`, `avatar`) VALUES (DEFAULT, 'Unknown', 'user@borrower.com', 'pbkdf2_sha256$310000$eJzvz40s848u5lCm0nLsCA==$VIkOtE1yzBWm10g5ibnInsucxrJZPBQd2+N7h/hfszI=', 0, DEFAULT)",
+  level: 'error',
+  timestamp: '2023-06-12T07:31:09.059Z'
+}
+{
+  message: 'Admin updated profile picture',
+  level: 'info',
+  timestamp: '2023-06-12T08:45:09.197Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, ?, ?, ?, ?, ?)',
+  parameters: [ 'abcsssa', 'asdf', 10, 0, 20 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'abcsssa' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'abcsssa' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'abcsssa', 'asdf', 10, 0, 20)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'abcsssa' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`) VALUES (DEFAULT, 'abcsssa', 'asdf', 10, 0, 20)",
+  level: 'error',
+  timestamp: '2023-06-12T08:52:51.093Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No books found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T09:41:35.398Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No books found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T09:41:35.401Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T16:59:28.643Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:02:01.437Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:03:32.467Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:04:37.219Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:06:48.224Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:09:10.005Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book is rented by a customer',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:09:17.666Z'
+}
+{
+  query: 'DELETE FROM `book` WHERE `id` = ?',
+  parameters: [ 2 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `book` WHERE `id` = 2'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `book` WHERE `id` = 2',
+  level: 'error',
+  timestamp: '2023-06-12T17:10:16.425Z'
+}
+{
+  query: 'DELETE FROM `book` WHERE `id` = ?',
+  parameters: [ 2 ],
+  driverError: Error: ER_ROW_IS_REFERENCED_2: Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_ROW_IS_REFERENCED_2',
+    errno: 1451,
+    sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+    sqlState: '23000',
+    index: 0,
+    sql: 'DELETE FROM `book` WHERE `id` = 2'
+  },
+  code: 'ER_ROW_IS_REFERENCED_2',
+  errno: 1451,
+  sqlMessage: 'Cannot delete or update a parent row: a foreign key constraint fails (`Book Store`.`bookrented`, CONSTRAINT `FK_ac6c3a313831d448aa6e159a6a6` FOREIGN KEY (`bookId`) REFERENCES `book` (`id`))',
+  sqlState: '23000',
+  index: 0,
+  sql: 'DELETE FROM `book` WHERE `id` = 2',
+  level: 'error',
+  timestamp: '2023-06-12T17:12:29.222Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book not found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-12T17:38:20.992Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book out of stock',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-13T07:11:52.343Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book not rented by the user',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-13T07:12:34.497Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Book not rented by the user',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-13T07:14:56.584Z'
+}
+{
+  message: HttpResponseForbidden {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User is not admin',
+    isHttpResponseClientError: true,
+    isHttpResponseForbidden: true,
+    statusCode: 403,
+    statusMessage: 'FORBIDDEN'
+  },
+  level: 'error',
+  timestamp: '2023-06-13T16:48:36.252Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:26:52.099Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:28:15.391Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:56:36.407Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T12:58:14.720Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:31:05.817Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:32:28.662Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:32:44.113Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:37:50.071Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T17:44:09.275Z'
+}
+{ level: 'error', timestamp: '2023-06-14T18:22:46.109Z' }
+{
+  filename: 'images/profiles/uploaded/9KUq52Ht556Tt4rxzP5KWEj75TU3vsKd2ez5V5tN_K8.png',
+  name: 'FileDoesNotExist',
+  level: 'error',
+  timestamp: '2023-06-14T18:24:44.759Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found with given ID',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-14T18:56:35.753Z'
+}
+{ level: 'error', timestamp: '2023-06-14T19:04:22.355Z' }
+{ level: 'error', timestamp: '2023-06-14T19:05:06.466Z' }
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'User not found with given ID',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T05:09:44.204Z'
+}
+{ level: 'error', timestamp: '2023-06-15T07:11:20.010Z' }
+{ level: 'error', timestamp: '2023-06-15T07:16:17.760Z' }
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:22:12.773Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:22:18.730Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users ',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:29:35.012Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:30:06.423Z'
+}
+{ level: 'error', timestamp: '2023-06-15T07:37:30.276Z' }
+{ level: 'error', timestamp: '2023-06-15T07:38:12.037Z' }
+{
+  query: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `book` `book` WHERE book.book_details_id = ? AND `book`.`availability` = ?',
+  parameters: [ 1, false ],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'book.book_details_id' in 'where clause'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      at readableAddChunk (node:internal/streams/readable:305:9)
+      at Socket.Readable.push (node:internal/streams/readable:242:10)
+      at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'book.book_details_id' in 'where clause'",
+    sqlState: '42S22',
+    index: 0,
+    sql: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `book` `book` WHERE book.book_details_id = 1 AND `book`.`availability` = false'
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'book.book_details_id' in 'where clause'",
+  sqlState: '42S22',
+  index: 0,
+  sql: 'SELECT `book`.`id` AS `book_id`, `book`.`availability` AS `book_availability`, `book`.`bookDetailsId` AS `book_bookDetailsId` FROM `book` `book` WHERE book.book_details_id = 1 AND `book`.`availability` = false',
+  level: 'error',
+  timestamp: '2023-06-15T07:40:43.358Z'
+}
+{
+  message: HttpResponseNotImplemented {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Books are rented by users',
+    isHttpResponseServerError: true,
+    isHttpResponseNotImplemented: true,
+    statusCode: 501,
+    statusMessage: 'NOT IMPLEMENTED'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:41:32.416Z'
+}
+{
+  message: HttpResponseNotFound {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'No Book Found',
+    isHttpResponseClientError: true,
+    isHttpResponseNotFound: true,
+    statusCode: 404,
+    statusMessage: 'NOT FOUND'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T07:43:01.429Z'
+}
+{ level: 'error', timestamp: '2023-06-15T07:43:38.450Z' }
+{ level: 'error', timestamp: '2023-06-15T08:42:59.211Z' }
+{ level: 'error', timestamp: '2023-06-15T08:43:24.613Z' }
+{ level: 'error', timestamp: '2023-06-15T08:48:44.227Z' }
+{ level: 'error', timestamp: '2023-06-15T08:49:14.613Z' }
+{ level: 'error', timestamp: '2023-06-15T08:49:27.802Z' }
+{ level: 'error', timestamp: '2023-06-15T08:49:56.611Z' }
+{ level: 'error', timestamp: '2023-06-15T08:52:39.156Z' }
+{ level: 'error', timestamp: '2023-06-15T08:55:48.597Z' }
+{ level: 'error', timestamp: '2023-06-15T08:56:33.666Z' }
+{
+  message: 'Vishwak updated profile picture',
+  level: 'info',
+  timestamp: '2023-06-15T09:06:00.279Z'
+}
+{ level: 'error', timestamp: '2023-06-15T09:06:37.510Z' }
+{ level: 'error', timestamp: '2023-06-15T09:19:46.816Z' }
+{ level: 'error', timestamp: '2023-06-15T11:52:20.742Z' }
+{
+  query: 'UPDATE `user` SET `email` = ? WHERE `id` IN (?)',
+  parameters: [ 'user@customer.com', 1 ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      at readableAddChunk (node:internal/streams/readable:305:9)
+      at Socket.Readable.push (node:internal/streams/readable:242:10)
+      at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+    sqlState: '23000',
+    index: 0,
+    sql: "UPDATE `user` SET `email` = 'user@customer.com' WHERE `id` IN (1)"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'",
+  sqlState: '23000',
+  index: 0,
+  sql: "UPDATE `user` SET `email` = 'user@customer.com' WHERE `id` IN (1)",
+  level: 'error',
+  timestamp: '2023-06-15T12:10:46.375Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Mail Id is already in use',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T12:13:05.183Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Mail id already in use',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T12:13:20.672Z'
+}
+{ level: 'error', timestamp: '2023-06-15T15:50:52.058Z' }
+{
+  query: 'SELECT `book`.`book_name` AS `book_book_name`, `book`.`genre` AS `book_genre`, `book`.`total_no_of_copies` AS `book_total_no_of_copies`, `book`.`no_of_copies_rented` AS `book_no_of_copies_rented`, `book`.`cost_per_day` AS `book_cost_per_day`, `book`.`id` AS `book_id`, book.status FROM `bookdetails` `book`',
+  parameters: [],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'book.status' in 'field list'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      at readableAddChunk (node:internal/streams/readable:305:9)
+      at Socket.Readable.push (node:internal/streams/readable:242:10)
+      at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'book.status' in 'field list'",
+    sqlState: '42S22',
+    index: 0,
+    sql: 'SELECT `book`.`book_name` AS `book_book_name`, `book`.`genre` AS `book_genre`, `book`.`total_no_of_copies` AS `book_total_no_of_copies`, `book`.`no_of_copies_rented` AS `book_no_of_copies_rented`, `book`.`cost_per_day` AS `book_cost_per_day`, `book`.`id` AS `book_id`, book.status FROM `bookdetails` `book`'
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'book.status' in 'field list'",
+  sqlState: '42S22',
+  index: 0,
+  sql: 'SELECT `book`.`book_name` AS `book_book_name`, `book`.`genre` AS `book_genre`, `book`.`total_no_of_copies` AS `book_total_no_of_copies`, `book`.`no_of_copies_rented` AS `book_no_of_copies_rented`, `book`.`cost_per_day` AS `book_cost_per_day`, `book`.`id` AS `book_id`, book.status FROM `bookdetails` `book`',
+  level: 'error',
+  timestamp: '2023-06-15T15:56:04.454Z'
+}
+{
+  query: 'SELECT `book`.`book_name` AS `book_book_name`, `book`.`genre` AS `book_genre`, `book`.`total_no_of_copies` AS `book_total_no_of_copies`, `book`.`no_of_copies_rented` AS `book_no_of_copies_rented`, `book`.`cost_per_day` AS `book_cost_per_day`, `book`.`id` AS `book_id`, book.status FROM `bookdetails` `book`',
+  parameters: [],
+  driverError: Error: ER_BAD_FIELD_ERROR: Unknown column 'book.status' in 'field list'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      at readableAddChunk (node:internal/streams/readable:305:9)
+      at Socket.Readable.push (node:internal/streams/readable:242:10)
+      at TCP.onStreamRead (node:internal/stream_base_commons:190:23)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_BAD_FIELD_ERROR',
+    errno: 1054,
+    sqlMessage: "Unknown column 'book.status' in 'field list'",
+    sqlState: '42S22',
+    index: 0,
+    sql: 'SELECT `book`.`book_name` AS `book_book_name`, `book`.`genre` AS `book_genre`, `book`.`total_no_of_copies` AS `book_total_no_of_copies`, `book`.`no_of_copies_rented` AS `book_no_of_copies_rented`, `book`.`cost_per_day` AS `book_cost_per_day`, `book`.`id` AS `book_id`, book.status FROM `bookdetails` `book`'
+  },
+  code: 'ER_BAD_FIELD_ERROR',
+  errno: 1054,
+  sqlMessage: "Unknown column 'book.status' in 'field list'",
+  sqlState: '42S22',
+  index: 0,
+  sql: 'SELECT `book`.`book_name` AS `book_book_name`, `book`.`genre` AS `book_genre`, `book`.`total_no_of_copies` AS `book_total_no_of_copies`, `book`.`no_of_copies_rented` AS `book_no_of_copies_rented`, `book`.`cost_per_day` AS `book_cost_per_day`, `book`.`id` AS `book_id`, book.status FROM `bookdetails` `book`',
+  level: 'error',
+  timestamp: '2023-06-15T15:56:04.454Z'
+}
+{
+  message: HttpResponseBadRequest {
+    isHttpResponse: true,
+    stream: false,
+    cookies: {},
+    headers: {},
+    body: 'Mail id already in use',
+    isHttpResponseClientError: true,
+    isHttpResponseBadRequest: true,
+    statusCode: 400,
+    statusMessage: 'BAD REQUEST'
+  },
+  level: 'error',
+  timestamp: '2023-06-15T16:45:04.552Z'
+}
+{
+  message: 'undefined updated profile picture',
+  level: 'info',
+  timestamp: '2023-06-15T16:46:06.891Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)',
+  parameters: [ 'BookX', 'Mystery', '10', 0, '50', 'active' ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, 'BookX', 'Mystery', '10', 0, '50', 'active')"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, 'BookX', 'Mystery', '10', 0, '50', 'active')",
+  level: 'error',
+  timestamp: '2023-06-15T16:54:03.455Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)',
+  parameters: [ 'BookX', 'Mystery', '10', 0, '50', 'active' ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, 'BookX', 'Mystery', '10', 0, '50', 'active')"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, 'BookX', 'Mystery', '10', 0, '50', 'active')",
+  level: 'error',
+  timestamp: '2023-06-15T17:20:46.112Z'
+}
+{
+  query: 'INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?)',
+  parameters: [ 'BookX', 'Mystery', '10', 0, '50', 'active' ],
+  driverError: Error: ER_DUP_ENTRY: Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'
+      at Query.Sequence._packetToError (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Sequence.js:47:14)
+      at Query.ErrorPacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/sequences/Query.js:79:18)
+      at Protocol._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:291:23)
+      at Parser._parsePacket (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:433:10)
+      at Parser.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Parser.js:43:10)
+      at Protocol.write (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:38:16)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:88:28)
+      at Socket.<anonymous> (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:526:10)
+      at Socket.emit (node:events:511:28)
+      at addChunk (node:internal/streams/readable:332:12)
+      --------------------
+      at Protocol._enqueue (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/protocol/Protocol.js:144:48)
+      at PoolConnection.query (/home/z/Desktop/foalts/book-store/backend-app/node_modules/mysql/lib/Connection.js:198:25)
+      at /home/z/Desktop/foalts/book-store/backend-app/src/driver/mysql/MysqlQueryRunner.ts:194:36
+      at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+    code: 'ER_DUP_ENTRY',
+    errno: 1062,
+    sqlMessage: "Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+    sqlState: '23000',
+    index: 0,
+    sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, 'BookX', 'Mystery', '10', 0, '50', 'active')"
+  },
+  code: 'ER_DUP_ENTRY',
+  errno: 1062,
+  sqlMessage: "Duplicate entry 'BookX' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'",
+  sqlState: '23000',
+  index: 0,
+  sql: "INSERT INTO `bookdetails`(`id`, `book_name`, `genre`, `total_no_of_copies`, `no_of_copies_rented`, `cost_per_day`, `bookStatus`) VALUES (DEFAULT, 'BookX', 'Mystery', '10', 0, '50', 'active')",
+  level: 'error',
+  timestamp: '2023-06-15T17:22:34.664Z'
+}
+{"@timestamp":"2023-06-15T17:29:41.022Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"},"timestamp":"2023-06-15T17:29:41.021Z"}
+{"@timestamp":"2023-06-15T17:31:00.203Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-15T17:32:09.693Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-15T17:32:50.254Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-15T17:33:26.744Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T04:40:29.617Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T04:41:49.315Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'user@customer.com' for key 'user.IDX_e12875dfb3b1d92d7d7c5377e2'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T04:44:32.915Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:16:49.847Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:17:08.417Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:17:11.391Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:17:19.436Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:23:37.468Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:26:20.649Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:48:01.099Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:48:28.139Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:48:42.678Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:51:06.657Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:54:10.671Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T06:55:10.166Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:44:07.022Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'Alchemist' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:46:17.610Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'Alchemist' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:46:25.709Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'Alchemist' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:46:32.309Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'Alchemist' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:51:21.760Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:52:20.576Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:52:47.084Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:53:27.630Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T09:55:28.595Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T10:20:20.109Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T10:49:57.507Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T11:12:32.391Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T11:12:42.288Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-16T11:13:00.039Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T12:27:26.275Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T12:27:27.148Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T12:27:30.860Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T12:27:34.950Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:03:02.408Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:54:45.942Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:54:46.055Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:54:46.512Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:54:59.553Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:55:02.027Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:55:02.664Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T13:56:14.071Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T14:07:24.779Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T14:07:33.637Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T14:18:15.916Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T14:18:29.077Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T14:18:47.322Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T14:19:04.964Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:55:55.041Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:57:02.611Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:57:52.000Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:57:53.308Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:58:16.328Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:58:18.166Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:58:33.545Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:58:36.655Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:58:37.899Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:59:46.432Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T15:59:52.747Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:00:12.728Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:00:17.679Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:00:19.148Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:00:19.321Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:02:28.060Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:02:31.704Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:04:04.365Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:05:14.694Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:05:26.131Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:05:35.589Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-17T16:11:11.426Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T02:35:56.247Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T04:50:49.410Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:45:47.238Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:45:59.915Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:47:46.805Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:48:14.909Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:50:00.921Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:50:59.315Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:51:19.227Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:53:06.231Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:54:04.404Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T06:55:09.485Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:01:19.627Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:01:52.547Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:03:58.760Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:04:01.465Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:04:28.027Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:05:00.498Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:05:06.862Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:05:27.256Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:05:29.723Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:27:37.133Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:27:39.706Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:33:26.306Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:33:26.328Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:33:43.746Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:33:55.511Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:34:10.907Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:34:22.678Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:34:22.691Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:34:27.184Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:34:30.847Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:35:22.336Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:35:22.347Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:36:22.687Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:37:55.918Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:39:02.882Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:49:53.548Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:51:35.175Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:51:47.924Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:51:59.691Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:52:04.222Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:52:42.149Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:52:50.940Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:53:48.884Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:53:54.907Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:54:30.813Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:54:32.456Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:55:21.523Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:55:23.211Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:57:05.533Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T07:57:14.899Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:27:02.380Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:27:20.241Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:27:27.178Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:27:35.025Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:27:59.856Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:28:07.048Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:34:38.952Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:35:01.658Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:35:05.630Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:35:26.408Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:35:59.912Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:36:23.233Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:40:12.826Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:40:37.663Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:41:17.454Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:44:16.896Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:50:23.158Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:50:33.539Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:50:39.851Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T09:53:07.340Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T10:15:26.648Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T10:15:32.907Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T10:18:42.204Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T11:52:52.269Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T12:16:34.385Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T12:18:19.684Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T12:51:02.988Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:04:16.830Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:20:48.615Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:25:56.397Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:39:51.959Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:54:29.823Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:54:48.966Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:54:55.995Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T13:55:41.248Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:01:51.642Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:02:14.400Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:02:18.418Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:02:19.637Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:02:55.805Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:02:59.812Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:03:01.932Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:03:03.715Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:03:04.581Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:03:04.763Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:06:08.541Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-18T14:16:28.942Z","log.level":"error","message":"[object Object]","ecs":{"version":"1.6.0"}}

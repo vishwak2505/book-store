@@ -1,0 +1,21 @@
+@use '../utilities.scss';
+
+//Search form and add button
+.actions{
+    width: 100%;
+    padding: 2% 5%;
+    box-sizing: border-box;
+    @include utilities.flexCenter(row, space-between);
+
+    &__button{
+        display: inline-block;
+        min-width: 100px;
+        background-color: var(--dark);
+        color: var(--lighter);
+        padding: 1%;
+        border: 0;
+        outline: 0;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}

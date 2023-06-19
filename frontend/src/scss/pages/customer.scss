@@ -1,0 +1,26 @@
+@use '../utilities.scss';
+
+//Customer profile
+.profile{
+    width: 100%;
+    padding: 5%;
+    box-sizing: border-box;
+    font-size: 1.1rem;
+
+    &__grid{
+      display: flex;
+    }
+
+    &__image img{
+        width: 200px;
+        height: 200px;
+    }
+
+    &__info{
+        padding: 5%;
+    }
+
+    &__label{
+        font-weight: bold;
+    }
+}

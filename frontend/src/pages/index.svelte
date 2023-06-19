@@ -1,10 +1,21 @@
 <script>
-    import {metatags} from '@roxi/routify';
+    import {metatags, redirect} from '@roxi/routify';
+    import { loggedIn } from '../store';
     import Login from '../components/Login.svelte';
     import Register from '../components/Register.svelte';
     
     metatags.title = 'Bookstore';
     let showLoginForm = true;
+
+    if($loggedIn.status){
+        if($loggedIn.user === 'customer'){
+            $redirect('/customer');
+        }
+        else if($loggedIn.user === 'admin'){
+            $redirect('/admin')
+        }
+    }
+
 </script>
 <style type="text/scss">
     @mixin flexCenter($direction:row, $justify:center, $align:center){

@@ -1,0 +1,36 @@
+@use '../utilities.scss';
+
+//Navbar
+.navbar{
+    @include utilities.flexCenter(row, space-between);
+    background-color: var(--darker);
+    color: var(--lighter);
+    box-sizing: border-box;
+    padding: 0 5%;
+    width: 100%;
+    position: relative;
+
+   &__img{
+     width: 40px;
+     height: 40px;
+     cursor: pointer;
+   }
+
+   &__options{
+     position: absolute;
+     top: 100%;
+     right: 0;
+     margin-top: 0;
+     background-color: var(--darker);
+     list-style-type: none;
+     @include utilities.flexCenter(column);
+     padding: 0.5% 2%;
+     z-index: 2;
+   }
+
+   &__link{
+     text-decoration: none;
+     color: var(--lighter);
+     cursor: pointer;
+   }
+  }

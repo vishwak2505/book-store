@@ -1,0 +1,38 @@
+@use '../utilities.scss';
+
+//Table that lists the books
+.books, .users{
+    border-collapse: collapse;
+    display: block;
+    width: fit-content;
+    max-height: 80vh;
+    overflow-y: scroll;
+    position: relative;
+
+    &__head{
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
+
+    &__row th{
+        @extend %cellStyles;
+        background-color: var(--darker);
+        color: var(--lighter);
+        border-color: var(--lighter);
+        width: 30vw;
+    }
+
+    &__row td{
+        @extend %cellStyles;
+        width: 30vw;
+    }
+
+    &__button{
+        background-color: var(--dark);
+        color: var(--lighter);
+        padding: 4%;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+}
