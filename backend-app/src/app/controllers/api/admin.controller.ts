@@ -63,7 +63,7 @@ export class AdminController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
+          throw this.errorHandler.handleError(errors.notImplemented, 'No token generated');
         }
         setAuthCookie(response, token);
 
@@ -93,7 +93,7 @@ export class AdminController {
       try {
 
         if (ctx.request.body.accessKey != 'abcd') {
-          throw this.errorHandler.returnError(errors.forbidden, 'Incorrect Access Key');
+          throw this.errorHandler.handleError(errors.forbidden, 'Incorrect Access Key');
         } 
 
         const userDetails = {
@@ -111,7 +111,7 @@ export class AdminController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
+          throw this.errorHandler.handleError(errors.notImplemented, 'No token generated');
         }
 
         setAuthCookie(response, token);
@@ -155,7 +155,7 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw this.errorHandler.returnError(errors.notFound, 'No users found');
+          throw this.errorHandler.handleError(errors.notFound, 'No users found');
         }
 
         return new HttpResponseOK(users);
@@ -191,7 +191,7 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw this.errorHandler.returnError(errors.notFound, 'No users found');
+          throw this.errorHandler.handleError(errors.notFound, 'No users found');
         }
 
         const csvStringifier = createObjectCsvStringifier({
@@ -251,7 +251,7 @@ export class AdminController {
           .getRawMany();
         
         if (!rentedBooks) {
-          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
+          throw this.errorHandler.handleError(errors.notFound, 'No Rented Books Found')
         }  
 
         return new HttpResponseOK(rentedBooks);
@@ -296,7 +296,7 @@ export class AdminController {
           .getRawMany();
 
         if (!rentedBooks) {
-          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
+          throw this.errorHandler.handleError(errors.notFound, 'No Rented Books Found')
         }  
     
         return new HttpResponseOK(rentedBooks);
@@ -322,7 +322,7 @@ export class AdminController {
         const user = await User.findOneBy({id: userId});
 
         if (!user) {
-          throw this.errorHandler.returnError(errors.notFound, 'No user found with given ID');
+          throw this.errorHandler.handleError(errors.notFound, 'No user found with given ID');
         }
         return new HttpResponseOK(user);
       } catch (response) {
@@ -347,7 +347,7 @@ export class AdminController {
         const user = await User.findOne({ where: { id: userId }, relations: ['book_rented'] });
     
         if (!user || user.status == userStatus.Inactive) {
-          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
+          throw this.errorHandler.handleError(errors.notFound, 'User not found with given ID');
         }
 
         const books =  await Book.createQueryBuilder('book')
@@ -419,7 +419,7 @@ export class AdminController {
         const user = await User.findOne({ where: { id: userId } });
     
         if (!user) {
-          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
+          throw this.errorHandler.handleError(errors.notFound, 'User not found with given ID');
         }
 
         user.status = userStatus.Active;

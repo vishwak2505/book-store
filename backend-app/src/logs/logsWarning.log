@@ -12,3 +12,5 @@
 {"@timestamp":"2023-06-19T09:22:29.046Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'bookdetails.pictures' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-19T09:24:25.024Z","log.level":"error","message":"QueryFailedError: ER_WRONG_FIELD_WITH_GROUP: Expression #6 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Book Store.picture.fileName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-19T09:50:10.442Z","log.level":"warn","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-20T04:24:15.331Z","log.level":"warn","message":"Book is reanted by a customer","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-20T05:21:48.796Z","log.level":"warn","message":"Books are rented by users","ecs":{"version":"1.6.0"}}

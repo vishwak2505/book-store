@@ -61,7 +61,7 @@ export class AuthController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          throw this.errorHandler.returnError(errors.notImplemented, 'No token genereted');
+          throw this.errorHandler.handleError(errors.notImplemented, 'No token genereted');
         }
 
         setAuthCookie(response, token);
@@ -96,7 +96,7 @@ export class AuthController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          throw this.errorHandler.returnError(errors.notImplemented, 'No token genereted');
+          throw this.errorHandler.handleError(errors.notImplemented, 'No token genereted');
         }
 
         setAuthCookie(response, token);
@@ -134,13 +134,13 @@ export class AuthController {
         const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
 
         if (!bookDetails || bookDetails.bookStatus != status.Active) {
-          throw this.errorHandler.returnError(errors.notFound, 'Book not found');
+          throw this.errorHandler.handleError(errors.notFound, 'Book not found');
         }
 
         const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, availability: true}) ;
 
         if (!book) {
-          throw this.errorHandler.returnError(errors.notFound, 'Book out of stock');
+          throw this.errorHandler.handleError(errors.notFound, 'Book out of stock');
         }
 
         const bookRented = new Bookrented();
@@ -179,7 +179,7 @@ export class AuthController {
         const book = await Book.findOne({ where: { id: bookId }, relations: ['book_details'] });
 
         if (!book) {
-          throw this.errorHandler.returnError(errors.notFound, 'Book not found');
+          throw this.errorHandler.handleError(errors.notFound, 'Book not found');
         }
 
         const bookRented = await Bookrented
@@ -191,13 +191,13 @@ export class AuthController {
           .getOne();
 
         if (!bookRented) {
-          throw this.errorHandler.returnError(errors.notFound, 'Book not rented by the user');
+          throw this.errorHandler.handleError(errors.notFound, 'Book not rented by the user');
         }
         
         const bookDetails = book.book_details;
         
         if (!bookDetails) {
-          throw this.errorHandler.returnError(errors.notFound, 'Book details not found');
+          throw this.errorHandler.handleError(errors.notFound, 'Book details not found');
         }
 
         bookRented.date_of_return = new Date();

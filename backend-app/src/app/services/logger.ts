@@ -41,15 +41,5 @@ export class LoggerService {
   error(msg: string|Error) {
     this.logger.error(msg);
   }
-
-  returnError (error: Error|HttpResponse|String) {
-
-    this.logger.error(`${error}`);
-    if (error instanceof HttpResponse) {
-     return error;
-    } else {
-     return new HttpResponseBadRequest(error);
-    }
-  }
 }
 
