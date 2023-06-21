@@ -1,8 +1,7 @@
 <script>
   import { goto } from '@roxi/routify';
   import { loggedIn } from '../store.js';
-  import { onMount } from 'svelte';
-
+  
   let openMenu = false;
 
   const logout = async() => {
@@ -40,6 +39,7 @@
          {#if $loggedIn.user === 'admin'}
           <a class="navbar__link" href="/admin" on:click={expandMenu}>Home</a>
           <a class="navbar__link" href="/admin/books" on:click={expandMenu}>All books</a>
+          <a class="navbar__link" href="/admin/users" on:click={expandMenu}>Users</a>
           <a class="navbar__link" href="/admin/books/rentedbooks" on:click={expandMenu}>Rented books</a>
           <a class="navbar__link" href="/admin/books/returnedbooks" on:click={expandMenu}>Returned books</a>
          {/if}

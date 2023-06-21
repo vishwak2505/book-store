@@ -21,7 +21,6 @@
             <th>User Id</th>
             <th>Name</th>
             <th>Email</th>
-            <!-- <th>Books rented</th> -->
         </tr>
     </thead>
     <tbody>

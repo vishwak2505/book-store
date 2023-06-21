@@ -69,7 +69,7 @@
                <td>{book.book_name}</td>
                <td>{book.genre}</td>
                <td>{formatDate(book.bookRented_date_of_issue)}</td>
-               <td>{book.bookRented_date_of_return ? formatDate(book.bookRented_date_of_return) : '-'}</td>
+               <td>{formatDate(book.bookRented_date_of_return)}</td>
             </tr>
         {/each}
     </tbody>

@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import InPlaceEdit from "../../components/InPlaceEdit.svelte";
   import { callApi } from "../../utils/apiCalls";
+  import { toast } from "../../store";
   let user = {};
   let profileImg = "/assets/profile.png";
 
@@ -16,8 +17,11 @@
     const formData = new FormData();
     formData.append("avatar", image);
     const res = await callApi('http://localhost:3001/api/profile/updateProfile' , 'PATCH', {}, formData);
-
-    res === 204 ? getProfilePic() : null;
+    if(res !== 200){
+      $toast.showToast = true;
+      $toast.message = 'Successfully updated the picture!';
+      await getProfilePic();
+    }
   };
 
   const getProfilePic = async () => {

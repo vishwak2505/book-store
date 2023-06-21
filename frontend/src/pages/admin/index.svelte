@@ -13,6 +13,7 @@
     let displayBooks = [];
 
     let openForm = false;
+    let openUploadForm = false;
 
     onMount( async() => {
        await getbooks();
@@ -22,11 +23,21 @@
         displayBooks = books.filter( book => (book.book_name.toLowerCase()).includes(searchBook.toLowerCase()));
     }
 
-    const deleteBook = async(bookName) => {
+    const activateBook = async(bookName) => {
+        const res = await callApi(`http://localhost:3001/api/admin/books/reactivateBook?bookName=${bookName}`, 'PATCH');
+        if(res === 200){
+            $toast.showToast = true;
+            $toast.message = 'Successfully activated the book!';
+            await getbooks();
+        }
+    }
+
+    const deactivateBook = async(bookName) => {
         const res = await callApi(`http://localhost:3001/api/admin/books/deleteByName/{bookName}?bookName=${bookName}`, 'DELETE');
-        if(res === 201){
+        if(res === 200){
             $toast.showToast = true;
             $toast.message = 'Successfully deactivated the book!';
+            await getbooks();
         }
     }
 
@@ -36,6 +47,8 @@
     }
 
     const toggleModal = () => openForm = !openForm;
+    const toggleUploadModal = () => openUploadForm = !openUploadForm;
+    
 
     const addBook = async() => {
         if(checkAvailable() === -1){
@@ -57,6 +70,19 @@
         }
     }
 
+    const addBooksList = async() => {
+        const formData = new FormData();
+        const file = document.querySelector('#uploadBooks #booksList').files[0];
+        formData.append('file', file);
+
+        const res = await callApi(`http://localhost:3001/api/admin/books/addBooksFromCSV`, 'POST', {}, formData);
+        if(res !== 201){
+            $toast.showToast = true;
+            $toast.message = 'The books are successfully added!';
+            await getbooks();
+        }
+    }
+
     const checkAvailable = () =>{
         const isAvailable = books.findIndex(book => book.book_name === bookName);
 
@@ -72,7 +98,10 @@
 <h1>Welcome Admin!</h1>
 <div class="actions">
     <Search on:submit = { search } bind:searchBook/>
-    <button class="actions__button" on:click={ toggleModal }>Add Book</button>
+    <div class="buttons">
+        <button class="actions__button" on:click={ toggleModal }>Add Book</button>
+        <button class="actions__button" on:click={ toggleUploadModal }>Upload books</button>
+    </div>
 </div>
 
 {#if displayBooks.length}
@@ -111,10 +140,10 @@
                         {#if book.no_of_copies_rented }
                             <button disabled>Deactivate</button>
                         {:else}
-                            <button on:click={deleteBook(book.book_name)} >Deactivate</button>
+                            <button class="books__button" on:click={deactivateBook(book.book_name)} >Deactivate</button>
                         {/if}
                     {:else if book.bookStatus === 'closed'}
-                        <button>Activate</button>
+                        <button class="books__button" on:click={activateBook(book.book_name)}>Activate</button>
                     {/if}
                </td>
             </tr>
@@ -133,8 +162,23 @@
         <input class="modal__input" type="text" bind:value={genre} name="genre" placeholder="Genre"/>
         <input class="modal__input" type="text" bind:value={totalNoOfCopies} name="totalNoOfCopies" placeholder="Total no of copies"/>
         <input class="modal__input" type="text" bind:value={costPerDay} name="costPerDay" placeholder="Cost per day"/>
-        <input class="modal__submit" type="submit" value="Add a book"/>
+        <input class="modal__submit" type="submit" value="Add book"/>
         <i class="fa-solid fa-xmark modal__close" on:click={toggleModal}></i>
     </form>
 </Modal>
+{/if}
+
+{#if openUploadForm}
+  <Modal>
+    <form id="uploadBooks" class="modal__form" on:submit|preventDefault={addBooksList}>
+        <h1>Upload books</h1>
+        <p>Enter the list of files in csv format here </p>
+        <div class="modal__upload">
+            <label class="modal__uploadLabel" for="booksList">Upload file</label>
+            <input class="modal__uploadInput" type="file" name="booksList" id="booksList">
+        </div>
+        <input class="modal__submit" type="submit" value="Submit">
+        <i class="fa-solid fa-xmark modal__close" on:click={toggleUploadModal}></i>
+    </form>
+  </Modal>
 {/if}

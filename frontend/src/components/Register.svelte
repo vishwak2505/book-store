@@ -4,7 +4,7 @@
   let name = '';
   let email = '';
   let password = '';
-  let isAdmin = false;
+  $: isAdmin = false;
   let accessKey = '';
 
   const validate = async() => {
@@ -65,7 +65,7 @@
     <input class="form__input" bind:value = {email} type="email" placeholder="Email"><br>
     <input class="form__input" bind:value = {password} type="password" placeholder="Password"><br>
     <div>
-      <input class="form_input" bind:value = {isAdmin} type="checkbox" id="isAdmin">
+      <input class="form_input" bind:checked = {isAdmin} type="checkbox" id="isAdmin">
       <label for="isAdmin">Are you an admin?</label>
     </div>
     {#if isAdmin}

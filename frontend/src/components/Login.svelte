@@ -58,7 +58,7 @@
     <input class="form__input" type="text" placeholder="Email" bind:value={email}><br>
     <input class="form__input" type="password" placeholder="Password" bind:value={password}><br>
     <div>
-      <input class="form_input" bind:value = {isAdmin} type="checkbox" id="isAdmin">
+      <input class="form_input" bind:checked = {isAdmin} type="checkbox" id="isAdmin">
       <label for="isAdmin">Are you an admin?</label>
     </div>
     <input class="form__submit" type="submit" value="Login">

@@ -55,11 +55,11 @@
                     <td>{book.genre}</td>
                     <td>₹{book.costPerDay}</td>
                     <td>
-                        {#if book.noOfBooksAvailable == 0 || book.bookStatus == 'closed'}
+                        {#if book.noOfBooksAvailable == 0 || book.bookStatus === 'closed' }
                             <button class="books__button books__unavailable" disabled>
-                                {#if book.noOfBooksAvailable != 0}
+                                {#if book.noOfBooksAvailable == 0 || book.bookStatus === 'active'}
                                     Out of stock
-                                {:else if book.bookStatus != 'closed'}
+                                {:else if book.bookStatus === 'closed'}
                                     Unavailable
                                 {/if}
                             </button>

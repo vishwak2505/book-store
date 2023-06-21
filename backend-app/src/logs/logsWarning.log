@@ -15,3 +15,15 @@
 {"@timestamp":"2023-06-20T04:24:15.331Z","log.level":"warn","message":"Book is reanted by a customer","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-20T05:21:48.796Z","log.level":"warn","message":"Books are rented by users","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-21T03:58:59.761Z","log.level":"warn","message":"Mail id already in use","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:23:59.639Z","log.level":"warn","message":"Book out of stock","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:24:03.321Z","log.level":"warn","message":"Book out of stock","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:40:56.912Z","log.level":"warn","message":"Books are rented by users","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:41:47.372Z","log.level":"warn","message":"Books are rented by users","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:47:45.276Z","log.level":"warn","message":"Books are rented by users","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:51:34.266Z","log.level":"warn","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T06:59:28.071Z","log.level":"warn","message":"Mail id already in use","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T07:01:08.751Z","log.level":"warn","message":"Book not rented by the user","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T07:01:11.633Z","log.level":"warn","message":"Book not rented by the user","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T07:01:13.622Z","log.level":"warn","message":"Book not rented by the user","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T07:01:15.048Z","log.level":"warn","message":"Book not rented by the user","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T07:01:57.531Z","log.level":"warn","message":"Book not rented by the user","ecs":{"version":"1.6.0"}}
