@@ -6,7 +6,7 @@ export class Credentials {
     @dependency
     logger: LoggerService;
 
-    async signUpUser(userDetails: {name: string, email: string, password: string, group: string}) {
+    async signUpUser(userDetails: {name: string, email: string, password: string, group: string[]}) {
 
       const checkMail = await User.findOneBy({email: userDetails.email});
 
@@ -24,34 +24,36 @@ export class Credentials {
         user.userPermissions = [];
         user.status = userStatus.Active;
 
-        const codeName = userDetails.group;
-        
-        const group = await Group.findOneBy({codeName});
+        const codeNames = userDetails.group;
 
-        if (!group) {
-          throw new HttpResponseBadRequest('No group found');
-        }
-        
-        user.groups.push(group);
+        for (const codeName of codeNames) {
+          const group = await Group.findOneBy({codeName});
 
-        const queryBuilder = Group.createQueryBuilder('group')
-          .leftJoinAndSelect('group.permissions', 'permission')
-          .where('group.codeName = :groupName', { groupName: codeName })
-          .select('permission.codeName', 'codeName');
-
-        const permissions = await queryBuilder.getRawMany();  
-
-        if (!permissions) {
-          throw new HttpResponseBadRequest('No permission found');
-        }  
-        
-        for (const perm of permissions) {
-          const permission = await Permission.findOneBy({ codeName: perm.codeName });
-          if (!permission) {
-            this.logger.warn(`No permission with the code name "${codeName}" was found.`);
-            throw new HttpResponseBadRequest('Permission not fount');
+          if (!group) {
+            throw new HttpResponseBadRequest('No group found');
           }
-          user.userPermissions.push(permission);
+          
+          user.groups.push(group);
+
+          const queryBuilder = Group.createQueryBuilder('group')
+            .leftJoinAndSelect('group.permissions', 'permission')
+            .where('group.codeName = :groupName', { groupName: codeName })
+            .select('permission.codeName', 'codeName');
+
+          const permissions = await queryBuilder.getRawMany();  
+
+          if (!permissions) {
+            throw new HttpResponseBadRequest('No permission found');
+          }  
+          
+          for (const perm of permissions) {
+            const permission = await Permission.findOneBy({ codeName: perm.codeName });
+            if (!permission) {
+              this.logger.warn(`No permission with the code name "${codeName}" was found.`);
+              throw new HttpResponseBadRequest('Permission not found');
+            }
+            user.userPermissions.push(permission);
+          }
         }
         
         return user;

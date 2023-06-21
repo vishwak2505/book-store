@@ -1,12 +1,17 @@
 <script>
     import { onMount } from "svelte";
-    import Search from "../../components/Search.svelte";
-    import Modal from "../../components/Modal.svelte";
-    import { deleteBookApi, getAdminBooks } from "../../functions/apiCalls";
+    import Search from "../../../components/Search.svelte";
+    import Modal from "../../../components/Modal.svelte";
+    import { callApi } from "../../../utils/apiCalls";
+    import { toast } from "../../../store";
 
     let books =[];
     let searchBook = '';
     let displayBooks = [];
+
+    let openModal = false;
+
+    let currentBook = {};
 
     onMount( async() => {
        await getbooks();
@@ -17,13 +22,27 @@
     }
 
     const deleteBook = async(bookId) => {
-        console.log(bookId);
+        const res = await callApi(`http://localhost:3001/api/admin/books/deleteById/${bookId}`, 'DELETE');
+        if(res === 200){
+            $toast.showToast = true;
+            $toast.message = 'Successfully deleted the book'
+            await getbooks();
+        }
+        toggleModal();
     }
 
     const getbooks = async() => {
-        books = await getAdminBooks();
-        displayBooks = books;
+        books = await callApi('http://localhost:3001/api/admin/books/');
+        displayBooks = books.sort((book1, book2) => (book1.id > book2.id) ? 1 : -1);
     }
+
+    const setCurrentBook = (id, name) =>{
+        currentBook.name = name;
+        currentBook.id = id;
+        toggleModal();
+    }
+
+    const toggleModal = () => openModal = !openModal;
 
 </script>
 
@@ -56,7 +75,7 @@
                 <td>{book.availability ? 'Yes' : 'No'}</td>
                 <td>{books.bookStatus}</td>
                 {#if book.availability}
-                    <td><button on:click = {()=>{deleteBook(book.id)}}>Delete</button></td>
+                    <td><button on:click = {()=>{setCurrentBook(book.id, books.book_name)}}>Delete</button></td>
                 {:else}
                     <td><button disabled>Delete</button></td>
                 {/if}
@@ -67,4 +86,16 @@
 </table>
 {:else}
 <h1>No books found</h1>
+{/if}
+
+{#if openModal}
+    <Modal>
+        <div on:blur={toggleModal} class="modal__confirm">
+            <p>Are you sure you want to delete the book {currentBook.name} ? </p>
+            <div class="modal__buttons">
+                <button on:click={() => deleteBook(currentBook.id)}>Yes</button>
+                <button on:click={toggleModal}>No</button>
+            </div>
+        </div>
+    </Modal>
 {/if}

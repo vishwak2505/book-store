@@ -1,4 +1,4 @@
-import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
+import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, Patch, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { BooksController } from './admin';
 import { User } from '../../entities';
 import { Book, Bookdetails } from '../../entities/bookstore';
@@ -63,7 +63,7 @@ export class AdminController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
+          throw this.errorHandler.handleError(errors.notImplemented, 'No token generated');
         }
         setAuthCookie(response, token);
 
@@ -93,25 +93,25 @@ export class AdminController {
       try {
 
         if (ctx.request.body.accessKey != 'abcd') {
-          throw this.errorHandler.returnError(errors.forbidden, 'Incorrect Access Key');
+          throw this.errorHandler.handleError(errors.forbidden, 'Incorrect Access Key');
         } 
 
         const userDetails = {
           name: ctx.request.body.name,
           email: ctx.request.body.email,
           password: ctx.request.body.password,
-          group: 'admin',
+          group: ['admin', 'customer'],
         }
   
         const user = await this.credentials.signUpUser(userDetails);
-
+        console.log(user);
         await user.save();
     
         const response = new HttpResponseOK();
         const token = await this.createJWT(user);
 
         if (!token) {
-          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
+          throw this.errorHandler.handleError(errors.notImplemented, 'No token generated');
         }
 
         setAuthCookie(response, token);
@@ -155,7 +155,7 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw this.errorHandler.returnError(errors.notFound, 'No users found');
+          throw this.errorHandler.handleError(errors.notFound, 'No users found');
         }
 
         return new HttpResponseOK(users);
@@ -184,13 +184,14 @@ export class AdminController {
             'user.id',
             'user.name',
             'user.email',
-            'user.amount_due'
+            'user.amount_due',
+            'user.status'
           ]);
 
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw this.errorHandler.returnError(errors.notFound, 'No users found');
+          throw this.errorHandler.handleError(errors.notFound, 'No users found');
         }
 
         const csvStringifier = createObjectCsvStringifier({
@@ -198,7 +199,8 @@ export class AdminController {
             { id: 'id', title: 'ID' },
             { id: 'name', title: 'Name' },
             { id: 'email', title: 'Email' },
-            { id: 'amount_due', title: 'Amount Due' }
+            { id: 'amount_due', title: 'Amount Due' },
+            { id: 'status', title: 'Status' }
           ]
         });
 
@@ -249,7 +251,7 @@ export class AdminController {
           .getRawMany();
         
         if (!rentedBooks) {
-          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
+          throw this.errorHandler.handleError(errors.notFound, 'No Rented Books Found')
         }  
 
         return new HttpResponseOK(rentedBooks);
@@ -258,6 +260,7 @@ export class AdminController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -293,7 +296,7 @@ export class AdminController {
           .getRawMany();
 
         if (!rentedBooks) {
-          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
+          throw this.errorHandler.handleError(errors.notFound, 'No Rented Books Found')
         }  
     
         return new HttpResponseOK(rentedBooks);
@@ -302,6 +305,7 @@ export class AdminController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -318,7 +322,7 @@ export class AdminController {
         const user = await User.findOneBy({id: userId});
 
         if (!user) {
-          throw this.errorHandler.returnError(errors.notFound, 'No user found with given ID');
+          throw this.errorHandler.handleError(errors.notFound, 'No user found with given ID');
         }
         return new HttpResponseOK(user);
       } catch (response) {
@@ -326,6 +330,7 @@ export class AdminController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -342,7 +347,7 @@ export class AdminController {
         const user = await User.findOne({ where: { id: userId }, relations: ['book_rented'] });
     
         if (!user || user.status == userStatus.Inactive) {
-          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
+          throw this.errorHandler.handleError(errors.notFound, 'User not found with given ID');
         }
 
         const books =  await Book.createQueryBuilder('book')
@@ -397,7 +402,38 @@ export class AdminController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
+    }
+
+    @Patch('/:userId')
+    @JWTRequired({
+      cookie: true,
+      user: (id: number) => User.findOneWithPermissionsBy({ id })
+    })
+    @UserRequired()
+    @PermissionRequired('update-user')
+    @ValidatePathParam('userId', { type: 'number' })
+    async reactivateUser(ctx: Context, { userId }: { userId: number }) {
+      try {
+        const user = await User.findOne({ where: { id: userId } });
+    
+        if (!user) {
+          throw this.errorHandler.handleError(errors.notFound, 'User not found with given ID');
+        }
+
+        user.status = userStatus.Active;
+
+        await user.save();
+
+        return new HttpResponseOK(user);
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
+      } 
     }
 
     private async createJWT(user: User): Promise<string> {

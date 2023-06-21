@@ -1,5 +1,5 @@
 import { Context, Get, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound, HttpResponseOK, PermissionRequired, UseSessions, UserRequired, dependency } from '@foal/core';
-import { Bookdetails } from '../../entities/bookstore';
+import { Bookdetails, Picture } from '../../entities/bookstore';
 import { LoggerService } from '../../services/logger';
 import { status } from '../../entities/bookstore/bookdetails.entity';
 import { ErrorHandler } from '../../services';
@@ -18,37 +18,41 @@ export class GetbooksController {
 
     try {
 
-      // const books = await Bookdetails.find({
-      //   select: ['id', 'book_name', 'genre', 'cost_per_day', 'bookStatus'],
-      //   relations: ['pictures'],
-      // });
-
       const books = await Bookdetails
         .createQueryBuilder('bookdetails')
         .select([
-          'bookdetails.id',
-          'bookdetails.book_name',
-          'bookdetails.genre',
-          'bookdetails.cost_per_day',
-          'bookdetails.bookStatus',
-          '(bookdetails.total_no_of_copies - bookdetails.no_of_copies_rented) AS no_of_books_available',
+          'bookdetails.id AS id',
+          'bookdetails.book_name AS bookName',
+          'bookdetails.genre AS genre',
+          'bookdetails.cost_per_day AS costPerDay',
+          'bookdetails.bookStatus AS bookStatus',
+          '(bookdetails.total_no_of_copies - bookdetails.no_of_copies_rented) AS noOfBooksAvailable',
         ])
-        .leftJoin('bookdetails.pictures', 'picture')
-        .groupBy('bookdetails.id')
         .orderBy('bookdetails.bookStatus')
         .getRawMany();
+        
+      const bookIds = books.map(book => book.id);
+      const pictures = await Picture
+        .createQueryBuilder('picture')
+        .select(['picture.fileName AS fileName', 'picture.bookdetailsId'])
+        .where('picture.bookdetailsId IN (:...bookIds)', { bookIds })
+        .getRawMany();
+
+      const booksWithPictures = books.map(book => {
+        const matchingPictures = pictures.filter(picture => picture.bookdetailsId === book.id);
+        const fileNames = matchingPictures.map(picture => picture.fileName);
+        return { ...book, pictures: fileNames };
+      });
+
   
-      if (!books || books.length === 0) {
-        throw this.errorHandler.returnError(errors.notFound, 'No books found');
-      }
-  
-      return new HttpResponseOK(books);
+      return new HttpResponseOK(booksWithPictures);
 
     } catch (response) {
       if (response instanceof HttpResponse)
           return response;
       
       this.logger.error(`${response}`);
+      return new HttpResponseBadRequest();
     }
   }
 

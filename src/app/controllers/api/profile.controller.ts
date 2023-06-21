@@ -5,6 +5,7 @@ import { LoggerService } from '../../services/logger';
 import { Bookrented } from '../../entities/bookstore';
 import { JWTRequired } from '@foal/jwt';
 import { ErrorHandler } from '../../services';
+import { errors } from '../../services/error-handler.service';
 
 @ApiUseTag('profile')
 @JWTRequired({
@@ -17,7 +18,10 @@ export class ProfileController {
     disk: Disk;
   
     @dependency
-    logger: ErrorHandler;
+    logger: LoggerService;
+
+    @dependency
+    errorHandler: ErrorHandler;
 
     @Get('/viewProfile')
     @UserRequired()
@@ -44,12 +48,12 @@ export class ProfileController {
           rentedBooks,
         }
         return new HttpResponseOK(userProfile);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
   
@@ -61,7 +65,7 @@ export class ProfileController {
         let user = ctx.user;
         
         if (!user) {
-          throw new HttpResponseNotFound('No user found');
+          throw this.errorHandler.returnError(errors.notFound, 'No user found');
         }
     
         if (!user.avatar) {
@@ -69,12 +73,12 @@ export class ProfileController {
         }
     
         return this.disk.createHttpResponse(user.avatar);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
       
     }
@@ -115,7 +119,7 @@ export class ProfileController {
           const user = await User.findOneBy({ email });
 
           if (user) {
-            throw new HttpResponseBadRequest('Mail id already in use');
+            throw this.errorHandler.returnError(errors.notImplemented, 'Mail id already in use');
           }
           ctx.user.email = email;
         }
@@ -132,12 +136,12 @@ export class ProfileController {
         await ctx.user.save();
     
         return new HttpResponseNoContent();
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
       
     }

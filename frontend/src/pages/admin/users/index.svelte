@@ -1,13 +1,13 @@
 <script>
     import { onMount } from "svelte";
-    import { getAllUsersApi, getRentedBooksApi } from "../../functions/apiCalls";
+    import { callApi } from "../../../utils/apiCalls";
     let users = [];
     let displayUsers = [];
     let rentedBooks = [];
     onMount(async()=>{
-        users = await getAllUsersApi();
+        users = await callApi('http://localhost:3001/api/admin/allUsers');
         displayUsers = users;
-        rentedBooks = await getRentedBooksApi();
+        rentedBooks = await callApi('http://localhost:3001/api/admin/rentedBooks');
     })
 
     const filterBooks = (books, userId) => books.filter( book => book.user_id === userId);
@@ -28,7 +28,7 @@
         {#each displayUsers as user(user)}
             <tr class="users__row">
                <td>{user.id}</td>
-               <td><a href={`/admin/${user.id}`}>{user.name}</a></td>
+               <td><a href={`/admin/users/${user.id}`}>{user.name}</a></td>
                <td>{user.email}</td>
                <!-- <td>
                 {#each filterBooks(rentedBooks, user.id) as book}

@@ -1,7 +1,6 @@
-import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
+import { ApiUseTag, Context, controller, Delete, dependency, Get, hashPassword, HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNoContent, HttpResponseNotFound, HttpResponseOK, HttpResponseSuccess, HttpResponseUnauthorized, Patch, PermissionRequired, Post, UserRequired, UseSessions, ValidateBody, ValidatePathParam, verifyPassword } from '@foal/core';
 import { BooksController } from './admin';
 import { User } from '../../entities';
-import { LoggerService } from '../../services/logger';
 import { Book, Bookdetails } from '../../entities/bookstore';
 import { Credentials } from '../../services/apis';
 import { Bookrented, bookStatus } from '../../entities/bookstore/bookrented.entity';
@@ -11,8 +10,9 @@ import { promisify } from 'util';
 import { Disk } from '@foal/storage';
 import { createObjectCsvStringifier } from 'csv-writer';
 import { userStatus } from '../../entities/user.entity';
-import { userInfo } from 'os';
 import { ErrorHandler } from '../../services';
+import { LoggerService } from '../../services/logger';
+import { errors } from '../../services/error-handler.service';
 
 const credentialsSchema = {
   type: 'object',
@@ -32,7 +32,10 @@ export class AdminController {
     ];
 
     @dependency
-    logger: ErrorHandler;
+    logger: LoggerService;
+
+    @dependency
+    errorHandler: ErrorHandler;
 
     @dependency
     credentials : Credentials;
@@ -60,17 +63,16 @@ export class AdminController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          return new HttpResponseBadRequest('No token genereted');
+          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
         }
         setAuthCookie(response, token);
 
         return response;
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
 
     }
@@ -91,36 +93,35 @@ export class AdminController {
       try {
 
         if (ctx.request.body.accessKey != 'abcd') {
-          throw new HttpResponseForbidden('Incorrect Access Key');
+          throw this.errorHandler.returnError(errors.forbidden, 'Incorrect Access Key');
         } 
 
         const userDetails = {
           name: ctx.request.body.name,
           email: ctx.request.body.email,
           password: ctx.request.body.password,
-          group: 'admin',
+          group: ['admin', 'customer'],
         }
   
         const user = await this.credentials.signUpUser(userDetails);
-
+        console.log(user);
         await user.save();
     
         const response = new HttpResponseOK();
         const token = await this.createJWT(user);
 
         if (!token) {
-          return new HttpResponseBadRequest('No token genereted');
+          throw this.errorHandler.returnError(errors.notImplemented, 'No token generated');
         }
 
         setAuthCookie(response, token);
 
         return response;
-      } catch (e){
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response){
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -154,16 +155,15 @@ export class AdminController {
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw new HttpResponseNotFound('No users found');
+          throw this.errorHandler.returnError(errors.notFound, 'No users found');
         }
 
         return new HttpResponseOK(users);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -184,13 +184,14 @@ export class AdminController {
             'user.id',
             'user.name',
             'user.email',
-            'user.amount_due'
+            'user.amount_due',
+            'user.status'
           ]);
 
         const users = await queryBuilder.getMany();
 
         if (!users) {
-          throw new HttpResponseNotFound('No users found');
+          throw this.errorHandler.returnError(errors.notFound, 'No users found');
         }
 
         const csvStringifier = createObjectCsvStringifier({
@@ -198,7 +199,8 @@ export class AdminController {
             { id: 'id', title: 'ID' },
             { id: 'name', title: 'Name' },
             { id: 'email', title: 'Email' },
-            { id: 'amount_due', title: 'Amount Due' }
+            { id: 'amount_due', title: 'Amount Due' },
+            { id: 'status', title: 'Status' }
           ]
         });
 
@@ -210,12 +212,11 @@ export class AdminController {
         response.body = csvData;
 
         return response;
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
       }
     }
 
@@ -250,16 +251,16 @@ export class AdminController {
           .getRawMany();
         
         if (!rentedBooks) {
-          throw new HttpResponseNotFound('No Rented Books Found')
+          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
         }  
 
         return new HttpResponseOK(rentedBooks);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -295,16 +296,16 @@ export class AdminController {
           .getRawMany();
 
         if (!rentedBooks) {
-          throw new HttpResponseNotFound('No Rented Books Found')
+          throw this.errorHandler.returnError(errors.notFound, 'No Rented Books Found')
         }  
     
         return new HttpResponseOK(rentedBooks);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -321,15 +322,15 @@ export class AdminController {
         const user = await User.findOneBy({id: userId});
 
         if (!user) {
-          throw new HttpResponseNotFound('No user found with given ID');
+          throw this.errorHandler.returnError(errors.notFound, 'No user found with given ID');
         }
         return new HttpResponseOK(user);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -346,7 +347,7 @@ export class AdminController {
         const user = await User.findOne({ where: { id: userId }, relations: ['book_rented'] });
     
         if (!user || user.status == userStatus.Inactive) {
-          throw new HttpResponseNotFound('User not found with given ID');
+          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
         }
 
         const books =  await Book.createQueryBuilder('book')
@@ -396,13 +397,43 @@ export class AdminController {
         await user.save();
     
         return new HttpResponseOK(user);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
+    }
+
+    @Patch('/:userId')
+    @JWTRequired({
+      cookie: true,
+      user: (id: number) => User.findOneWithPermissionsBy({ id })
+    })
+    @UserRequired()
+    @PermissionRequired('update-user')
+    @ValidatePathParam('userId', { type: 'number' })
+    async reactivateUser(ctx: Context, { userId }: { userId: number }) {
+      try {
+        const user = await User.findOne({ where: { id: userId } });
+    
+        if (!user) {
+          throw this.errorHandler.returnError(errors.notFound, 'User not found with given ID');
+        }
+
+        user.status = userStatus.Active;
+
+        await user.save();
+
+        return new HttpResponseOK(user);
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
+      } 
     }
 
     private async createJWT(user: User): Promise<string> {

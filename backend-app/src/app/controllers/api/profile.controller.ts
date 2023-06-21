@@ -53,6 +53,7 @@ export class ProfileController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
   
@@ -64,7 +65,7 @@ export class ProfileController {
         let user = ctx.user;
         
         if (!user) {
-          throw this.errorHandler.returnError(errors.notFound, 'No user found');
+          throw this.errorHandler.handleError(errors.notFound, 'No user found');
         }
     
         if (!user.avatar) {
@@ -77,6 +78,7 @@ export class ProfileController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
       
     }
@@ -117,7 +119,7 @@ export class ProfileController {
           const user = await User.findOneBy({ email });
 
           if (user) {
-            throw this.errorHandler.returnError(errors.notImplemented, 'Mail id already in use');
+            throw this.errorHandler.handleError(errors.notImplemented, 'Mail id already in use');
           }
           ctx.user.email = email;
         }
@@ -126,7 +128,6 @@ export class ProfileController {
         if (file) {
           if (ctx.user.avatar) {
             await this.disk.delete(ctx.user.avatar);
-            this.logger.returnError(`${ctx.user.name} updated profile picture`);
           }
           ctx.user.avatar = file.path;
         }
@@ -139,6 +140,7 @@ export class ProfileController {
           return response;
       
         this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
       
     }

@@ -3,7 +3,7 @@
     import { toast, loggedIn } from "../../store";
     import Search from "../../components/Search.svelte";
     import Modal from "../../components/Modal.svelte";
-    import { addBookApi, deleteBookApi, getAdminBooks } from "../../functions/apiCalls";
+    import { callApi } from "../../utils/apiCalls";
     let bookName;
     let genre;
     let totalNoOfCopies;
@@ -23,30 +23,38 @@
     }
 
     const deleteBook = async(bookName) => {
-        await deleteBookApi(bookName);
+        const res = await callApi(`http://localhost:3001/api/admin/books/deleteByName/{bookName}?bookName=${bookName}`, 'DELETE');
+        if(res === 201){
+            $toast.showToast = true;
+            $toast.message = 'Successfully deactivated the book!';
+        }
     }
 
     const getbooks = async() => {
-        books = await getAdminBooks();
+        books = await callApi('http://localhost:3001/api/admin/books/');
         displayBooks = books;
     }
 
     const toggleModal = () => openForm = !openForm;
 
     const addBook = async() => {
-        const formData = new FormData();
+        if(checkAvailable() === -1){
+            const formData = new FormData();
 
-        formData.append('bookName', bookName);
-        formData.append('genre', genre);
-        formData.append('totalNoOfCopies', totalNoOfCopies);
-        formData.append('costPerDay', costPerDay);
-        
-        const res = await addBookApi(formData);
-        (res === 201) ? getbooks() : null;
-        
-        bookName = genre = totalNoOfCopies = costPerDay = '';
-
-        openForm = false;
+            formData.append('bookName', bookName);
+            formData.append('genre', genre);
+            formData.append('totalNoOfCopies', totalNoOfCopies);
+            formData.append('costPerDay', costPerDay);
+            
+            const res = await callApi('http://localhost:3001/api/admin/books/add', 'POST', {}, formData);
+            if(res === 201){
+                $toast.showToast = true;
+                $toast.message = 'The book is added!';
+                await getbooks();
+            }            
+            bookName = genre = totalNoOfCopies = costPerDay = '';
+            openForm = false;
+        }
     }
 
     const checkAvailable = () =>{
@@ -55,9 +63,9 @@
         if(isAvailable!=-1){
             $toast.showToast = true;
             $toast.message = 'Book is already present';
-        }else{
-            addBook();
         }
+
+        return isAvailable;
     }
 </script>
 
@@ -101,9 +109,9 @@
                <td>
                     {#if book.bookStatus === 'active'}
                         {#if book.no_of_copies_rented }
-                            <button disabled>Delete</button>
+                            <button disabled>Deactivate</button>
                         {:else}
-                            <button on:click={deleteBook(book.book_name)} >Delete</button>
+                            <button on:click={deleteBook(book.book_name)} >Deactivate</button>
                         {/if}
                     {:else if book.bookStatus === 'closed'}
                         <button>Activate</button>
@@ -119,7 +127,7 @@
 
 {#if openForm}
 <Modal>
-    <form id="addBook" class="modal__form" on:submit|preventDefault={checkAvailable}>
+    <form id="addBook" class="modal__form" on:submit|preventDefault={addBook}>
         <h1>Add a book</h1>
         <input class="modal__input" type="text" bind:value={bookName} on:input={checkAvailable} name="bookName" placeholder="Book name"/>
         <input class="modal__input" type="text" bind:value={genre} name="genre" placeholder="Genre"/>

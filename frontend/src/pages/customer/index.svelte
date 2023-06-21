@@ -1,7 +1,8 @@
 <script>
     import { onMount } from "svelte";
-    import { getBooksApi, getUserProfileApi, borrowBookApi } from '../../functions/apiCalls';
+    import { callApi } from "../../utils/apiCalls";
     import Search from "../../components/Search.svelte";
+    import { toast } from "../../store";
 
     let user = {};
     let books = [];
@@ -9,22 +10,26 @@
     let searchBook = '';
 
     onMount( async() => {
-        user = await getUserProfileApi();
+        user = await callApi('http://localhost:3001/api/profile/viewProfile');
         await getbooks();            
     })
 
     const getbooks = async() => {
-        books = await getBooksApi();
-        displayBooks = books.filter( book => book.no_of_books_available != 0 && book.bookdetails_bookStatus != 'closed');
+        books = await callApi('http://localhost:3001/api/getbooks/');
+        displayBooks = books;
     }
 
     const search = () => {
-        displayBooks = books.filter( book => (book.bookdetails_book_name.toLowerCase()).includes(searchBook.toLowerCase()));
+        displayBooks = books.filter( book => (book.bookName.toLowerCase()).includes(searchBook.toLowerCase()));
     }
 
     const borrow = async(bookName) => {
-        const res = await borrowBookApi(bookName);
-        (res === 200) ? await getbooks() : null;
+        const res = await callApi(`http://localhost:3001/api/user/borrow/{bookName}?bookName=${bookName}`, 'POST');
+        if(res === 200){
+            $toast.showToast = true;
+            $toast.message = 'Book borrowed successfully!';
+            await getbooks();
+        }
     }
     
 </script>
@@ -46,11 +51,21 @@
     <tbody>
         {#each displayBooks as book(book)}
                 <tr class="books__row">
-                    <td>{book.bookdetails_book_name}</td>
-                    <td>{book.bookdetails_genre}</td>
-                    <td>₹{book.bookdetails_cost_per_day}</td>
+                    <td>{book.bookName}</td>
+                    <td>{book.genre}</td>
+                    <td>₹{book.costPerDay}</td>
                     <td>
-                        <button class="books__button" on:click={()=>borrow(book.bookdetails_book_name)}>Borrow</button>
+                        {#if book.noOfBooksAvailable == 0 || book.bookStatus == 'closed'}
+                            <button class="books__button books__unavailable" disabled>
+                                {#if book.noOfBooksAvailable != 0}
+                                    Out of stock
+                                {:else if book.bookStatus != 'closed'}
+                                    Unavailable
+                                {/if}
+                            </button>
+                        {:else}
+                            <button class="books__button" on:click={()=>borrow(book.bookName)}>Borrow</button>
+                        {/if}
                     </td>
                 </tr>
         {/each}

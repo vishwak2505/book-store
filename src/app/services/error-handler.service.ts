@@ -1,18 +1,32 @@
-import { HttpResponse, HttpResponseBadRequest, dependency } from "@foal/core";
+import { HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, HttpResponseNotFound, HttpResponseNotImplemented, dependency } from "@foal/core";
 import { LoggerService } from "./logger";
+
+export enum errors {
+    notImplemented = 'notImplemented',
+    notFound = 'notFound',
+    badRequest = 'badRequest',
+    forbidden = 'forbidden'
+}
 
 export class ErrorHandler {
 
     @dependency
     logger: LoggerService
 
-    returnError (error: Error|HttpResponse|String) {
+    returnError(type: errors, error: String|null) {
 
-        this.logger.error(`${error}`);
-            if (error instanceof HttpResponse) {
-            return error;
-            } else {
+        if (type == errors.notFound) {
+            this.logger.warn(`${error}`);
+            return new HttpResponseNotFound(error);
+        } else if (type == errors.badRequest) {
+            this.logger.warn(`${error}`);
             return new HttpResponseBadRequest(error);
-            }
+        } else if (type == errors.notImplemented) {
+            this.logger.warn(`${error}`);
+            return new HttpResponseNotImplemented(error);
+        } else if (type == errors.forbidden) {
+            this.logger.warn(`${error}`);
+            return new HttpResponseForbidden(error);
         }
+    }    
 }

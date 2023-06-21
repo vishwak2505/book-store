@@ -1,7 +1,8 @@
 <script>
     import { onMount } from "svelte";
     import Search from "../../components/Search.svelte";
-    import { getUserProfileApi, returnBookApi } from "../../functions/apiCalls";
+    import { callApi } from "../../utils/apiCalls";
+    import { toast } from "../../store";
 
     let user = {};
     let mybooks = [];
@@ -23,12 +24,16 @@
     }
 
     const returnBook = async(bookid) => {
-        const res = await returnBookApi(bookid);
-        if(res === 200) await getMyBooks();
+        const res = await callApi(`http://localhost:3001/api/user/return/${bookid}`, 'POST');
+        if(res === 200){
+            $toast.showToast = true;
+            $toast.message = 'Book returned successfully!';
+            await getbooks();
+        }
     }
 
     const getMyBooks = async() =>{
-        user = await getUserProfileApi();
+        user = await callApi('http://localhost:3001/api/profile/viewProfile');
         mybooks = user.rentedBooks;
         borrowedBooks = mybooks.filter( book => book.bookRented_date_of_return === null);
         displayBorrowedBooks = borrowedBooks;
@@ -50,6 +55,7 @@
     
 </script>
 
+<!-- svelte-ignore missing-declaration -->
 <h1>Borrowed Books</h1>
 <div>
     <Search on:submit = {search.bind(null, 'borrowed')} bind:searchBook = {searchBorrowedBook}/>

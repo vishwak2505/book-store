@@ -8,7 +8,25 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.4);
+    z-index: 4;
     @include utilities.flexCenter(column);
+
+    &__confirm{
+        background-color: #fff;
+        padding: 3%;
+        @include utilities.flexCenter(column);
+        border-radius: 10px;
+
+        button{
+            @extend %button;
+            padding: 10px 20px;
+        }
+    }
+
+    &__buttons{
+        width: 30%;
+        @include utilities.flexCenter(row, space-between);
+    }
 
     &__form{
         background-color: #fff;

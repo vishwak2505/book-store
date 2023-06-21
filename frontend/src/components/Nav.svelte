@@ -34,12 +34,14 @@
          {#if $loggedIn.user === 'customer'}
           <a class="navbar__link" href="/customer" on:click={expandMenu}>Home</a>
           <a class="navbar__link" href="/customer/profile" on:click={expandMenu}>My profile</a>
-          <a class="navbar__link" href="/customer/mybooks" on:click={expandMenu}>My books</a>
+          <a class="navbar__link" href="/customer/books" on:click={expandMenu}>Books</a>
+          <a class="navbar__link" href="/customer/books/history" on:click={expandMenu}>History</a>
          {/if}
          {#if $loggedIn.user === 'admin'}
           <a class="navbar__link" href="/admin" on:click={expandMenu}>Home</a>
           <a class="navbar__link" href="/admin/books" on:click={expandMenu}>All books</a>
-          <a class="navbar__link" href="/admin/rentedbooks" on:click={expandMenu}>Rented books</a>
+          <a class="navbar__link" href="/admin/books/rentedbooks" on:click={expandMenu}>Rented books</a>
+          <a class="navbar__link" href="/admin/books/returnedbooks" on:click={expandMenu}>Returned books</a>
          {/if}
           <span class="navbar__link" on:click={logout}>Logout</span>
        </div>

@@ -9,6 +9,7 @@ import { sign } from 'jsonwebtoken';
 import { promisify } from 'util';
 import { ErrorHandler } from '../../services';
 import { status } from '../../entities/bookstore/bookdetails.entity';
+import { errors } from '../../services/error-handler.service';
 
 const credentialsSchema = {
   type: 'object',
@@ -25,7 +26,10 @@ const credentialsSchema = {
 export class AuthController {
 
     @dependency
-    logger: ErrorHandler;
+    logger: LoggerService;
+
+    @dependency
+    errorHandler: ErrorHandler;
 
     @dependency
     credentials: Credentials
@@ -57,18 +61,18 @@ export class AuthController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          return new HttpResponseBadRequest('No token genereted');
+          throw this.errorHandler.returnError(errors.notImplemented, 'No token genereted');
         }
 
         setAuthCookie(response, token);
 
         return response;
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
     
@@ -81,7 +85,7 @@ export class AuthController {
           name: ctx.request.body.name,
           email: ctx.request.body.email,
           password: ctx.request.body.password,
-          group: 'customer'
+          group: ['customer']
         }
             
         const user = await this.credentials.signUpUser(userDetails);
@@ -92,18 +96,18 @@ export class AuthController {
         const token = await this.createJWT(user);
 
         if (!token) {
-          return new HttpResponseBadRequest('No token genereted');
+          throw this.errorHandler.returnError(errors.notImplemented, 'No token genereted');
         }
 
         setAuthCookie(response, token);
 
         return response;
-      } catch (e){
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response){
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -130,13 +134,13 @@ export class AuthController {
         const bookDetails = await Bookdetails.findOne({ where: { book_name: bookName }});
 
         if (!bookDetails || bookDetails.bookStatus != status.Active) {
-          throw new HttpResponseNotFound('Book not found');
+          throw this.errorHandler.returnError(errors.notFound, 'Book not found');
         }
 
         const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, availability: true}) ;
 
         if (!book) {
-          throw new HttpResponseNotFound('Book out of stock');
+          throw this.errorHandler.returnError(errors.notFound, 'Book out of stock');
         }
 
         const bookRented = new Bookrented();
@@ -153,12 +157,12 @@ export class AuthController {
         await bookDetails.save();
         
         return new HttpResponseOK(bookDetails);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 
@@ -175,7 +179,7 @@ export class AuthController {
         const book = await Book.findOne({ where: { id: bookId }, relations: ['book_details'] });
 
         if (!book) {
-          throw new HttpResponseNotFound('Book not found');
+          throw this.errorHandler.returnError(errors.notFound, 'Book not found');
         }
 
         const bookRented = await Bookrented
@@ -187,13 +191,13 @@ export class AuthController {
           .getOne();
 
         if (!bookRented) {
-          throw new HttpResponseNotFound('Book not rented by the user');
+          throw this.errorHandler.returnError(errors.notFound, 'Book not rented by the user');
         }
         
         const bookDetails = book.book_details;
         
         if (!bookDetails) {
-          throw new HttpResponseNotFound('Book details not found');
+          throw this.errorHandler.returnError(errors.notFound, 'Book details not found');
         }
 
         bookRented.date_of_return = new Date();
@@ -218,12 +222,12 @@ export class AuthController {
         await ctx.user.save();
         
         return new HttpResponseOK(bookDetails);
-      } catch (e) {
-        if (e instanceof Error || e instanceof HttpResponse) {
-          return this.logger.returnError(e);
-        } else {
-          return new HttpResponseBadRequest(e);
-        }
+      } catch (response) {
+        if (response instanceof HttpResponse)
+          return response;
+      
+        this.logger.error(`${response}`);
+        return new HttpResponseBadRequest();
       }
     }
 

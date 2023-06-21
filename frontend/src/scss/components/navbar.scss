@@ -25,7 +25,7 @@
      list-style-type: none;
      @include utilities.flexCenter(column);
      padding: 0.5% 2%;
-     z-index: 2;
+     z-index: 3;
    }
 
    &__link{

@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class migration1686560572211 implements MigrationInterface {
-    name = 'migration1686560572211'
+export class migration1687156917836 implements MigrationInterface {
+    name = 'migration1687156917836'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -23,17 +23,6 @@ export class migration1686560572211 implements MigrationInterface {
             ) ENGINE = InnoDB
         `);
         await queryRunner.query(`
-            CREATE TABLE \`sessions\` (
-                \`id\` varchar(44) NOT NULL,
-                \`user_id\` int NULL,
-                \`content\` text NOT NULL,
-                \`flash\` text NOT NULL,
-                \`updated_at\` int NOT NULL,
-                \`created_at\` int NOT NULL,
-                PRIMARY KEY (\`id\`)
-            ) ENGINE = InnoDB
-        `);
-        await queryRunner.query(`
             CREATE TABLE \`picture\` (
                 \`id\` int NOT NULL AUTO_INCREMENT,
                 \`fileName\` varchar(255) NOT NULL,
@@ -49,6 +38,7 @@ export class migration1686560572211 implements MigrationInterface {
                 \`total_no_of_copies\` int NOT NULL,
                 \`no_of_copies_rented\` int NULL,
                 \`cost_per_day\` int NOT NULL,
+                \`bookStatus\` enum ('active', 'closed') NOT NULL,
                 UNIQUE INDEX \`IDX_290282e9eb4dc8db7254881250\` (\`book_name\`),
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
@@ -68,7 +58,7 @@ export class migration1686560572211 implements MigrationInterface {
                 \`date_of_return\` datetime NULL,
                 \`status\` enum ('active', 'closed') NOT NULL,
                 \`userId\` int NOT NULL,
-                \`bookId\` int NULL,
+                \`bookId\` int NOT NULL,
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
         `);
@@ -80,6 +70,7 @@ export class migration1686560572211 implements MigrationInterface {
                 \`password\` varchar(255) NULL,
                 \`amount_due\` int NULL,
                 \`avatar\` varchar(255) NULL,
+                \`status\` enum ('active', 'inactive') NOT NULL,
                 UNIQUE INDEX \`IDX_e12875dfb3b1d92d7d7c5377e2\` (\`email\`),
                 PRIMARY KEY (\`id\`)
             ) ENGINE = InnoDB
@@ -125,7 +116,7 @@ export class migration1686560572211 implements MigrationInterface {
         `);
         await queryRunner.query(`
             ALTER TABLE \`bookrented\`
-            ADD CONSTRAINT \`FK_ac6c3a313831d448aa6e159a6a6\` FOREIGN KEY (\`bookId\`) REFERENCES \`book\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION
+            ADD CONSTRAINT \`FK_ac6c3a313831d448aa6e159a6a6\` FOREIGN KEY (\`bookId\`) REFERENCES \`book\`(\`id\`) ON DELETE CASCADE ON UPDATE NO ACTION
         `);
         await queryRunner.query(`
             ALTER TABLE \`group_permissions_permission\`
@@ -231,9 +222,6 @@ export class migration1686560572211 implements MigrationInterface {
         `);
         await queryRunner.query(`
             DROP TABLE \`picture\`
-        `);
-        await queryRunner.query(`
-            DROP TABLE \`sessions\`
         `);
         await queryRunner.query(`
             DROP INDEX \`IDX_c13ca26406d3e9be800054b9a4\` ON \`group\`

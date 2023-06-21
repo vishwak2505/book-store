@@ -13,6 +13,7 @@
         position: sticky;
         top: 0;
         left: 0;
+        z-index: 2;
     }
 
     &__row th{
@@ -34,5 +35,10 @@
         padding: 4%;
         border-radius: 10px;
         cursor: pointer;
+    }
+
+    &__unavailable{
+        background-color: rgba(0,0,0,0.4);
+        cursor: default;
     }
 }

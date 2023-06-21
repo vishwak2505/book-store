@@ -13,7 +13,7 @@ export class ErrorHandler {
     @dependency
     logger: LoggerService
 
-    returnError(type: errors, error: String|null) {
+    handleError(type: errors, error: String|null) {
 
         if (type == errors.notFound) {
             this.logger.warn(`${error}`);
