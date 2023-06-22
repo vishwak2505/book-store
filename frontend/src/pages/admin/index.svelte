@@ -4,6 +4,7 @@
     import Search from "../../components/Search.svelte";
     import Modal from "../../components/Modal.svelte";
     import { callApi } from "../../utils/apiCalls";
+  import InPlaceEdit from "../../components/InPlaceEdit.svelte";
     let bookName;
     let genre;
     let totalNoOfCopies;
@@ -120,11 +121,11 @@
     <tbody>
         {#each displayBooks as book(book)}
             <tr class="books__row">
-               <td>{book.book_name}</td>
-               <td>{book.genre}</td>
-               <td>{book.total_no_of_copies}</td>
+               <td><InPlaceEdit bind:value={book.book_name} property="bookName" booksId = {book.id} component='bookInfo'/></td>
+               <td><InPlaceEdit bind:value={book.genre} property="genre" booksId = {book.id} component='bookInfo'/></td>
+               <td><InPlaceEdit bind:value={book.total_no_of_copies} property="totalNoOfCopies" booksId = {book.id} component='bookInfo'/></td>
                <td>{book.no_of_copies_rented}</td>
-               <td>{book.cost_per_day}</td>
+               <td><InPlaceEdit bind:value={book.cost_per_day} property="costPerDay" booksId = {book.id} component='bookInfo'/></td>
        
 
                {#if book.bookStatus === 'closed'}

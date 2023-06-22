@@ -3,7 +3,7 @@
     import { callApi } from "../utils/apiCalls";
     import { toast } from "../store";
 
-    export let value, property = "";
+    export let value, property = "", component, booksId = '';
     let editing = false, original;
 
     onMount(()=>{
@@ -23,11 +23,17 @@
           const formData = new FormData();
           formData.append(property, value);
 
-          const res = await callApi('http://localhost:3001/api/profile/updateProfile' , 'PATCH', {}, formData);
-          value = (res != 204) ? original : value;
-          original = (res != 2014 ) ? value : original;
+          let res;
+          if(component === 'userProfile'){
+            res = await callApi('http://localhost:3001/api/profile/updateProfile' , 'PATCH', {}, formData, 204);
+          }else if(component === 'bookInfo'){
+            formData.append('bookId', booksId);
+            res = await callApi('http://localhost:3001/api/admin/books/updateBookDetail' , 'PATCH', {}, formData);
+          }
+          value = (res != 204 && res != 200) ? original : value;
+          original = (res != 204 && res != 200 ) ? value : original;
 
-          if(res === 204){
+          if(res === 204 || res === 200){
             $toast.showToast = true;
             $toast.message = 'Updated successfully!';
           }

@@ -34,9 +34,13 @@
   <tr>
     <td>Books rented:</td>
     <td>
-      {#each filterBooks(rentedBooks, user.id) as book(book)}
-        {book.bookDetails_book_name},
-      {/each}
+      {#if filterBooks(rentedBooks, user.id).length}
+        {#each filterBooks(rentedBooks, user.id) as book(book)}
+          {book.bookDetails_book_name},
+        {/each}
+      {:else}
+        Nil
+      {/if}
     </td>
   </tr>
 </table>

@@ -50,11 +50,11 @@
         </tr>
         <tr>
           <td class="profile__label">Name</td>
-          <td><InPlaceEdit bind:value={user.Name} property="name" /></td>
+          <td><InPlaceEdit bind:value={user.Name} property="name" component='userProfile'/></td>
         </tr>
         <tr>
           <td class="profile__label">Email</td>
-          <td><InPlaceEdit bind:value={user.Email} property="email" /></td>
+          <td><InPlaceEdit bind:value={user.Email} property="email" component='userProfile' /></td>
         </tr>
       </tbody>
     </table>
