@@ -5,3 +5,28 @@
 {"@timestamp":"2023-06-19T09:19:43.544Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'bookdetails.pictures' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-19T09:22:29.046Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'bookdetails.pictures' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-19T09:24:25.024Z","log.level":"error","message":"QueryFailedError: ER_WRONG_FIELD_WITH_GROUP: Expression #6 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'Book Store.picture.fileName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:39:59.919Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T04:42:17.488Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T05:36:27.925Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T05:43:24.647Z","log.level":"error","message":"Books are rented by users","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T05:47:27.320Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T06:11:57.968Z","log.level":"error","message":"Book is rented by a customer","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T06:12:03.897Z","log.level":"error","message":"Book is rented by a customer","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T06:12:10.714Z","log.level":"error","message":"Book is rented by a customer","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T06:55:16.531Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T08:54:44.643Z","log.level":"error","message":"No books found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T12:51:51.073Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T12:53:43.140Z","log.level":"error","message":"QueryFailedError: ER_NO_DEFAULT_FOR_FIELD: Field 'status' doesn't have a default value","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-21T12:54:49.856Z","log.level":"error","message":"QueryFailedError: ER_DUP_ENTRY: Duplicate entry 'BookM' for key 'bookdetails.IDX_290282e9eb4dc8db7254881250'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:19:49.633Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:19:53.738Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:20:02.007Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:20:14.560Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:20:54.203Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:21:18.461Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:28:31.504Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:28:54.934Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:36:29.941Z","log.level":"error","message":"Incorrect Access Key","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:46:19.223Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T08:46:24.952Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-23T04:42:34.825Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
