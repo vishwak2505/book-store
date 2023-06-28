@@ -395,12 +395,6 @@ export class BooksController {
       const booksClosed: Bookdetails[] = [];
 
       for(const book of bookDetails) {
-        if(book.no_of_copies_rented != 0){
-          booksRented.push(book);
-          book.bookStatus = status.Closed;
-          await book.save();
-          continue;
-        }
 
         if(book.bookStatus == status.Closed) {
           booksClosed.push(book);
@@ -416,6 +410,11 @@ export class BooksController {
 
         book.bookStatus = status.Closed;
         await book.save();
+        
+        if(book.no_of_copies_rented != 0){
+          booksRented.push(book);
+          continue;
+        }
         booksRemoved.push(book);
       }
 

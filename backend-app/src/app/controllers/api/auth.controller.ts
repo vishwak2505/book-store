@@ -137,7 +137,7 @@ export class AuthController {
           throw this.errorHandler.handleError(errors.notFound, 'Book not found');
         }
 
-        const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, availability: true}) ;
+        const book = await Book.findOneBy({ book_details: { id: bookDetails.id }, availability: true, status: bookStatus.Active}) ;
 
         if (!book) {
           throw this.errorHandler.handleError(errors.notFound, 'Book out of stock');
@@ -207,8 +207,10 @@ export class AuthController {
         bookDetails.no_of_copies_rented--;
         await bookDetails.save();
 
-        book.availability = true;
-        await book.save();
+        if (bookDetails.bookStatus == status.Active) {
+          book.availability = true;
+          await book.save();
+        }
 
         const dateOfIssue = bookRented.date_of_issue;
         const dateOfReturn = bookRented.date_of_return;

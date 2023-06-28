@@ -1,7 +1,7 @@
 <script>
   import { goto } from '@roxi/routify';
   import { loggedIn } from '../store.js';
-  import { afterUpdate } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { callApi } from '../utils/apiCalls.js';
   
   let openMenu = false;
@@ -31,7 +31,7 @@
   }
   const expandMenu = () => openMenu = !openMenu; 
 
-  afterUpdate(async() => await updateNavbar());
+  onMount(async() => await updateNavbar());
 </script>
 
 <div class="navbar">
