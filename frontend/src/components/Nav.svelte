@@ -1,16 +1,21 @@
 <script>
   import { goto } from '@roxi/routify';
   import { loggedIn } from '../store.js';
-  import { afterUpdate } from 'svelte';
+  import { afterUpdate, onMount } from 'svelte';
   import { callApi } from '../utils/apiCalls.js';
   
   let openMenu = false;
-  let loggedUser;
+  let loggedUser = {}, loggedUserName;
+
+  onMount(async() => {
+    await updateNavbar();
+  })
 
   const updateNavbar = async() => {
     if($loggedIn.status && $loggedIn.user === 'customer'){
       loggedUser = await callApi("http://localhost:3001/api/profile/viewProfile");
       loggedUser = loggedUser.Name;
+      loggedUserName = loggedUser.loggedUserName;
     }
   }
 
@@ -31,7 +36,6 @@
   }
   const expandMenu = () => openMenu = !openMenu; 
 
-  afterUpdate(async() => await updateNavbar());
 </script>
 
 <div class="navbar">

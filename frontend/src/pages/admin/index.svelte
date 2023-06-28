@@ -34,7 +34,7 @@
     }
 
     const deactivateBook = async(bookName) => {
-        const res = await callApi(`http://localhost:3001/api/admin/books/deleteByName/{bookName}?bookName=${bookName}`, 'DELETE');
+        const res = await callApi(`http://localhost:3001/api/admin/books/deleteByName/?bookName=${bookName}`, 'DELETE');
         if(res === 200){
             $toast.showToast = true;
             $toast.message = 'Successfully deactivated the book!';
@@ -138,11 +138,7 @@
 
                <td>
                     {#if book.bookStatus === 'active'}
-                        {#if book.no_of_copies_rented }
-                            <button disabled>Deactivate</button>
-                        {:else}
-                            <button class="books__button" on:click={deactivateBook(book.book_name)} >Deactivate</button>
-                        {/if}
+                        <button class="books__button" on:click={deactivateBook(book.book_name)} >Deactivate</button>  
                     {:else if book.bookStatus === 'closed'}
                         <button class="books__button" on:click={activateBook(book.book_name)}>Activate</button>
                     {/if}

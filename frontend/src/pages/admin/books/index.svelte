@@ -75,7 +75,7 @@
                 <td>{book.availability ? 'Yes' : 'No'}</td>
                 <td>{books.bookStatus}</td>
                 {#if book.availability}
-                    <td><button on:click = {()=>{setCurrentBook(book.id, books.book_name)}}>Delete</button></td>
+                    <td><button class="books__button" on:click = {()=>{setCurrentBook(book.id, books.book_name)}}>Delete</button></td>
                 {:else}
                     <td><button disabled>Delete</button></td>
                 {/if}

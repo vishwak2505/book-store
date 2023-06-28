@@ -34,3 +34,13 @@
 {"@timestamp":"2023-06-28T05:26:28.181Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:40:16.490Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:41:20.521Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:50:27.301Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:51:32.971Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:52:17.456Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:52:31.226Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:53:38.550Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:54:07.090Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:54:17.487Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:54:34.223Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T07:57:56.910Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T10:29:59.057Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}

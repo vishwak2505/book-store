@@ -24,7 +24,7 @@
     }
 
     const borrow = async(bookName) => {
-        const res = await callApi(`http://localhost:3001/api/user/borrow/{bookName}?bookName=${bookName}`, 'POST');
+        const res = await callApi(`http://localhost:3001/api/user/borrow/?bookName=${bookName}`, 'POST');
         if(res === 200){
             $toast.showToast = true;
             $toast.message = 'Book borrowed successfully!';
