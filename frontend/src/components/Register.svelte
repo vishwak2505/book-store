@@ -39,18 +39,18 @@
       if(response.status == 200){
         const loggedInDetails = {};
         loggedInDetails.status = true;
-        if(isAdmin){
-          $redirect('/admin');
-          loggedInDetails.user = 'admin';
-        }else{
-          $redirect('/customer');
-          loggedInDetails.user = 'customer';
-        }
+        
+        loggedInDetails.user = isAdmin ? 'admin' : 'customer';
+      
         $loggedIn = loggedInDetails;
         localStorage.setItem('loggedInDetails', JSON.stringify(loggedInDetails));
+        
+        const loggedUser = await callApi("http://localhost:3001/api/profile/viewProfile");
+        isAdmin ? $redirect('/admin') : $redirect(`/customer/${loggedUser.Name}`);
+
       }else{
-        $toast.showToast = true;
-        $toast.message = await response.text();
+         $toast.showToast = true;
+         $toast.message = await response.text();
       }
 
     }catch(e){

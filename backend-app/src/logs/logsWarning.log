@@ -29,3 +29,4 @@
 {"@timestamp":"2023-06-21T07:01:57.531Z","log.level":"warn","message":"Book not rented by the user","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-22T05:48:09.603Z","log.level":"warn","message":"Book not found","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-22T05:48:13.196Z","log.level":"warn","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-22T10:22:01.595Z","log.level":"warn","message":"Mail id already in use","ecs":{"version":"1.6.0"}}

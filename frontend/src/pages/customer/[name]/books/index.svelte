@@ -1,8 +1,8 @@
 <script>
   import { onMount } from "svelte";
-  import Search from "../../../components/Search.svelte";
-  import { callApi } from "../../../utils/apiCalls";
-  import { toast } from "../../../store";
+  import Search from "../../../../components/Search.svelte";
+  import { callApi } from "../../../../utils/apiCalls";
+  import { toast } from "../../../../store";
 
   let user = {};
   let mybooks = [];

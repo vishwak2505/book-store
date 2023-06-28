@@ -1,8 +1,18 @@
 <script>
   import { goto } from '@roxi/routify';
   import { loggedIn } from '../store.js';
+  import { afterUpdate } from 'svelte';
+  import { callApi } from '../utils/apiCalls.js';
   
   let openMenu = false;
+  let loggedUser;
+
+  const updateNavbar = async() => {
+    if($loggedIn.status && $loggedIn.user === 'customer'){
+      loggedUser = await callApi("http://localhost:3001/api/profile/viewProfile");
+      loggedUser = loggedUser.Name;
+    }
+  }
 
   const logout = async() => {
     loggedIn.set({
@@ -20,6 +30,8 @@
     }
   }
   const expandMenu = () => openMenu = !openMenu; 
+
+  afterUpdate(async() => await updateNavbar());
 </script>
 
 <div class="navbar">
@@ -31,10 +43,10 @@
     {#if $loggedIn.status && openMenu}
        <div class="navbar__options">
          {#if $loggedIn.user === 'customer'}
-          <a class="navbar__link" href="/customer" on:click={expandMenu}>Home</a>
-          <a class="navbar__link" href="/customer/profile" on:click={expandMenu}>My profile</a>
-          <a class="navbar__link" href="/customer/books" on:click={expandMenu}>Books</a>
-          <a class="navbar__link" href="/customer/books/history" on:click={expandMenu}>History</a>
+          <a class="navbar__link" href={`/customer/${loggedUser}`} on:click={expandMenu}>Home</a>
+          <a class="navbar__link" href={`/customer/${loggedUser}/profile`} on:click={expandMenu}>My profile</a>
+          <a class="navbar__link" href={`/customer/${loggedUser}/books`} on:click={expandMenu}>Books</a>
+          <a class="navbar__link" href={`/customer/${loggedUser}/books/history`} on:click={expandMenu}>History</a>
          {/if}
          {#if $loggedIn.user === 'admin'}
           <a class="navbar__link" href="/admin" on:click={expandMenu}>Home</a>

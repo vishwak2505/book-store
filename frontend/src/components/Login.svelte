@@ -1,6 +1,7 @@
 <script>
     import { redirect } from "@roxi/routify";
     import { loggedIn, toast } from "../store";    
+  import { callApi } from "../utils/apiCalls";
 
     let email = '';
     let password = '';
@@ -35,20 +36,20 @@
         const loggedInDetails = {};
         loggedInDetails.status = true;
         
-        if(isAdmin){
-          $redirect('/admin');
-          loggedInDetails.user = 'admin';
-        }else{
-          $redirect('/customer');
-          loggedInDetails.user = 'customer';
-        }
+        loggedInDetails.user = isAdmin ? 'admin' : 'customer';
+      
         $loggedIn = loggedInDetails;
         localStorage.setItem('loggedInDetails', JSON.stringify(loggedInDetails));
+        
+        const loggedUser = await callApi("http://localhost:3001/api/profile/viewProfile");
+        isAdmin ? $redirect('/admin') : $redirect(`/customer/${loggedUser.Name}`);
+
       }else{
          $toast.showToast = true;
          $toast.message = await response.text();
       }
     }catch(e){
+      console.log(e);
       $toast.showToast = true;
       $toast.message = 'Server is down';
     }  

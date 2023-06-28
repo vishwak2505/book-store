@@ -1,8 +1,8 @@
 <script>
-  import { onMount } from "svelte";
-  import InPlaceEdit from "../../components/InPlaceEdit.svelte";
-  import { callApi } from "../../utils/apiCalls";
-  import { toast } from "../../store";
+  import { afterUpdate, onMount } from "svelte";
+  import InPlaceEdit from "../../../components/InPlaceEdit.svelte";
+  import { callApi } from "../../../utils/apiCalls";
+  import { toast } from "../../../store";
   let user = {};
   let profileImg = "/assets/profile.png";
 
