@@ -34,6 +34,7 @@
 {"@timestamp":"2023-06-28T05:26:28.181Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:40:16.490Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:41:20.521Z","log.level":"error","message":"No book found","ecs":{"version":"1.6.0"}}
+<<<<<<< HEAD
 {"@timestamp":"2023-06-28T07:50:27.301Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:51:32.971Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:52:17.456Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
@@ -44,3 +45,14 @@
 {"@timestamp":"2023-06-28T07:54:34.223Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T07:57:56.910Z","log.level":"error","message":"QueryFailedError: ER_BAD_FIELD_ERROR: Unknown column 'Bookdetails__Bookdetails_books.status' in 'field list'","ecs":{"version":"1.6.0"}}
 {"@timestamp":"2023-06-28T10:29:59.057Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+=======
+{"@timestamp":"2023-06-28T09:14:53.880Z","log.level":"error","message":"QueryFailedError: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:15:15.542Z","log.level":"error","message":"QueryFailedError: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:16:18.698Z","log.level":"error","message":"QueryFailedError: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:16:48.967Z","log.level":"error","message":"QueryFailedError: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:19:22.445Z","log.level":"error","message":"QueryFailedError: ER_PARSE_ERROR: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:42:17.674Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:52:16.058Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T09:58:47.902Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+{"@timestamp":"2023-06-28T10:08:56.601Z","log.level":"error","message":"Book not found","ecs":{"version":"1.6.0"}}
+>>>>>>> d65b7e5466816527d08c5c75505069e591eaa3c0
