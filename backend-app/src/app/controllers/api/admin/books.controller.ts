@@ -26,40 +26,27 @@ export class BooksController {
   errorHandler: ErrorHandler;
 
   @Get('/')
-  @UserRequired()
   @PermissionRequired('view-book')
-  async getAllBooks() {
-
-    try {
-
-      const books = await Bookdetails.find({
-        select: ['id', 'book_name', 'genre', 'cost_per_day', 'total_no_of_copies', 'no_of_copies_rented','bookStatus'],
-        relations: ['pictures', 'books'],
-        order: {bookStatus: 'ASC'},
-      });
-
-      if (!books) {
-        throw this.errorHandler.handleError(errors.notFound, 'No books found');
-      }
-      return new HttpResponseOK(books);
-    } catch (response) {
-      if (response instanceof HttpResponse)
-        return response;
-      
-      this.logger.error(`${response}`);
-      return new HttpResponseBadRequest();
-        
-    }
-  }
-
-  @Get('/:bookName')
-  @PermissionRequired('view-book')
-  @UserRequired()
-  @ValidateQueryParam('bookName', { type: 'string' }, { required: true })
+  @ValidateQueryParam('bookName', { type: 'string', pattern: "^[a-zA-Z\\s]+$" }, { required: false })
   async getBook(ctx: Context) {
 
     try {
       const bookName = ctx.request.query.bookName;
+      const limit = ctx.request.body.limit;
+      const page = ctx.request.body.page;
+
+      if (!bookName) {
+        const books = await Bookdetails.find({
+          select: ['id', 'book_name', 'genre', 'cost_per_day', 'total_no_of_copies', 'no_of_copies_rented','bookStatus'],
+          relations: ['pictures', 'books'],
+          order: {bookStatus: 'ASC'},
+        });
+  
+        if (!books) {
+          throw this.errorHandler.handleError(errors.notFound, 'No books found');
+        }
+        return new HttpResponseOK(books);
+      }
 
       const book = await Bookdetails.findOne({where: { book_name: bookName }, relations: ['pictures', 'books']});
 
@@ -77,7 +64,7 @@ export class BooksController {
     }
   }
 
-  @Post('/add')
+  @Post('/')
   @UserRequired()
   @PermissionRequired('add-book')
   @ParseAndValidateFiles(
@@ -128,6 +115,7 @@ export class BooksController {
         const book = new Book();
         book.availability = true;
         book.book_details = bookDetails;
+        book.status = bookStatus.Active;
         await book.save();
       }
 
@@ -186,6 +174,7 @@ export class BooksController {
           const book = new Book();
           book.availability = true;
           book.book_details = bookDetails;
+          book.status = bookStatus.Active;
           await book.save();
         }
       }
@@ -247,6 +236,7 @@ export class BooksController {
               const book = new Book();
               book.availability = true;
               book.book_details = bookDetails;
+              book.status = bookStatus.Active;
               await book.save();
             }
           } else {
@@ -305,6 +295,14 @@ export class BooksController {
     }
   }
 
+  // @Patch('/updateGenre')
+  // @UserRequired()
+  // @PermissionRequired('update-book') 
+  // @ValidatePathParam('oldGenre', { type: 'string' })
+  // async updateGenre() {
+
+  // }
+
   @Delete('/deleteById/:bookId')
   @UserRequired()
   @PermissionRequired('remove-book')
@@ -320,10 +318,12 @@ export class BooksController {
       }
       
       if (book.availability == false) {
-        throw this.errorHandler.handleError(errors.notImplemented, 'Book is reanted by a customer')
+        throw this.errorHandler.handleError(errors.notImplemented, 'Book is rented by a customer')
       }
 
-      await book.remove();
+      book.status = bookStatus.Closed;
+
+      await book.save();
 
       book.book_details.total_no_of_copies--;
       await book.book_details.save();
@@ -338,7 +338,7 @@ export class BooksController {
     } 
   }
 
-  @Delete('/deleteByName/:bookName')
+  @Delete('/deleteByName/')
   @UserRequired()
   @PermissionRequired('remove-book')
   @ValidateQueryParam('bookName', { type: 'string' })
@@ -354,15 +354,13 @@ export class BooksController {
       }
 
       if (bookDetails.no_of_copies_rented != 0) {
-        throw this.errorHandler.handleError(errors.notImplemented, 'Books are rented by users');
-      }  
-      
-      await Book 
+        await Book 
         .createQueryBuilder('Book')
         .update()
         .set({ availability: false })
         .where('book.bookDetailsId = :bookDetailsId', { bookDetailsId: bookDetails.id })
         .execute();
+      }  
 
       bookDetails.bookStatus = status.Closed;
       await bookDetails.save();
@@ -377,7 +375,7 @@ export class BooksController {
     } 
   }
 
-  @Delete('/deleteByGenre/:bookGenre')
+  @Delete('/deleteByGenre/')
   @UserRequired()
   @PermissionRequired('remove-book')
   @ValidateQueryParam('bookGenre', { type: 'string' })
@@ -388,8 +386,8 @@ export class BooksController {
 
       const bookDetails = await Bookdetails.find({ where: { genre: bookGenre }});
 
-      if (!bookDetails) {
-        throw this.errorHandler.handleError(errors.notFound, 'Book not found');
+      if (bookDetails.length == 0) {
+        throw this.errorHandler.handleError(errors.notFound, 'No books found');
       }
 
       const booksRented: Bookdetails[] = [];
@@ -399,6 +397,8 @@ export class BooksController {
       for(const book of bookDetails) {
         if(book.no_of_copies_rented != 0){
           booksRented.push(book);
+          book.bookStatus = status.Closed;
+          await book.save();
           continue;
         }
 

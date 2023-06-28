@@ -1,8 +1,8 @@
 <script>
     import { goto, redirect } from "@roxi/routify";
-    import {loggedIn} from '../../store';
+    import {loggedIn} from '../../../store';
     import { onMount } from "svelte";
-    import { callApi } from "../../utils/apiCalls";
+    import { callApi } from "../../../utils/apiCalls";
 
 </script>
 

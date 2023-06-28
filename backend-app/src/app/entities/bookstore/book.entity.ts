@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
 import { Bookdetails } from './bookdetails.entity';
 import { Bookrented } from './bookrented.entity';
+import { bookStatus } from './bookrented.entity';
 
 @Entity()
 export class Book extends BaseEntity {
@@ -14,6 +15,9 @@ export class Book extends BaseEntity {
   @Column({ default: true })
   availability: boolean;
   
+  @Column()
+  status: bookStatus;
+
   @OneToMany(type => Bookrented, (bookrented) => bookrented.book)
   book_rented: Bookrented[];
 }

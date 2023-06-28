@@ -16,16 +16,16 @@ export class ErrorHandler {
     handleError(type: errors, error: String|null) {
 
         if (type == errors.notFound) {
-            this.logger.warn(`${error}`);
+            this.logger.error(`${error}`);
             return new HttpResponseNotFound(error);
         } else if (type == errors.badRequest) {
-            this.logger.warn(`${error}`);
+            this.logger.error(`${error}`);
             return new HttpResponseBadRequest(error);
         } else if (type == errors.notImplemented) {
-            this.logger.warn(`${error}`);
+            this.logger.error(`${error}`);
             return new HttpResponseNotImplemented(error);
         } else if (type == errors.forbidden) {
-            this.logger.warn(`${error}`);
+            this.logger.error(`${error}`);
             return new HttpResponseForbidden(error);
         }
     }    

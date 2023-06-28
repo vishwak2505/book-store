@@ -14,7 +14,7 @@ import { errors } from '../../services/error-handler.service';
 const credentialsSchema = {
   type: 'object',
   properties: {
-    name: { type: 'string', maxLength: 255 },
+    name: { type: 'string', maxLength: 255 , minLength: 5},
     email: { type: 'string', format: 'email', maxLength: 255 },
     password: { type: 'string' }
   },
@@ -118,7 +118,7 @@ export class AuthController {
       return response;
     }
 
-    @Post('/borrow/:bookName')
+    @Post('/borrow/')
     @JWTRequired({
       cookie: true,
       user: (id: number) => User.findOneBy({ id })
