@@ -36,10 +36,6 @@
   }
   const expandMenu = () => openMenu = !openMenu; 
 
-<<<<<<< HEAD
-=======
-  onMount(async() => await updateNavbar());
->>>>>>> d65b7e5466816527d08c5c75505069e591eaa3c0
 </script>
 
 <div class="navbar">
